@@ -2,4 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/ahihisto/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R asset $DEPLOYPATH
+    - /bin/cp index.html $DEPLOYPATH
