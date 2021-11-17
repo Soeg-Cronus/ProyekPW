@@ -101,7 +101,7 @@ button {
 }
 
 .alo:hover{
-    background-color: black;
+    background-color: #07122e;
 }
 
 .social {
@@ -120,7 +120,7 @@ button {
 }
 
 .social div:hover {
-  background-color: black;
+  background-color: #07122e;
   cursor: pointer;
 }
 
