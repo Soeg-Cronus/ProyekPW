@@ -22,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Exit</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,8 +49,8 @@
                         <input type="text" class="input_search" placeholder="Search">
                     </div>
                     <div class="wew">
-                        <a href="login.html" style="text-decoration: none"><div class="back">Login</div></a>
-                        <a href="register.html" style="text-decoration: none"><div class="reg">Register</div></a>
+                        <a href="login.php" style="text-decoration: none"><div class="back">Login</div></a>
+                        <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
                       </div>
                 </div>
             </div>
