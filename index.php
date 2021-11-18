@@ -49,8 +49,8 @@
                         <input type="text" class="input_search" placeholder="Search">
                     </div>
                     <div class="wew">
-                        <a href="login.html" style="text-decoration: none"><div class="back">Login</div></a>
-                        <a href="register.html" style="text-decoration: none"><div class="reg">Register</div></a>
+                        <a href="login.php" style="text-decoration: none"><div class="back">Login</div></a>
+                        <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
                       </div>
                 </div>
             </div>
@@ -62,6 +62,7 @@
                     <h1 class="display-4 fw-bolder">Ahihi Store</h1>
                 </div>
             </div>
+            
             
         </header>
         <!-- Section-->

@@ -21,8 +21,8 @@
 
     <button class="alo">Log In</button>
     <div class="social">
-      <a href="index.html" style="text-decoration: none"><div class="back">Back</div></a>
-      <a href="register.html" style="text-decoration: none"><div class="reg">Register</div></a>
+      <a href="index.php" style="text-decoration: none"><div class="back">Back</div></a>
+      <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
     </div>
   </form>
 </body>
