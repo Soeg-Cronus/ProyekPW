@@ -18,8 +18,8 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Back</a></li>
                     </ul>
                     <div class="wew">
-                        <a href="login.html" style="text-decoration: none"><div class="back">Login</div></a>
-                        <a href="register.html" style="text-decoration: none"><div class="reg">Register</div></a>
+                        <a href="login.php" style="text-decoration: none"><div class="back">Login</div></a>
+                        <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
                       </div>
                 </div>
             </div>
