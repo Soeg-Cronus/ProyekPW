@@ -63,6 +63,15 @@
                 </div>
             </div>
             
+            <div id="slider">
+            <figure>
+                <img src="asset/image/wallpaperhome.jpg" alt>
+                <img src="asset/image/wallpaperhome.jpg" alt>
+                <img src="asset/image/wallpaperhome.jpg" alt>
+                <img src="asset/image/wallpaperhome.jpg" alt>
+                <img src="asset/image/wallpaperhome.jpg" alt>
+            </figure>
+        </div>
         </header>
         <!-- Section-->
         <h1 class="display-4 fw-bolder"> <center>!!HOT ITEM!!</center> </h1>
