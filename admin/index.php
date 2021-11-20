@@ -7,7 +7,7 @@
     <title>Home | Admin</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -52,7 +52,7 @@
                 </button>
                 <div class="collapse show" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Overview</a></li>
+                    <li><a href="#" class="link-dark isActive rounded">Overview </a><i class="arrow left"></i></li>
                     <li><a href="#" class="link-dark rounded">Updates</a></li>
                     <li><a href="#" class="link-dark rounded">Reports</a></li>
                     <li><a href="#" class="link-dark rounded">Chats</a></li>
@@ -105,7 +105,7 @@
             aaa
         </div>
     </main>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="js/sidebars.js"></script>
 </body>
 </html>
