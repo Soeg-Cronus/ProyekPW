@@ -6,7 +6,7 @@
 
     $conn = mysqli_connect($host,$usernamedb,$passworddb,$dbname);
 
-    if (!$koneksi) {
+    if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
 ?>
