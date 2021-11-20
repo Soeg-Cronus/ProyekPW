@@ -1,3 +1,15 @@
+<?php session_start();
+
+    if(isset($_REQUEST["btPindahLogin"])){
+        header("Location:login.php");
+    }
+    if(isset($_REQUEST["btPindahRegis"])){
+        header("Location:register.php");
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,6 +26,7 @@
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     </head>
     <body>
+    <form action="#" method="post">   
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -49,8 +62,8 @@
                         <input type="text" class="input_search" placeholder="Search">
                     </div>
                     <div class="wew">
-                        <a href="login.php" style="text-decoration: none"><div class="back">Login</div></a>
-                        <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
+                        <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                        <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
                       </div>
                 </div>
             </div>
@@ -218,6 +231,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="asset/js/scripts.js"></script>
+        </form>
     </body>
 </html>
 

@@ -11101,6 +11101,11 @@ textarea.form-control-lg {
 :-ms-input-placeholder {
   color: #fff;
 }
-
+input[type=submit]{
+  padding: 0;
+  border: none;
+  background: none;
+  color: white;
+}
 
 
