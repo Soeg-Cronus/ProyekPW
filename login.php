@@ -1,8 +1,8 @@
 <?php session_start();
-
   if(isset_REQUEST["btLogin"]){
-    header("Location:index.php");
-  }
+
+}
+
 ?>
 
 
