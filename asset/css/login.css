@@ -128,4 +128,18 @@ button {
   margin-left: 25px;
 }
 
-
+.buatform form{
+  height: 810px;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.13);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid #2fd5ff;
+  box-shadow: 0 0 40px #020daf;
+  padding: 50px 35px; 
+  margin-top: 70px; 
+}
