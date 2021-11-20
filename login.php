@@ -1,5 +1,8 @@
 <?php session_start();
 
+  if(isset_REQUEST["btLogin"]){
+    header("Location:index.php");
+  }
 ?>
 
 
@@ -12,11 +15,12 @@
 </head>
 
 <body>
-<form action="#" method="post">  
+
   <div class="background">
 
   </div>
-  <form>
+ 
+  <form action="#" method="get">  
     <h3>Login Here</h3>
 
     <label for="username">Username</label>
@@ -31,7 +35,7 @@
       <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
     </div>
   </form>
-</form>
+
 </body>
 
 </html>
