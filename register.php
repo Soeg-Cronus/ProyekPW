@@ -1,6 +1,4 @@
 <?php session_start();?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +11,7 @@
   <div class="background">
 
   </div>
-  <form>
+  <form method="post" action="">
     <h3>Register Here</h3>
 
     <label for="username">Username</label>

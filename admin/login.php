@@ -1,6 +1,7 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -10,39 +11,39 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 
     <link rel="stylesheet" href="css/style.css">
 
     <title>Login - Admin</title>
 </head>
+
 <body>
-    <?php 
-        require_once("../backend/conn.php");
+    <?php
+    require_once("../backend/conn.php");
 
-        if (isset($_SESSION['now'])) {
+    if (isset($_SESSION['now'])) {
+        header("Location: index.php");
+    }
+
+    if (isset($_REQUEST['btnLogin'])) {
+        $uname = $_REQUEST['username'];
+        $upass = md5($_REQUEST['password']);
+
+        $stmt = $conn->prepare("select * from admin where username=? and password=?");
+        $stmt->bind_param("ss", $uname, $upass);
+        $stmt->execute();
+
+        $user = $stmt->get_result()->fetch_assoc();
+
+        if ($user['username'] == $uname && $user['password'] == $upass) {
+            $_SESSION['now'] = $user['nama'];
             header("Location: index.php");
+        } else {
+            echo "<script>alert('Username dan password salah!')</script>";
         }
-
-        if (isset($_REQUEST['btnLogin'])) {
-            $uname = $_REQUEST['username'];
-            $upass = md5($_REQUEST['password']);
-
-            $stmt = $conn->prepare("select * from admin where username=? and password=?");
-            $stmt->bind_param("ss", $uname, $upass);
-            $stmt->execute();
-
-            $user = $stmt->get_result()->fetch_assoc();
-
-            if ($user['username'] == $uname && $user['password'] == $upass) {
-                $_SESSION['now'] = $user['nama'];
-                header("Location: index.php");
-            }
-            else {
-                echo "<script>alert('Username dan password salah!')</script>";
-            }
-        }
+    }
     ?>
     <div class="container">
         <div class="row">
@@ -86,4 +87,5 @@
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+
 </html>

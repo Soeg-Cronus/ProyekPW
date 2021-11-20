@@ -1,10 +1,4 @@
-<?php session_start();
-  if(isset_REQUEST["btLogin"]){
-
-}
-
-?>
-
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +13,8 @@
   <div class="background">
 
   </div>
- 
-  <form action="#" method="get">  
+
+  <form action="#" method="post">
     <h3>Login Here</h3>
 
     <label for="username">Username</label>
@@ -31,8 +25,12 @@
 
     <input type="submit" value="Login" name="btLogin">
     <div class="social">
-      <a href="index.php" style="text-decoration: none"><div class="back">Back</div></a>
-      <a href="register.php" style="text-decoration: none"><div class="reg">Register</div></a>
+      <a href="index.php" style="text-decoration: none">
+        <div class="back">Back</div>
+      </a>
+      <a href="register.php" style="text-decoration: none">
+        <div class="reg">Register</div>
+      </a>
     </div>
   </form>
 
