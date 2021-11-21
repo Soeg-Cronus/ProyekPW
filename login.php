@@ -1,4 +1,24 @@
-<?php session_start(); ?>
+<?php 
+  session_start(); 
+  
+  if(isset($_REQUEST["btLogin"])){
+    require_once(backend/conn.php);
+
+    $namauser=$_REQUEST["uname"];
+    $passuser=$_REQUEST["upass"];
+
+    $kueri="select name, from user where username='$namauser' and password='$passuser'";
+
+    $lomgin=mysqli_query($conn,$kueri);
+
+    mysqli_close($conn);
+
+    echo '<script language="javascript">';
+    echo 'alert("Ngakak abis gaes")';
+    echo '</script>';
+  }
+
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +38,10 @@
     <h3>Login Here</h3>
 
     <label for="username">Username</label>
-    <input type="text" placeholder="Email or Phone" id="username">
+    <input type="text" placeholder="Email or Phone" id="username" name="uname">
 
     <label for="password">Password</label>
-    <input type="password" placeholder="Password" id="password">
+    <input type="password" placeholder="Password" id="password" name="upass">
 
     <input type="submit" value="Login" name="btLogin">
     <div class="social">
