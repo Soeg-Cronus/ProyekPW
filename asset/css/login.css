@@ -143,3 +143,15 @@ button {
   padding: 50px 35px; 
   margin-top: 70px; 
 }
+input[type=submit]{
+  margin-top: 50px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 2px solid #2fd5ff;
+  color: #e5e5e5;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}

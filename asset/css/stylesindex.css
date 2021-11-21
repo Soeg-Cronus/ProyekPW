@@ -11106,6 +11106,7 @@ input[type=submit]{
   border: none;
   background: none;
   color: white;
+  cursor: pointer;
 }
 
 

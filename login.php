@@ -2,22 +2,25 @@
   session_start(); 
   
   if(isset($_REQUEST["btLogin"])){
-    require_once(backend/conn.php);
+    require_once("backend/conn.php");
 
     $namauser=$_REQUEST["uname"];
     $passuser=$_REQUEST["upass"];
 
-    $kueri="select name, from user where username='$namauser' and password='$passuser'";
+    $kueri="select nama, from user where username='$namauser' and password='$passuser'";
 
     $lomgin=mysqli_query($conn,$kueri);
 
+    if (mysqli_num_rows($lomgin) > 0){
+      while ($baris = mysqli_fetch_assoc($lomgin)){
+          $_SESSION["username"] = $baris["nama"];
+      }
+     
+    }
     mysqli_close($conn);
 
-    echo '<script language="javascript">';
-    echo 'alert("Ngakak abis gaes")';
-    echo '</script>';
   }
-
+  
   ?>
 
 <!DOCTYPE html>
