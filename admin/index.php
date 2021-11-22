@@ -8,8 +8,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/external/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/cssoverview.css">
 
     <style>
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -102,10 +104,55 @@
         </div>
         <div class="b-example-divider"></div>
         <div class="isi">
-            aaa
+        
+        <div class="container">
+    <div class="row">
+        <div class="test">
+            <div class="counter">
+                <span class="counter-value">555</span>
+                <h3>Profit</h3>
+            </div>
+        </div>
+        <div class="test">
+            <div class="counter">
+                <span class="counter-value">234</span>
+                <h3>Order</h3>
+            </div>
+        </div>
+        <div class="test">
+            <div class="counter">
+                <span class="counter-value">453</span>
+                <h3>Web Visited</h3>
+            </div>
+        </div>
+        <div class="test">
+            <div class="counter">
+                <span class="counter-value">395</span>
+                <h3>Active User</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
         </div>
     </main>
     <script src="js/external/bootstrap.bundle.min.js"></script>
     <script src="js/sidebars.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+    $('.counter-value').each(function(){
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        },{
+            duration: 3500,
+            easing: 'swing',
+            step: function (now){
+                $(this).text(Math.ceil(now));
+            }
+        });
+        });
+    });
+    </script>
 </body>
 </html>

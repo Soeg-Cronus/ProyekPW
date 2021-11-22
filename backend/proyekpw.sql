@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
   `nama` varchar(100) NOT NULL,
-  'password' varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `jenis_kelamin` enum('pria','wanita') NOT NULL,
   `umur` int(11) NOT NULL,
   `alamat` varchar(1000) NOT NULL,

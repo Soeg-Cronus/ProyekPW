@@ -31,7 +31,7 @@ body{
 .row{
     display: flex;
     flex-direction: row;
-    margin-left: 20px;
+    
 }
 .counter:before,
 .counter:after{
@@ -96,34 +96,7 @@ body{
 
 <body>
     <header class="judul"> <center>Admin Page</center> </header>
-<div class="container">
-    <div class="row">
-        <div class="test">
-            <div class="counter">
-                <span class="counter-value">555</span>
-                <h3>Profit</h3>
-            </div>
-        </div>
-        <div class="test">
-            <div class="counter">
-                <span class="counter-value">234</span>
-                <h3>Order</h3>
-            </div>
-        </div>
-        <div class="test">
-            <div class="counter">
-                <span class="counter-value">453</span>
-                <h3>Web Visited</h3>
-            </div>
-        </div>
-        <div class="test">
-            <div class="counter">
-                <span class="counter-value">395</span>
-                <h3>Active User</h3>
-            </div>
-        </div>
-    </div>
-</div>
+
 </body>
 </html>
 

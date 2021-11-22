@@ -1,0 +1,72 @@
+body{
+    background-image: url("asset/image/home.jpg");
+  background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.counter{
+    color: #222d32;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    width: 200px;
+    padding: 0 0 45px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+}
+.counter:before,
+.counter:after{
+    content: '';
+    background-color: #1ad4bd;
+    height: calc(100% - 120px);
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    z-index: -1;
+    
+}
+.counter:after{
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+    transform: translateX(-50%) rotate(45deg);
+    bottom: 6px;
+    left: 50%;
+}
+.counter .counter-value{
+    color: #1ad4bd;
+    background: #222d32;
+    font-size: 45px;
+    font-weight: 600;
+    line-height: 200px;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: block;
+}
+.counter h3{
+    font-size: 17px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0 10px;
+}
+
+.test{
+    width: fit-content;
+    margin-left: 11vh;
+    margin-top: 30vh;
+}
+
+@media screen and (max-width:990px){
+    .counter{ margin-bottom: 40px; }
+}
