@@ -40,6 +40,35 @@
         else {
             $idactive = $_SESSION['now'];
         }
+
+        if (isset($_REQUEST['btnAddAdmin'])) {
+            $nama = $_REQUEST['nama'];
+            $uname = $_REQUEST['username'];
+            $pass = $_REQUEST['password'];
+            $hashed = md5($pass);
+
+            if ($nama != "") {
+                if ($uname != "") {
+                    if ($pass != "") {
+                        $state = $conn->prepare("insert into admin (username, password, nama) values (?, ?, ?)");
+                        $state->bind_param("sss", $uname, $hashed, $nama);
+                        if ($state->execute()) {
+                            echo "<script>alert('Berhasil tambah admin!')</script>";
+                            // header("Location: ../admin/addaccount.php");
+                        }
+                        else {
+                            echo "<script>alert('Gagal tambah admin!')</script>";
+                        }
+                    }
+                    else {
+                        echo "<script>alert('Password harus diisi!')</script>";
+                    }
+                }
+                else echo "<script>alert('Username harus diisi!')</script>";
+            }
+            else echo "<script>alert('Nama harus diisi!')</script>";
+            
+        }
     ?>
     <main class="fluid-container">
         <div id="sidenav" class="flex-shrink-0 sidebar p-3 text-white" style="width: 13vw;">
@@ -107,14 +136,21 @@
                 <div class="judul">
                     <h1>Add New Admin</h1>
                 </div>
-                <div class="col">
+                <div class="formcontainer">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
+                        <input type="text" class="form-control" id="floatingNama" name="nama" placeholder="Nama">
+                        <label for="floatingNama">Nama</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingUsername" name="username" placeholder="Username">
+                        <label for="floatingUsername">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
                         <label for="floatingPassword">Password</label>
+                    </div>
+                    <div class="submitcontainer">
+                        <input class="btn btn-primary" name="btnAddAdmin" type="submit" value="Submit">
                     </div>
                 </div>
             </form>
@@ -122,5 +158,10 @@
     </main>
     <script src="js/external/bootstrap.bundle.min.js"></script>
     <script src="js/sidebars.js"></script>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 </body>
 </html>
