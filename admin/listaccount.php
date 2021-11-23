@@ -41,34 +41,7 @@
             $idactive = $_SESSION['now'];
         }
 
-        if (isset($_REQUEST['btnAddAdmin'])) {
-            $nama = $_REQUEST['nama'];
-            $uname = $_REQUEST['username'];
-            $pass = $_REQUEST['password'];
-            $hashed = md5($pass);
-
-            if ($nama != "") {
-                if ($uname != "") {
-                    if ($pass != "") {
-                        $state = $conn->prepare("insert into admin (username, password, nama) values (?, ?, ?)");
-                        $state->bind_param("sss", $uname, $hashed, $nama);
-                        if ($state->execute()) {
-                            echo "<script>alert('Berhasil tambah admin!')</script>";
-                            // header("Location: ../admin/addaccount.php");
-                        }
-                        else {
-                            echo "<script>alert('Gagal tambah admin!')</script>";
-                        }
-                    }
-                    else {
-                        echo "<script>alert('Password harus diisi!')</script>";
-                    }
-                }
-                else echo "<script>alert('Username harus diisi!')</script>";
-            }
-            else echo "<script>alert('Nama harus diisi!')</script>";
-            
-        }
+        
     ?>
     <main class="fluid-container">
         <div id="sidenav" class="flex-shrink-0 sidebar p-3 text-white" style="width: 13vw;">
@@ -121,8 +94,8 @@
                 </button>
                 <div class="collapse show" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark isActive rounded">Add New Admin</a><i class="arrow left"></i></li>
-                    <li><a href="../admin/listaccount.php" class="link-dark rounded">List Admin</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded">Add New Admin</a></li>
+                    <li><a href="../admin/listaccount.php" class="link-dark isActive rounded">List Admin</a><i class="arrow left"></i></li>
                     <li><a href="#" class="link-dark rounded">Settings</a></li>
                     <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
                 </ul>
@@ -134,7 +107,7 @@
         <div class="isi">
             <form class="clean container-form d-flex flex-column" action="" method="post">
                 <div class="judul">
-                    <h1>Add New Admin</h1>
+                    <h1>List Admin</h1>
                 </div>
                 <div class="formcontainer">
                     <div class="form-floating mb-3">
