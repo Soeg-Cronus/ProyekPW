@@ -129,7 +129,7 @@ button {
 }
 
 .buatform form{
-  height: 810px;
+  height: 1030px;
   width: 400px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -141,7 +141,7 @@ button {
   border: 2px solid #2fd5ff;
   box-shadow: 0 0 40px #020daf;
   padding: 50px 35px; 
-  margin-top: 70px; 
+  margin-top: 80px; 
 }
 input[type=submit]{
   margin-top: 50px;
