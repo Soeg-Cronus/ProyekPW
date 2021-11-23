@@ -46,7 +46,7 @@
     ?>
     <main>
         <div id="sidenav" class="flex-shrink-0 p-3 text-white" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
+            <a href="/" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
                 <span class="fs-5 fw-semibold">Welcome, <?=$idactive?>!</span>
             </a>
             <ul class="list-unstyled ps-0">
