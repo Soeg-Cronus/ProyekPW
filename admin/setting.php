@@ -8,7 +8,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/external/bootstrap.min.css" rel="stylesheet">
-
+    <script src="js/external/jquery-3.6.0.js"></script>
+    
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -128,9 +129,9 @@
                 </button>
                 <div class="collapse show" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark isActive rounded">Add New Admin</a><i class="arrow left"></i></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded">Add New Admin</a></li>
                     <li><a href="../admin/listaccount.php" class="link-dark rounded">List Admin</a></li>
-                    <li><a href="../admin/setting.php" class="link-dark rounded">Settings</a></li>
+                    <li><a href="../admin/setting.php" class="link-dark isActive rounded">Settings</a><i class="arrow left"></i></li>
                     <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
                 </ul>
                 </div>
@@ -141,7 +142,7 @@
         <div class="isi">
             <form class="clean container-form d-flex flex-column" action="" method="post">
                 <div class="judul">
-                    <h1>Add New Admin</h1>
+                    <h1>Settings</h1>
                 </div>
                 <div class="formcontainer">
                     <div class="form-floating mb-3">

@@ -1,0 +1,17 @@
+.isi{
+    width: calc(100% - 280px - 0.5px);
+    padding: 2vh 2vw;
+}
+
+.formcontainer{
+    width: 45%;
+}
+
+.container-form{
+    gap: 0.4vh;
+}
+
+.clean{
+    padding: 0;
+    margin: 0;
+}

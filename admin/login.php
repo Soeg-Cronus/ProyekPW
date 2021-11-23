@@ -37,9 +37,11 @@
 
         $user = $stmt->get_result()->fetch_assoc();
 
-        if ($user['username'] == $uname && $user['password'] == $upass) {
-            $_SESSION['now'] = $user['nama'];
-            header("Location: index.php");
+        if ($user != null) {
+            if ($user['username'] == $uname && $user['password'] == $upass) {
+                $_SESSION['now'] = [$user['nama'], $user['username']];
+                header("Location: index.php");
+            }     
         } else {
             echo "<script>alert('Username dan password salah!')</script>";
         }

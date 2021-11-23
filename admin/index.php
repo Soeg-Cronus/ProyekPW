@@ -35,11 +35,13 @@
     <?php 
         require_once("../backend/conn.php");
         $idactive = '';
+        $unameactive = '';
         if (!isset($_SESSION['now'])) {
             header("Location: login.php");
         }
         else {
-            $idactive = $_SESSION['now'];
+            $idactive = $_SESSION['now'][0];
+            $unameactive = $_SESSION['now'][1];
         }
     ?>
     <main>
@@ -93,10 +95,10 @@
                 </button>
                 <div class="collapse" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="addaccount.php" class="link-dark rounded">Add New Admin</a></li>
-                    <li><a href="#" class="link-dark rounded">List Admin</a></li>
-                    <li><a href="#" class="link-dark rounded">Settings</a></li>
-                    <li><a href="logout.php" class="link-dark rounded">Sign out</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>">Add New Admin</a></li>
+                    <li><a href="../admin/listaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>">List Admin</a></li>
+                    <li><a href="../admin/setting.php" class="link-dark rounded">Settings</a></li>
+                    <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
                 </ul>
                 </div>
             </li>

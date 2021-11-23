@@ -119,6 +119,10 @@ main {
   -webkit-transform: rotate(45deg);
 }
 
-/* .hidden{
-
-} */
+.isDisabled {
+  /* color: currentColor; */
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
