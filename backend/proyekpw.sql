@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2021 at 10:28 AM
+-- Generation Time: Nov 24, 2021 at 05:33 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -30,11 +30,11 @@ USE `proyekpw`;
 -- Table structure for table `admin`
 --
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE `admin` (
+CREATE TABLE IF NOT EXISTS `admin` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `nama` varchar(255) NOT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -47,16 +47,35 @@ INSERT INTO `admin` (`username`, `password`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datatransaksi`
+-- Table structure for table `daftar_jenis`
 --
 
-DROP TABLE IF EXISTS `datatransaksi`;
-CREATE TABLE `datatransaksi` (
+CREATE TABLE IF NOT EXISTS `daftar_jenis` (
+  `jenis_barang` varchar(100) NOT NULL,
+  PRIMARY KEY (`jenis_barang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `daftar_jenis`
+--
+
+INSERT INTO `daftar_jenis` (`jenis_barang`) VALUES
+('baru'),
+('bekas');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_transaksi`
+--
+
+CREATE TABLE IF NOT EXISTS `data_transaksi` (
   `id_datatransaksi` varchar(10) NOT NULL,
   `nama_barang` varchar(1000) NOT NULL,
   `harga` int(100) NOT NULL,
   `jumlah` int(100) NOT NULL,
-  `urlgambar` varchar(1000) NOT NULL
+  `urlgambar` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id_datatransaksi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -65,45 +84,55 @@ CREATE TABLE `datatransaksi` (
 -- Table structure for table `diskon`
 --
 
-DROP TABLE IF EXISTS `diskon`;
-CREATE TABLE `diskon` (
+CREATE TABLE IF NOT EXISTS `diskon` (
   `id_diskon` varchar(10) NOT NULL,
   `id_barang` varchar(10) NOT NULL,
   `nama_diskon` varchar(100) NOT NULL,
-  `jumlah_diskon` int(10) NOT NULL
+  `jumlah_diskon` int(10) NOT NULL,
+  PRIMARY KEY (`id_diskon`),
+  KEY `id_barang` (`id_barang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historytransaksi`
+-- Table structure for table `history_transaksi`
 --
 
-DROP TABLE IF EXISTS `historytransaksi`;
-CREATE TABLE `historytransaksi` (
+CREATE TABLE IF NOT EXISTS `history_transaksi` (
   `id_historytransaksi` varchar(10) NOT NULL,
   `tanggal` date NOT NULL,
   `username` varchar(100) NOT NULL,
   `id_transaksi` varchar(10) NOT NULL,
-  `status` enum('proses','selesai') NOT NULL
+  `status` enum('proses','selesai') NOT NULL,
+  PRIMARY KEY (`id_historytransaksi`),
+  KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `masterbarang`
+-- Table structure for table `master_barang`
 --
 
-DROP TABLE IF EXISTS `masterbarang`;
-CREATE TABLE `masterbarang` (
+CREATE TABLE IF NOT EXISTS `master_barang` (
   `id_barang` varchar(10) NOT NULL,
   `nama_barang` varchar(1000) NOT NULL,
   `harga` int(100) NOT NULL,
   `stok` int(100) NOT NULL,
   `jenis_barang` varchar(100) NOT NULL,
   `deskripsi` varchar(10000) NOT NULL,
-  `urlgambar` varchar(1000) NOT NULL
+  `urlgambar` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id_barang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `master_barang`
+--
+
+INSERT INTO `master_barang` (`id_barang`, `nama_barang`, `harga`, `stok`, `jenis_barang`, `deskripsi`, `urlgambar`) VALUES
+('MB28760879', '123', 900, 22, 'aa', 'redi bapaknya viktor', ''),
+('MB98360893', 'aaaa', 900, 22, 'bukan ak', 'maaf', '');
 
 -- --------------------------------------------------------
 
@@ -111,15 +140,30 @@ CREATE TABLE `masterbarang` (
 -- Table structure for table `produk_review`
 --
 
-DROP TABLE IF EXISTS `produk_review`;
-CREATE TABLE `produk_review` (
+CREATE TABLE IF NOT EXISTS `produk_review` (
   `id_review` varchar(10) NOT NULL,
   `id_barang` varchar(10) NOT NULL,
   `nama_barang` varchar(1000) NOT NULL,
   `rating` int(10) NOT NULL,
   `tanggal_review` date NOT NULL,
   `deskripsi` varchar(10000) NOT NULL,
-  `userrname` varchar(100) NOT NULL
+  `userrname` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_barang`),
+  KEY `nama_barang` (`nama_barang`(768)),
+  KEY `userrname` (`userrname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `relasi_jenis`
+--
+
+CREATE TABLE IF NOT EXISTS `relasi_jenis` (
+  `id_jenis` varchar(10) NOT NULL,
+  `id_barang` varchar(10) NOT NULL,
+  `jenis_barang` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_jenis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -128,13 +172,15 @@ CREATE TABLE `produk_review` (
 -- Table structure for table `transaksi`
 --
 
-DROP TABLE IF EXISTS `transaksi`;
-CREATE TABLE `transaksi` (
+CREATE TABLE IF NOT EXISTS `transaksi` (
   `id_transaksi` varchar(10) NOT NULL,
   `tanggal` date NOT NULL,
   `jenis_pembayaran` varchar(100) NOT NULL,
   `id_datatransaksi` varchar(10) NOT NULL,
-  `username` varchar(100) NOT NULL
+  `username` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_transaksi`),
+  KEY `id_datatransaksi` (`id_datatransaksi`),
+  KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -143,8 +189,7 @@ CREATE TABLE `transaksi` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(100) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
@@ -152,7 +197,9 @@ CREATE TABLE `user` (
   `umur` int(11) NOT NULL,
   `alamat` varchar(1000) NOT NULL,
   `saldo` int(100) NOT NULL,
-  `id_wishlist` varchar(10) NOT NULL
+  `id_wishlist` varchar(10) NOT NULL,
+  PRIMARY KEY (`username`),
+  KEY `id_wishlist` (`id_wishlist`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -161,81 +208,16 @@ CREATE TABLE `user` (
 -- Table structure for table `wishlist`
 --
 
-DROP TABLE IF EXISTS `wishlist`;
-CREATE TABLE `wishlist` (
+CREATE TABLE IF NOT EXISTS `wishlist` (
   `id_wishlist` varchar(10) NOT NULL,
   `nama_barang` varchar(1000) NOT NULL,
   `harga` int(100) NOT NULL,
   `jumlah` int(100) NOT NULL,
   `urlgambar` varchar(1000) NOT NULL,
-  `username` varchar(100) NOT NULL
+  `username` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_wishlist`),
+  KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`username`);
-
---
--- Indexes for table `datatransaksi`
---
-ALTER TABLE `datatransaksi`
-  ADD PRIMARY KEY (`id_datatransaksi`);
-
---
--- Indexes for table `diskon`
---
-ALTER TABLE `diskon`
-  ADD PRIMARY KEY (`id_diskon`),
-  ADD KEY `id_barang` (`id_barang`);
-
---
--- Indexes for table `historytransaksi`
---
-ALTER TABLE `historytransaksi`
-  ADD PRIMARY KEY (`id_historytransaksi`),
-  ADD KEY `username` (`username`);
-
---
--- Indexes for table `masterbarang`
---
-ALTER TABLE `masterbarang`
-  ADD PRIMARY KEY (`id_barang`);
-
---
--- Indexes for table `produk_review`
---
-ALTER TABLE `produk_review`
-  ADD PRIMARY KEY (`id_barang`),
-  ADD KEY `nama_barang` (`nama_barang`(768)),
-  ADD KEY `userrname` (`userrname`);
-
---
--- Indexes for table `transaksi`
---
-ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `id_datatransaksi` (`id_datatransaksi`),
-  ADD KEY `username` (`username`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`username`),
-  ADD KEY `id_wishlist` (`id_wishlist`);
-
---
--- Indexes for table `wishlist`
---
-ALTER TABLE `wishlist`
-  ADD PRIMARY KEY (`id_wishlist`),
-  ADD KEY `username` (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
