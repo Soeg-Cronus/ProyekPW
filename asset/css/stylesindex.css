@@ -266,8 +266,9 @@ progress {
 }
 
 .wew {
-  margin-top: 30px;
+  
   display: flex;
+  margin-right: 100px;
 }
 
 .wew div {
@@ -11063,7 +11064,7 @@ textarea.form-control-lg {
 	padding: 5px;
 	border-radius: 50px;
 	display: flex;
-  margin-right: 250px;
+  margin-right: 200px;
 }
 
 .search_box .search_btn{

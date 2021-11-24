@@ -55,18 +55,18 @@
                             </ul>
                         </li>
                     </ul>
-                    <div class="search_box">
-                        <div class="search_btn">
-                        <i class="fas fa-search"></i>
-                        </div>
-                        <input type="text" class="input_search" placeholder="Search">
-                    </div>
+                </div>
+            </div>
+            <div class="search_box">
+                <div class="search_btn">
+                    <i class="fas fa-search"></i>
+                </div>
+            <input type="text" class="input_search" placeholder="Search">
+            </div>
                     <div class="wew">
                         <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
                         <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                      </div>
-                </div>
-            </div>
+                    </div>
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -79,7 +79,7 @@
             
         </header>
         <!-- Section-->
-        <h1 class="display-4 fw-bolder"> <center>!!DISKON!!</center> </h1>
+        <h1 class="display-4 fw-bolder"> <center>!!Diskon!!</center> </h1>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -97,7 +97,16 @@
                                     <strong>Rp. 100.000,-</strong>
                                 </div>
                             </div>
-                        
+                            <div class="search_box">
+                        <div class="search_btn">
+                        <i class="fas fa-search"></i>
+                        </div>
+                        <input type="text" class="input_search" placeholder="Search">
+                    </div>
+                    <div class="wew">
+                        <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                        <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                      </div>
                         </div>
                     </div>
                     
