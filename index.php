@@ -25,6 +25,9 @@
         <link href="asset/css/stylesindex.css" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     </head>
+
+
+
     <body>
     <form action="#" method="post">   
         <!-- Navigation-->
@@ -61,7 +64,7 @@
                 <div class="search_btn">
                     <i class="fas fa-search"></i>
                 </div>
-            <input type="text" class="input_search" placeholder="Search">
+                <input type="text" class="input_search" placeholder="Search" name="cari">
             </div>
                     <div class="wew">
                         <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
@@ -83,150 +86,156 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                    <div class="col mb-5">
+                <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
                         <div class="card h-100" >
                             <!-- Product image-->
                             <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
                             <!-- Product details-->
-                            <div class="card-body p-4">
+                           <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
+                                    <h3>Motherboard</h3>
                                     <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
                                     <strong>Rp. 100.000,-</strong>
                                 </div>
-                            </div>
-                            <div class="search_box">
-                        <div class="search_btn">
-                        <i class="fas fa-search"></i>
+                            </div>                                
                         </div>
-                        <input type="text" class="input_search" placeholder="Search">
-                    </div>
-                    <div class="wew">
-                        <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                        <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                      </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                     <!-- Product name-->
-                                     <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
-                                    <!-- Product price-->
-                                    <strong>Rp. 100.000,-</strong>
-                                </div>
-                            </div>
-                        
-                        </div>
+                    </a>
                     </div>
 
                     <div class="col mb-5">
-                        <div class="card h-100">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
                             <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
                             <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                     <!-- Product name-->
-                                     <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
-                                    <!-- Product price-->
-                                    <strong>Rp. 100.000,-</strong>
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                     <!-- Product name-->
-                                     <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
-                                    <!-- Product price-->
-                                    <strong>Rp. 100.000,-</strong>
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                   <!-- Product name-->
-                                   <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
-                                    <!-- Product price-->
-                                    <strong>Rp. 100.000,-</strong>
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                     <!-- Product name-->
-                                     <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
-                                    <!-- Product price-->
-                                    <strong>Rp. 100.000,-</strong>
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                     <!-- Product name-->
-                                     <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
-                                    <!-- Product price-->
-                                    <strong>Rp. 100.000,-</strong>
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
+                           <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h3><s>Rp. 150.000,-</s></h3></a>
+                                    <h3>Motherboard</h3>
                                     <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
                                     <strong>Rp. 100.000,-</strong>
                                 </div>
-                            </div>
-                        
+                            </div>                                
                         </div>
+                    </a>
+                    </div>
+
+                    <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
+                            <!-- Product image-->
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
+                            <!-- Product details-->
+                           <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h3>Motherboard</h3>
+                                    <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
+                                    <strong>Rp. 100.000,-</strong>
+                                </div>
+                            </div>                                
+                        </div>
+                    </a>
+                    </div>
+
+                    <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
+                            <!-- Product image-->
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
+                            <!-- Product details-->
+                           <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h3>Motherboard</h3>
+                                    <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
+                                    <strong>Rp. 100.000,-</strong>
+                                </div>
+                            </div>                                
+                        </div>
+                    </a>
+                    </div>
+
+                    <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
+                            <!-- Product image-->
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
+                            <!-- Product details-->
+                           <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h3>Motherboard</h3>
+                                    <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
+                                    <strong>Rp. 100.000,-</strong>
+                                </div>
+                            </div>                                
+                        </div>
+                    </a>
+                    </div>
+
+                    <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
+                            <!-- Product image-->
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
+                            <!-- Product details-->
+                           <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h3>Motherboard</h3>
+                                    <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
+                                    <strong>Rp. 100.000,-</strong>
+                                </div>
+                            </div>                                
+                        </div>
+                    </a>
+                    </div>
+
+                    <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
+                            <!-- Product image-->
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
+                            <!-- Product details-->
+                           <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h3>Motherboard</h3>
+                                    <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
+                                    <strong>Rp. 100.000,-</strong>
+                                </div>
+                            </div>                                
+                        </div>
+                    </a>
+                    </div>
+
+                    <div class="col mb-5">
+                     <a href="#" style="text-decoration:none; color:inherit;">
+                        <div class="card h-100" >
+                            <!-- Product image-->
+                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
+                            <!-- Product details-->
+                           <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h3>Motherboard</h3>
+                                    <!-- Product price-->
+                                    <s>Rp. 150.000,-</s><br>
+                                    <strong>Rp. 100.000,-</strong>
+                                </div>
+                            </div>                                
+                        </div>
+                    </a>
                     </div>
                     
                 </div>

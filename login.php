@@ -1,25 +1,6 @@
 <?php 
   session_start(); 
   
-  if(isset($_REQUEST["btLogin"])){
-    require_once("backend/conn.php");
-
-    $namauser=$_REQUEST["uname"];
-    $passuser=$_REQUEST["upass"];
-
-    $kueri="select nama, from user where username='$namauser' and password='$passuser'";
-
-    $lomgin=mysqli_query($conn,$kueri);
-
-    if (mysqli_num_rows($lomgin) > 0){
-      while ($baris = mysqli_fetch_assoc($lomgin)){
-          $_SESSION["username"] = $baris["nama"];
-      }
-     
-    }
-    mysqli_close($conn);
-
-  }
   
   ?>
 
@@ -32,7 +13,44 @@
 </head>
 
 <body>
+<?php 
+if(isset($_REQUEST["btLogin"])){
+  require_once("backend/conn.php");
 
+  $namauser=$_REQUEST["uname"];
+  $passuser=$_REQUEST["upass"];
+
+  $kueri = $conn->query("SELECT username,password FROM user")->fetch_all(MYSQLI_ASSOC);
+
+  $booluser=false;
+  $boolpass=false;
+
+  var_dump($_REQUEST["uname"]);
+  var_dump($_REQUEST["upass"]);
+
+  foreach($kueri as $key =>$value){
+    if($value["username"]==$_REQUEST["uname"]){
+      $booluser=true;
+      if($value["password"]==md5($_REQUEST["upass"])){
+        $boolpass=true;
+      }
+    }
+  }
+
+  if(!$booluser){
+    echo '<script>alert("Username  salah!")</script>';
+  }
+  else if(!$boolpass){
+    echo '<script>alert("Password salah!")</script>';
+  }
+  else if($boolpass && $booluser){
+    header("Location:index.php");
+  }
+  else if(!$booluser && !$boolpass){
+    echo '<script>alert("Username dan Password salah!")</script>';
+  }
+}
+?>
   <div class="background">
 
   </div>
