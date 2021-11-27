@@ -29,63 +29,11 @@
 
 
     <body>
-
-    <?php 
-        require_once("backend/conn.php");
-
-        function rupiah($angka){
-	
-            $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-            return $hasil_rupiah;
-        
-        }
-
-        $jenis='';
-        if (isset($_REQUEST['jenis'])) {
-            $jenis = $_REQUEST['jenis'];
-        }
-        $tampungdata;
-        // echo "<script>alert('$jenis')</script>";
-
-        $macamjenis = $conn->query("select * from daftar_jenis")->fetch_all(MYSQLI_ASSOC);
-
-        $ada = false;
-        foreach ($macamjenis as $key => $value) {
-            if ($value['jenis_barang'] == $jenis) {
-                $ada = true;
-            }    
-        }
-        // echo "<pre>";
-        // var_dump($ada);
-        // echo "</pre>";
-
-        if ($ada) {
-            $state = $conn->prepare("select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?) UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?)");
-            $state->bind_param("ss", $jenis, $jenis);
-            if ($state->execute()) {
-                $tampungdata = $state->get_result()->fetch_all(MYSQLI_ASSOC);
-                // echo "<pre>";
-                // var_dump($tampungdata);
-                // echo "</pre>";
-            }
-        }
-        else {
-            $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang";
-            $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
-        }
-
-        // echo "<pre>";
-        // var_dump($tampungdata);
-        // echo "</pre>";
-
-
-    ?>
-
     <form action="#" method="post">   
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a href="index.php" class="navbar-brand">Ahihi Store</a>
+                <a class="navbar-brand">Ahihi Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -94,19 +42,19 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="index.php?jenis=Monitor">Monitor</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Mouse</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=Mouse%20Pad">MousePad</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Audio</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Keyboard</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">PC</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Motherboard</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Storage</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Ram</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Processor</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=VGA">VGA</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">PSU</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Cooler</a></li>
+                                <li><a class="dropdown-item" href="monitor.php">Monitor</a></li>
+                                <li><a class="dropdown-item" href="#!">Mouse</a></li>
+                                <li><a class="dropdown-item" href="#!">MousePad</a></li>
+                                <li><a class="dropdown-item" href="#!">Audio</a></li>
+                                <li><a class="dropdown-item" href="#!">Keyboard</a></li>
+                                <li><a class="dropdown-item" href="#!">PC</a></li>
+                                <li><a class="dropdown-item" href="#!">Motherboard</a></li>
+                                <li><a class="dropdown-item" href="#!">Storage</a></li>
+                                <li><a class="dropdown-item" href="#!">Ram</a></li>
+                                <li><a class="dropdown-item" href="#!">Processor</a></li>
+                                <li><a class="dropdown-item" href="#!">VGA</a></li>
+                                <li><a class="dropdown-item" href="#!">PSU</a></li>
+                                <li><a class="dropdown-item" href="#!">Cooler</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -139,32 +87,24 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-                    <?php 
-                        foreach ($tampungdata as $key => $value) {
-                    ?>
-
                     <div class="col mb-5">
                         <a href="#" style="text-decoration:none; color:inherit;">
                             <div class="card h-100" >
                                 <!-- Product image-->
-                                <img class="card-img-top" src="<?=$value['urlgambar']?>" alt="..."/>
+                                <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h3><?=$value['nama_barang']?></h3>
+                                        <h3>Motherboard</h3>
                                         <!-- Product price-->
-                                        <s><?=($value['jumlah_diskon'] == null)?'':rupiah($value['harga'])?></s><br>
-                                        <strong><?=($value['jumlah_diskon'] == null)? rupiah($value['harga']) : rupiah($value['harga']*(1-$value['jumlah_diskon']))?></strong>
+                                        <s>Rp. 150.000,-</s><br>
+                                        <strong>Rp. 100.000,-</strong>
                                     </div>
                                 </div>                                
                             </div>
                         </a>
                     </div>
-
-                    <?php 
-                        }
-                    ?>
                     
                 </div>
             </div>

@@ -95,8 +95,9 @@
                     }
                 }
                 else {
+                    $newpass = md5($newpass);
                     $state = $conn->prepare("update admin set password=?, nama=?, email=?, hp=?, tgl_lahir=?, jenis_kelamin=?, url=? where username=?");
-                    $state->bind_param("ssssssss", md5($newpass), $nama, $email, $hp, $fulltanggal, $jk, $file_name, $unameactive);
+                    $state->bind_param("ssssssss", $newpass, $nama, $email, $hp, $fulltanggal, $jk, $file_name, $unameactive);
                     if ($state->execute()) {
                         echo "<script>alert('Berhasil update!')</script>";
                     }
@@ -111,8 +112,9 @@
                     }
                 }
                 else {
+                    $newpass = md5($newpass);
                     $state = $conn->prepare("update admin set password=?, nama=?, email=?, hp=?, tgl_lahir=?, jenis_kelamin=? where username=?");
-                    $state->bind_param("sssssss", md5($newpass), $nama, $email, $hp, $fulltanggal, $jk, $unameactive);
+                    $state->bind_param("sssssss", $newpass, $nama, $email, $hp, $fulltanggal, $jk, $unameactive);
                     if ($state->execute()) {
                         echo "<script>alert('Berhasil update!')</script>";
                     }
