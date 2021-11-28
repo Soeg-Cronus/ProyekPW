@@ -19,6 +19,7 @@
         <meta name="author" content="" />
         <title>Ahihi Store</title>
         
+        <base href="index.php">
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -85,7 +86,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a href="index.php" class="navbar-brand">Ahihi Store</a>
+                <a href="./" class="navbar-brand">Ahihi Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -94,19 +95,19 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="index.php?jenis=Monitor">Monitor</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Mouse</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=Mouse%20Pad">MousePad</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Audio</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Keyboard</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">PC</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Motherboard</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Storage</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Ram</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Processor</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=VGA">VGA</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">PSU</a></li>
-                                <li><a class="dropdown-item" href="index.php?jenis=">Cooler</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Monitor">Monitor</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse">Mouse</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">MousePad</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Audio">Audio</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Keyboard">Keyboard</a></li>
+                                <li><a class="dropdown-item" href="?jenis=PC">PC</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Motherboard">Motherboard</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Storage">Storage</a></li>
+                                <li><a class="dropdown-item" href="?jenis=RAM">Ram</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Processor">Processor</a></li>
+                                <li><a class="dropdown-item" href="?jenis=VGA">VGA</a></li>
+                                <li><a class="dropdown-item" href="?jenis=PSU">PSU</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -144,10 +145,10 @@
                     ?>
 
                     <div class="col mb-5">
-                        <a href="#" style="text-decoration:none; color:inherit;">
+                        <a class="urlproduct"  onclick="detailingItem('<?=$value['id_barang']?>')" style="text-decoration:none; color:inherit;">
                             <div class="card h-100" >
                                 <!-- Product image-->
-                                <img class="card-img-top" src="<?=$value['urlgambar']?>" alt="..."/>
+                                <img class="card-img-top" src="<?=$value['urlgambar']?>" alt="<?='image - '. $value['id_barang']?>"/>
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
@@ -173,11 +174,35 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="asset/js/scripts.js"></script>
-        </form>
+    </form>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="asset/js/scripts.js"></script>
+
+    <script>
+        function detailingItem(id) {
+            
+            var a = document.getElementsByClassName('urlproduct');
+            // console.log(url.length);
+            for (let i = 0; i < a.length; i++) {
+                const e = a[i];
+                
+                // console.log(params);
+                // console.log(id);
+            }
+            
+            let url = new URL(document.URL)
+            let params = new URLSearchParams(url.search.slice(1));
+            params.delete('id')
+            params.delete('jenis')
+            params.append('id', id)
+            location.href = 'index.php?'+params
+            // document.href = 'index.php?'+params
+            console.log('index.php?'+params);       
+        }
+    </script>
+
     </body>
 </html>
 
