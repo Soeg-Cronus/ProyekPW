@@ -10,8 +10,7 @@
     // var_dump(JSONFileParser("Monitor.json"));
     // echo "</pre>"; JSONFileParser("Monitor.json");
     //JSONFiletoDatabase('vgacard.json', 'VGA', 'VGA');
-    JSONFiletoDatabase('amdmobo.json','MTB','Motherboard');
-
+    JSONFiletoDatabase('overallpc.json','OPC','PC');
 
     function JSONFiletoDatabase($path, $kodehuruf3digit, $jenis){
         require_once("../backend/conn.php");
