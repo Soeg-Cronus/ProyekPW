@@ -1,13 +1,4 @@
-<?php session_start();
-
-    if(isset($_REQUEST["btPindahLogin"])){
-        header("Location:login.php");
-    }
-    if(isset($_REQUEST["btPindahRegis"])){
-        header("Location:register.php");
-    }
-
-?>
+<?php session_start();?>
 
 
 <!DOCTYPE html>
@@ -39,6 +30,13 @@
             $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
             return $hasil_rupiah;
         
+        }
+
+        if(isset($_REQUEST["btPindahLogin"])){
+            header("Location: login.php");
+        }
+        if(isset($_REQUEST["btPindahRegis"])){
+            header("Location: register.php");
         }
 
         $jenis='';
@@ -82,7 +80,7 @@
 
     ?>
 
-    <form action="#" method="post">   
+    <form action="" method="post">   
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
