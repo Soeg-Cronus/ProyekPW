@@ -25,12 +25,12 @@
     <?php 
         require_once("backend/conn.php");
 
-        function rupiah($angka){
+        // function rupiah($angka){
 	
-            $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-            return $hasil_rupiah;
+        //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
+        //     return $hasil_rupiah;
         
-        }
+        // }
 
         if(isset($_REQUEST["btPindahLogin"])){
             header("Location: login.php");
@@ -195,9 +195,9 @@
             params.delete('id')
             params.delete('jenis')
             params.append('id', id)
-            location.href = 'index.php?'+params
+            location.href = 'lihatbarang.php?'+params
             // document.href = 'index.php?'+params
-            console.log('index.php?'+params);       
+            // console.log('index.php?'+params);       
         }
     </script>
 

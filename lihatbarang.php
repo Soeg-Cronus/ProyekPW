@@ -1,37 +1,62 @@
 <?php session_start();
 
-    if(isset($_REQUEST["btPindahLogin"])){
-        header("Location:login.php");
-    }
-    if(isset($_REQUEST["btPindahRegis"])){
-        header("Location:register.php");
-    }
+if (isset($_REQUEST["btPindahLogin"])) {
+    header("Location:login.php");
+}
+if (isset($_REQUEST["btPindahRegis"])) {
+    header("Location:register.php");
+}
 
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Ahihi Store</title>
-        
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="asset/css/stylesindex.css" rel="stylesheet" />
-        <link rel="stylesheet" href="asset/css/lihatbarang.css">
-        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    </head>
-    <body>
-    <form action="#" method="post">   
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Ahihi Store</title>
+
+    <base href="index.php">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="asset/css/stylesindex.css" rel="stylesheet" />
+    <link rel="stylesheet" href="asset/css/lihatbarang.css">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+
+<body>
+
+    <?php
+    require_once("backend/conn.php");
+
+    // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where mb.id_barang = ?";
+    // $sql = "select mb.*, jb.jenis_barang, d.nama_diskon, d.jumlah_diskon from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis join diskon d on d.id_barang = mb.id_barang where mb.id_barang = ?";
+    // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+    $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.id_barang = ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.id_barang = ?;";
+    $stmt = $conn->prepare($sql);
+    // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
+    $keyword = $_REQUEST["id"];
+    $stmt->bind_param("ss", $keyword, $keyword);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $items = $result->fetch_assoc();
+
+    // echo "<pre>";
+    // var_dump($items);
+    // echo "</pre>";
+
+    ?>
+
+    <form action="" method="post">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">Ahihi Store</a>
+                <a href="./" class="navbar-brand">Ahihi Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -40,32 +65,32 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">Monitor</a></li>
-                                <li><a class="dropdown-item" href="#!">Mouse</a></li>
-                                <li><a class="dropdown-item" href="#!">MousePad</a></li>
-                                <li><a class="dropdown-item" href="#!">Audio</a></li>
-                                <li><a class="dropdown-item" href="#!">Keyboard</a></li>
-                                <li><a class="dropdown-item" href="#!">PC</a></li>
-                                <li><a class="dropdown-item" href="#!">Motherboard</a></li>
-                                <li><a class="dropdown-item" href="#!">Storage</a></li>
-                                <li><a class="dropdown-item" href="#!">Ram</a></li>
-                                <li><a class="dropdown-item" href="#!">Processor</a></li>
-                                <li><a class="dropdown-item" href="#!">VGA</a></li>
-                                <li><a class="dropdown-item" href="#!">PSU</a></li>
-                                <li><a class="dropdown-item" href="#!">Cooler</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Monitor">Monitor</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse">Mouse</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">MousePad</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Audio">Audio</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Keyboard">Keyboard</a></li>
+                                <li><a class="dropdown-item" href="?jenis=PC">PC</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Motherboard">Motherboard</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Storage">Storage</a></li>
+                                <li><a class="dropdown-item" href="?jenis=RAM">Ram</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Processor">Processor</a></li>
+                                <li><a class="dropdown-item" href="?jenis=VGA">VGA</a></li>
+                                <li><a class="dropdown-item" href="?jenis=PSU">PSU</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
                             </ul>
                         </li>
                     </ul>
                     <div class="search_box">
                         <div class="search_btn">
-                        <i class="fas fa-search"></i>
+                            <i class="fas fa-search"></i>
                         </div>
                         <input type="text" class="input_search" placeholder="Search">
                     </div>
                     <div class="wew">
                         <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
                         <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                      </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -76,54 +101,62 @@
                     <h1 class="display-4 fw-bolder">Ahihi Store</h1>
                 </div>
             </div>
-            
-            
         </header>
         <!-- Section-->
         <section class="product">
-	<div class="product__photo">
-		<div class="photo-container">
-			<div class="photo-main">
-				<div class="controls">
-					<i class="material-icons">share</i>
-					<i class="material-icons">favorite_border</i>
-				</div>
-				<img src="https://res.cloudinary.com/john-mantas/image/upload/v1537291846/codepen/delicious-apples/green-apple-with-slice.png" alt="green apple slice">
-			</div>
-			
-		</div>
-	    </div>
+            <div class="product__photo">
+                <div class="photo-container">
+                    <div class="photo-main">
+                        <div class="controls">
+                            <i class="material-icons">share</i>
+                            <i class="material-icons">favorite_border</i>
+                        </div>
+                        <img src="<?= $items['urlgambar'] ?>" alt="<?= $items['nama_barang'] ?>">
+                    </div>
 
-	    <div class="product__info">
-		<div class="title">
-			<h1>TEST123</h1>
-			<span>COD: 45999</span>
-		</div>
-		<div class="price">
-			R$ <span>7.93</span>
-		</div>
-		
-		<div class="description">
-			<h3>BENEFITS</h3>
-				Apples are nutricious<br>
-				Apples may be good for weight loss<br>
-				Apples may be good for bone health<br>
-				They're linked to a lowest risk of diabetes<br>
-		</div>
-		<button class="buy--btn">ADD TO CART</button>
-	</div>
-</section>
+                </div>
+            </div>
+
+            <div class="product__info">
+                <div class="title">
+                    <h1><?= $items['nama_barang'] ?></h1>
+                    <!-- <span>COD: 45999</span> -->
+                </div>
+                <div class="price">
+                    <s><?= ($items['jumlah_diskon'] == null) ? '' : digit($items['harga']) ?></s><br>
+                    <strong>Rp. <?= ($items['jumlah_diskon'] == null) ? digit($items['harga']) : digit($items['harga'] * (1 - $items['jumlah_diskon'])) ?></strong>
+                    <!-- Rp. <span><?//= digit($items['harga']) ?></span> -->
+                </div>
+
+                <div class="description">
+                    <h3>Description</h3>
+                    <ul>
+                        <?php
+                        foreach (json_decode($items['deskripsi']) as $key => $value) {
+                        ?>
+                            <li><?= $value ?></li>
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <button class="buy--btn">ADD TO CART</button>
+            </div>
+        </section>
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+            </div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="asset/js/scripts.js"></script>
-        </form>
-    </body>
+    </form>
+</body>
+
 </html>
 
 
