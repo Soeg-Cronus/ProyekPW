@@ -108,8 +108,8 @@ if (isset($_REQUEST["btPindahRegis"])) {
                 <div class="photo-container">
                     <div class="photo-main">
                         <div class="controls">
-                            <i class="material-icons">share</i>
-                            <i class="material-icons">favorite_border</i>
+                            <i class="material-icons">Wishlist</i>
+                            <i class="material-icons">Stock</i>
                         </div>
                         <img src="<?= $items['urlgambar'] ?>" alt="<?= $items['nama_barang'] ?>">
                     </div>
