@@ -78,6 +78,28 @@
         // echo "</pre>";
 
 
+        //search
+         $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis";
+    $stmt = $conn->prepare($sql);
+    // $stmt = $conn->prepare("SELECT * FROM master_barang");
+    $stmt->execute();
+    $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+    if(isset($_POST["cari"])){
+        $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
+        // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+        $stmt = $conn->prepare($sql);
+        // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
+        $keyword = "%".$_POST["nama"]."%";
+        $stmt->bind_param("s" , $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $items = $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    //TODO: biar ga bisa ditembak url
+
+
     ?>
 
     <form action="" method="post">   
@@ -113,9 +135,11 @@
             </div>
             <div class="search_box">
                 <div class="search_btn">
-                    <i class="fas fa-search"></i>
+                       <button type="submit" name="cari" style="border: 0; background: transparent">
+ <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
+</button>                
                 </div>
-                <input type="text" class="input_search" placeholder="Search" name="cari">
+                <input type="text" class="input_search" placeholder="Search" name="nama">
             </div>
                     <div class="wew">
                         <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
