@@ -1,13 +1,4 @@
-<?php session_start();
-
-    if(isset($_REQUEST["btPindahLogin"])){
-        header("Location:login.php");
-    }
-    if(isset($_REQUEST["btPindahRegis"])){
-        header("Location:register.php");
-    }
-
-?>
+<?php session_start();?>
 
 
 <!DOCTYPE html>
@@ -19,18 +10,81 @@
         <meta name="author" content="" />
         <title>Ahihi Store</title>
         
+        <base href="index.php">
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="asset/css/stylesindex.css" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     </head>
+
+
+
     <body>
-    <form action="#" method="post">   
+
+    <?php 
+        require_once("backend/conn.php");
+
+        function rupiah($angka){
+	
+            $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
+            return $hasil_rupiah;
+        
+        }
+
+        if(isset($_REQUEST["btPindahLogin"])){
+            header("Location: login.php");
+        }
+        if(isset($_REQUEST["btPindahRegis"])){
+            header("Location: register.php");
+        }
+
+        $jenis='';
+        if (isset($_REQUEST['jenis'])) {
+            $jenis = $_REQUEST['jenis'];
+        }
+        $tampungdata;
+        // echo "<script>alert('$jenis')</script>";
+
+        $macamjenis = $conn->query("select * from daftar_jenis")->fetch_all(MYSQLI_ASSOC);
+
+        $ada = false;
+        foreach ($macamjenis as $key => $value) {
+            if ($value['jenis_barang'] == $jenis) {
+                $ada = true;
+            }    
+        }
+        // echo "<pre>";
+        // var_dump($ada);
+        // echo "</pre>";
+
+        if ($ada) {
+            $state = $conn->prepare("select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?) UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?)");
+            $state->bind_param("ss", $jenis, $jenis);
+            if ($state->execute()) {
+                $tampungdata = $state->get_result()->fetch_all(MYSQLI_ASSOC);
+                // echo "<pre>";
+                // var_dump($tampungdata);
+                // echo "</pre>";
+            }
+        }
+        else {
+            $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang";
+            $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+        }
+
+        // echo "<pre>";
+        // var_dump($tampungdata);
+        // echo "</pre>";
+
+
+    ?>
+
+    <form action="" method="post">   
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">Ahihi Store</a>
+                <a href="./" class="navbar-brand">Ahihi Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -39,34 +93,34 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">Monitor</a></li>
-                                <li><a class="dropdown-item" href="#!">Mouse</a></li>
-                                <li><a class="dropdown-item" href="#!">MousePad</a></li>
-                                <li><a class="dropdown-item" href="#!">Audio</a></li>
-                                <li><a class="dropdown-item" href="#!">Keyboard</a></li>
-                                <li><a class="dropdown-item" href="#!">PC</a></li>
-                                <li><a class="dropdown-item" href="#!">Motherboard</a></li>
-                                <li><a class="dropdown-item" href="#!">Storage</a></li>
-                                <li><a class="dropdown-item" href="#!">Ram</a></li>
-                                <li><a class="dropdown-item" href="#!">Processor</a></li>
-                                <li><a class="dropdown-item" href="#!">VGA</a></li>
-                                <li><a class="dropdown-item" href="#!">PSU</a></li>
-                                <li><a class="dropdown-item" href="#!">Cooler</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Monitor">Monitor</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse">Mouse</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">MousePad</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Audio">Audio</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Keyboard">Keyboard</a></li>
+                                <li><a class="dropdown-item" href="?jenis=PC">PC</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Motherboard">Motherboard</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Storage">Storage</a></li>
+                                <li><a class="dropdown-item" href="?jenis=RAM">Ram</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Processor">Processor</a></li>
+                                <li><a class="dropdown-item" href="?jenis=VGA">VGA</a></li>
+                                <li><a class="dropdown-item" href="?jenis=PSU">PSU</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <div class="search_box">
-                        <div class="search_btn">
-                        <i class="fas fa-search"></i>
-                        </div>
-                        <input type="text" class="input_search" placeholder="Search">
-                    </div>
+                </div>
+            </div>
+            <div class="search_box">
+                <div class="search_btn">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" class="input_search" placeholder="Search" name="cari">
+            </div>
                     <div class="wew">
                         <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
                         <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                      </div>
-                </div>
-            </div>
+                    </div>
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -79,146 +133,37 @@
             
         </header>
         <!-- Section-->
-        <h1 class="display-4 fw-bolder"> <center>!!HOT ITEM!!</center> </h1>
+        <h1 class="display-4 fw-bolder"> <center>!!Diskon!!</center> </h1>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-                    <div class="col mb-5">
-                        <div class="card h-100" >
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..."/>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
+                    <?php 
+                        foreach ($tampungdata as $key => $value) {
+                    ?>
 
                     <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
+                        <a class="urlproduct"  onclick="detailingItem('<?=$value['id_barang']?>')" style="text-decoration:none; color:inherit;">
+                            <div class="card h-100" >
+                                <!-- Product image-->
+                                <img class="card-img-top" src="<?=$value['urlgambar']?>" alt="<?='image - '. $value['id_barang']?>"/>
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h3><?=$value['nama_barang']?></h3>
+                                        <!-- Product price-->
+                                        <s><?=($value['jumlah_diskon'] == null)?'':rupiah($value['harga'])?></s><br>
+                                        <strong><?=($value['jumlah_diskon'] == null)? rupiah($value['harga']) : rupiah($value['harga']*(1-$value['jumlah_diskon']))?></strong>
+                                    </div>
+                                </div>                                
                             </div>
-                        
-                        </div>
+                        </a>
                     </div>
 
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="asset/image/wallpaperhome.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <a href="index.html" style="text-decoration:none; color:inherit;"><h2>isi</h2></a>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
+                    <?php 
+                        }
+                    ?>
                     
                 </div>
             </div>
@@ -227,11 +172,35 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="asset/js/scripts.js"></script>
-        </form>
+    </form>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="asset/js/scripts.js"></script>
+
+    <script>
+        function detailingItem(id) {
+            
+            var a = document.getElementsByClassName('urlproduct');
+            // console.log(url.length);
+            for (let i = 0; i < a.length; i++) {
+                const e = a[i];
+                
+                // console.log(params);
+                // console.log(id);
+            }
+            
+            let url = new URL(document.URL)
+            let params = new URLSearchParams(url.search.slice(1));
+            params.delete('id')
+            params.delete('jenis')
+            params.append('id', id)
+            location.href = 'index.php?'+params
+            // document.href = 'index.php?'+params
+            console.log('index.php?'+params);       
+        }
+    </script>
+
     </body>
 </html>
 

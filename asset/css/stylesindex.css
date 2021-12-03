@@ -266,8 +266,9 @@ progress {
 }
 
 .wew {
-  margin-top: 30px;
+  
   display: flex;
+  margin-right: 100px;
 }
 
 .wew div {
@@ -11058,19 +11059,19 @@ textarea.form-control-lg {
   }
 }
 .search_box{
-	background: #643fef;
+	background: #2fd5ff;
 	position: relative;
-	padding: 15px;
+	padding: 5px;
 	border-radius: 50px;
 	display: flex;
-  margin-right: 250px;
+  margin-right: 200px;
 }
 
 .search_box .search_btn{
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;
-	background: #7a5cf0;
+	background: #060b21;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -11082,11 +11083,11 @@ textarea.form-control-lg {
 .search_box .input_search{
 	outline: none;
 	border: 0;
-	background: #7a5cf0;
-	border-radius: 50px;
+	background: #060b21;
+	border-radius: 30px;
 	padding: 15px 20px;
 	width: 300px; 
-	height: 30px;
+	height: 10px;
 	color: #fff;
 }
 

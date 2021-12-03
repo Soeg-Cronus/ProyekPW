@@ -1,18 +1,24 @@
 <?php
     require_once("backend/conn.php");
     
-    $stmt = $conn->prepare("SELECT * FROM masterbarang");
+    
+    $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis";
+    $stmt = $conn->prepare($sql);
+    // $stmt = $conn->prepare("SELECT * FROM master_barang");
     $stmt->execute();
     $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
     if(isset($_POST["cari"])){
-        $stmt = $conn->prepare("SELECT * FROM masterbarang WHERE nama_barang like ?");
+        $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
+        // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+        $stmt = $conn->prepare($sql);
+        // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
         $keyword = "%".$_POST["nama"]."%";
-        $stmt->bind_param("s" ,$keyword);
+        $stmt->bind_param("s" , $keyword);
         $stmt->execute();
         $result = $stmt->get_result();
         $items = $result->fetch_all(MYSQLI_ASSOC);
     }
-    
 
     //TODO: biar ga bisa ditembak url
 
@@ -49,6 +55,7 @@
             <?php
                     if ($items !== null) {
                         foreach ($items as $key => $value) {
+                            $desc = json_decode($value['deskripsi']);
                     ?>
                       <tr>
                         <td><?= $key+1 ?></td>
@@ -57,7 +64,17 @@
                         <td><?= $value["harga"] ?></td>
                         <td><?= $value["stok"] ?></td>
                         <td><?= $value["jenis_barang"] ?></td>
-                        <td><?= $value["deskripsi"] ?></td>
+                        <td>
+                            <ul>
+                                <?php 
+                                    foreach ($desc as $key => $value) {
+                                ?>
+                                    <li><?=$value?></li>        
+                                <?php 
+                                    }
+                                ?>
+                            </ul>
+                        </td>
                       </tr>
                     <?php
                         }
