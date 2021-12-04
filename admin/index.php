@@ -58,22 +58,7 @@
                 <div class="collapse show" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="#" class="link-dark isActive rounded" style="color: #1ad3be">Overview</a><i class="arrow left"></i></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Updates</a></li>
                     <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Chats</a></li>
-                </ul>
-                </div>
-            </li>
-            <li class="mb-1">
-                <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                    Dashboard
-                </button>
-                <div class="collapse" id="dashboard-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Weekly</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Monthly</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Annually</a></li>
                 </ul>
                 </div>
             </li>
@@ -96,7 +81,7 @@
                 </button>
                 <div class="collapse" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">Add New Admin</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">Add Admin</a></li>
                     <li><a href="../admin/listaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">List Admin</a></li>
                     <li><a href="../admin/setting.php" class="link-dark rounded" style="color: #1ad3be">Settings</a></li>
                     <li><a href="../admin/logout.php" class="link-dark rounded" style="color: #1ad3be">Sign out</a></li>
