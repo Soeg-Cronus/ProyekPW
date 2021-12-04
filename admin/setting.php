@@ -141,22 +141,7 @@
                 <div class="collapse" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="../admin/index.php" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Updates</a></li>
                     <li><a href="#" class="link-dark rounded">Reports</a></li>
-                    <li><a href="#" class="link-dark rounded">Chats</a></li>
-                </ul>
-                </div>
-            </li>
-            <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                    Dashboard
-                </button>
-                <div class="collapse" id="dashboard-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Weekly</a></li>
-                    <li><a href="#" class="link-dark rounded">Monthly</a></li>
-                    <li><a href="#" class="link-dark rounded">Annually</a></li>
                 </ul>
                 </div>
             </li>
@@ -179,7 +164,7 @@
                 </button>
                 <div class="collapse show" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark rounded">Add New Admin</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded">Add Admin</a></li>
                     <li><a href="../admin/listaccount.php" class="link-dark rounded">List Admin</a></li>
                     <li><a href="../admin/setting.php" class="link-dark isActive rounded">Settings</a><i class="arrow left"></i></li>
                     <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
