@@ -1,100 +1,100 @@
-<?php session_start();?>
+<?php session_start(); ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Ahihi Store</title>
-        
-        <base href="index.php">
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="asset/css/stylesindex.css" rel="stylesheet" />
-        <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    </head>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Ahihi Store</title>
+
+    <base href="index.php">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="asset/css/stylesindex.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
 
 
 
-    <body>
+<body>
 
-    <?php 
-        require_once("backend/conn.php");
+    <?php
+    require_once("backend/conn.php");
 
-        // function rupiah($angka){
-	
-        //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-        //     return $hasil_rupiah;
-        
-        // }
+    // function rupiah($angka){
 
-        if(isset($_REQUEST["btPindahLogin"])){
-            header("Location: login.php");
+    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
+    //     return $hasil_rupiah;
+
+    // }
+
+    if (isset($_REQUEST["btPindahLogin"])) {
+        header("Location: login.php");
+    }
+    if (isset($_REQUEST["btPindahRegis"])) {
+        header("Location: register.php");
+    }
+
+    $jenis = '';
+    if (isset($_REQUEST['jenis'])) {
+        $jenis = $_REQUEST['jenis'];
+    }
+    $tampungdata;
+    // echo "<script>alert('$jenis')</script>";
+
+    $macamjenis = $conn->query("select * from daftar_jenis")->fetch_all(MYSQLI_ASSOC);
+
+    $ada = false;
+    foreach ($macamjenis as $key => $value) {
+        if ($value['jenis_barang'] == $jenis) {
+            $ada = true;
         }
-        if(isset($_REQUEST["btPindahRegis"])){
-            header("Location: register.php");
+    }
+    // echo "<pre>";
+    // var_dump($ada);
+    // echo "</pre>";
+
+    if ($ada) {
+        $state = $conn->prepare("select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?) UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?)");
+        $state->bind_param("ss", $jenis, $jenis);
+        if ($state->execute()) {
+            $tampungdata = $state->get_result()->fetch_all(MYSQLI_ASSOC);
+            // echo "<pre>";
+            // var_dump($tampungdata);
+            // echo "</pre>";
         }
+    } else {
+        $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang";
+        $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+    }
 
-        $jenis='';
-        if (isset($_REQUEST['jenis'])) {
-            $jenis = $_REQUEST['jenis'];
-        }
-        $tampungdata;
-        // echo "<script>alert('$jenis')</script>";
-
-        $macamjenis = $conn->query("select * from daftar_jenis")->fetch_all(MYSQLI_ASSOC);
-
-        $ada = false;
-        foreach ($macamjenis as $key => $value) {
-            if ($value['jenis_barang'] == $jenis) {
-                $ada = true;
-            }    
-        }
-        // echo "<pre>";
-        // var_dump($ada);
-        // echo "</pre>";
-
-        if ($ada) {
-            $state = $conn->prepare("select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?) UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.id_jenis_barang = (select id_jenis from daftar_jenis where jenis_barang = ?)");
-            $state->bind_param("ss", $jenis, $jenis);
-            if ($state->execute()) {
-                $tampungdata = $state->get_result()->fetch_all(MYSQLI_ASSOC);
-                // echo "<pre>";
-                // var_dump($tampungdata);
-                // echo "</pre>";
-            }
-        }
-        else {
-            $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang";
-            $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
-        }
-
-        // echo "<pre>";
-        // var_dump($tampungdata);
-        // echo "</pre>";
+    // echo "<pre>";
+    // var_dump($tampungdata);
+    // echo "</pre>";
 
 
-        //search
-         $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis";
-    $stmt = $conn->prepare($sql);
-    // $stmt = $conn->prepare("SELECT * FROM master_barang");
-    $stmt->execute();
-    $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    
-    if(isset($_POST["cari"])){
+    //search
+    // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis";
+    // $stmt = $conn->prepare($sql);
+    // // $stmt = $conn->prepare("SELECT * FROM master_barang");
+    // $stmt->execute();
+    // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    if (isset($_REQUEST["cari"])) {
         $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
         // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
         $stmt = $conn->prepare($sql);
         // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
-        $keyword = "%".$_POST["nama"]."%";
-        $stmt->bind_param("s" , $keyword);
+        $keyword = "%" . $_REQUEST["nama"] . "%";
+        $stmt->bind_param("s", $keyword);
         $stmt->execute();
         $result = $stmt->get_result();
-        $items = $result->fetch_all(MYSQLI_ASSOC);
+        $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
     }
 
     //TODO: biar ga bisa ditembak url
@@ -102,7 +102,7 @@
 
     ?>
 
-    <form action="" method="post">   
+    <form action="" method="get">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -135,16 +135,16 @@
             </div>
             <div class="search_box">
                 <div class="search_btn">
-                       <button type="submit" name="cari" style="border: 0; background: transparent">
- <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
-</button>                
+                    <button type="submit" name="cari" style="border: 0; background: transparent">
+                        <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
+                    </button>
                 </div>
                 <input type="text" class="input_search" placeholder="Search" name="nama">
             </div>
-                    <div class="wew">
-                        <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                        <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                    </div>
+            <div class="wew">
+                <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+            </div>
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -153,8 +153,8 @@
                     <h1 class="display-4 fw-bolder">Ahihi Store</h1>
                 </div>
             </div>
-            
-            
+
+
         </header>
         <!-- Section-->
         <h1 class="display-4 fw-bolder"> <center>!!All Items!!</center> </h1>
@@ -162,39 +162,41 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-                    <?php 
-                        foreach ($tampungdata as $key => $value) {
+                    <?php
+                    foreach ($tampungdata as $key => $value) {
                     ?>
 
-                    <div class="col mb-5">
-                        <a class="urlproduct"  onclick="detailingItem('<?=$value['id_barang']?>')" style="text-decoration:none; color:inherit;">
-                            <div class="card h-100" >
-                                <!-- Product image-->
-                                <img class="card-img-top" src="<?=$value['urlgambar']?>" alt="<?='image - '. $value['id_barang']?>"/>
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3><?=$value['nama_barang']?></h3>
-                                        <!-- Product price-->
-                                        <s><?=($value['jumlah_diskon'] == null)?'':rupiah($value['harga'])?></s><br>
-                                        <strong><?=($value['jumlah_diskon'] == null)? rupiah($value['harga']) : rupiah($value['harga']*(1-$value['jumlah_diskon']))?></strong>
+                        <div class="col mb-5">
+                            <a class="urlproduct" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h3><?= $value['nama_barang'] ?></h3>
+                                            <!-- Product price-->
+                                            <s><?= ($value['jumlah_diskon'] == null) ? '' : rupiah($value['harga']) ?></s><br>
+                                            <strong><?= ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon'])) ?></strong>
+                                        </div>
                                     </div>
-                                </div>                                
-                            </div>
-                        </a>
-                    </div>
+                                </div>
+                            </a>
+                        </div>
 
-                    <?php 
-                        }
+                    <?php
+                    }
                     ?>
-                    
+
                 </div>
             </div>
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+            </div>
         </footer>
     </form>
     <!-- Bootstrap core JS-->
@@ -204,28 +206,29 @@
 
     <script>
         function detailingItem(id) {
-            
+
             var a = document.getElementsByClassName('urlproduct');
             // console.log(url.length);
             for (let i = 0; i < a.length; i++) {
                 const e = a[i];
-                
+
                 // console.log(params);
                 // console.log(id);
             }
-            
+
             let url = new URL(document.URL)
             let params = new URLSearchParams(url.search.slice(1));
             params.delete('id')
             params.delete('jenis')
             params.append('id', id)
-            location.href = 'lihatbarang.php?'+params
+            location.href = 'lihatbarang.php?' + params
             // document.href = 'index.php?'+params
             // console.log('index.php?'+params);       
         }
     </script>
 
-    </body>
+</body>
+
 </html>
 
 
