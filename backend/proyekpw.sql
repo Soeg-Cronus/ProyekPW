@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2021 at 02:32 PM
+-- Generation Time: Dec 04, 2021 at 12:03 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -114,7 +114,15 @@ CREATE TABLE `diskon` (
 --
 
 INSERT INTO `diskon` (`id_diskon`, `id_barang`, `nama_diskon`, `jumlah_diskon`) VALUES
-('D001', 'MON0013369', 'Black Friday', '0.10');
+('D001', 'MON0013369', 'Black Friday', '0.10'),
+('D002', 'AUD0056232', 'Black Friday', '0.10'),
+('D003', 'MON0183931', 'Haloween Sale', '0.15'),
+('D004', 'KBD0364507', 'New Year Sale', '0.20'),
+('D005', 'OPC0103166', 'Black Friday', '0.10'),
+('D006', 'OPC0275787', 'Haloween Sale', '0.15'),
+('D007', 'PRC0078154', 'Haloween Sale', '0.15'),
+('D008', 'PRC0239879', 'New Year Sale', '0.20'),
+('D009', 'PSU0037007', 'New Year Sale', '0.20');
 
 -- --------------------------------------------------------
 
