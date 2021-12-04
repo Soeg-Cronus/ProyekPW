@@ -98,10 +98,7 @@
             // echo "</pre>";
         }
     }
-    else {
-        $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang";
-        $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
-    }
+    
 
     // echo "<pre>";
     // var_dump($tampungdata);
@@ -267,27 +264,27 @@
             // console.log('index.php?'+params);       
         }
 
-        $("#cari").on('click',function(e)){
-            search();
-        }
-        $("#isicari").on('keypress',function(e) {
-            if(e.which == 13) {
-                //alert('You pressed enter!');
-                search();
-            }
-        });
+        // $("#cari").on('click',function(e)){
+        //     search();
+        // }
+        // $("#isicari").on('keypress',function(e) {
+        //     if(e.which == 13) {
+        //         //alert('You pressed enter!');
+        //         search();
+        //     }
+        // });
 
-        function search(){
-            // $.ajax({
-            //     type: "get",
-            //     url: "index.php",
-            //     data: "data",
-            //     success: function (response) {
+        // function search(){
+        //     // $.ajax({
+        //     //     type: "get",
+        //     //     url: "index.php",
+        //     //     data: "data",
+        //     //     success: function (response) {
                         
-            //     }
-            // });
-            alert('Ahihihi');
-        }
+        //     //     }
+        //     // });
+        //     alert('Ahihihi');
+        // }
     </script>
 
 </body>
