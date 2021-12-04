@@ -41,17 +41,19 @@
                         }
                         else {
                             $temp = [
-                                md5('nama') => urlencode(base64_encode($nama)),
                                 md5('uname') => urlencode(base64_encode($uname))
                             ];
-                            // $state = $conn->prepare("insert into user values (?,?,?,?,?)");
-                            // $state->bind_param("sssss", $uname, $nama, $pass1, $gender, $alamat);
-                            // if ($state->execute()) {
+                            $token = bin2hex(random_bytes(50));
+                            $verified = false;
+                            $verified = intval($verified);
+                            $state = $conn->prepare("insert into user values (?,?,?,?,?,?,?,?)");
+                            $state->bind_param("ssssssis", $uname, $nama, $pass1, $birth, $gender, $alamat, $verified, $token);
+                            if ($state->execute()) {
                                 $temp = http_build_query($temp);
-                                header("Location: backend/verification.php?".$temp);
-                            // } else {
-                            //     echo "Error!";
-                            // }                
+                                header("Location: backend/userauth.php?".$temp);
+                            } else {
+                                echo "Error!";
+                            }                
                         }
                     }
                     else {
