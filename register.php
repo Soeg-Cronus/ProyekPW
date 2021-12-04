@@ -50,6 +50,7 @@
                             $state->bind_param("ssssssis", $uname, $nama, $pass1, $birth, $gender, $alamat, $verified, $token);
                             if ($state->execute()) {
                                 $temp = http_build_query($temp);
+                                $_SESSION['loggedin'] = $uname;
                                 header("Location: backend/userauth.php?".$temp);
                             } else {
                                 echo "Error!";

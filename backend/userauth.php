@@ -5,9 +5,9 @@ $uname = base64_decode(urldecode($_REQUEST[md5('uname')]));
 
 $user = $conn->query("select * from user where username= '$uname'")->fetch_assoc();
 
-echo "<pre>";
-var_dump($user);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($user);
+// echo "</pre>";
 
 /**
  * This example shows settings to use when sending via Google's Gmail servers.
@@ -38,7 +38,7 @@ $mail->isSMTP();
 //SMTP::DEBUG_OFF = off (for production use)
 //SMTP::DEBUG_CLIENT = client messages
 //SMTP::DEBUG_SERVER = client and server messages
-$mail->SMTPDebug = 2;
+$mail->SMTPDebug = 0;
 
 //Set the hostname of the mail server
 $mail->Host = $host;
@@ -89,7 +89,9 @@ $mail->Subject = 'Verification on Ahihi Store';
 
 //TODO  
 $token = $user['token'];
-$linkjelek = "<a href='http://localhost/proyekpw/ProyekPW/backend/verification.php?token=$token'>Click Here!</a>";
+// link bisa disesuaikan masing" directory
+$linkonly = "http://localhost/proyekpw/ProyekPW/backend/verification.php?token=$token";
+$linkjelek = "<a href='$linkonly'>Click Here!</a>";
 $link = "<!DOCTYPE html>
 <html lang='en'>
 
@@ -114,7 +116,7 @@ $link = "<!DOCTYPE html>
 <body>
   <div class='wrapper'>
     <p>Thank you for signing up on our site. Please click on the link below to verify your account:.</p>
-    <a href='../verification.php?token=$token'>Verify Email!</a>
+    <a href='$linkonly'>Verify Email!</a>
   </div>
 </body>
 
@@ -132,7 +134,7 @@ if (!$mail->send()) {
     echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {
     echo 'Message sent!';
-    // header("Location: index.php");
+    header("Location: ../index.php");
     //Section 2: IMAP
     //Uncomment these to save your message in the 'Sent Mail' folder.
     #if (save_mail($mail)) {

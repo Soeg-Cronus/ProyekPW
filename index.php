@@ -34,6 +34,10 @@
 
     // }
 
+    // echo "<pre>";
+    // var_dump($_SESSION['loggedin']);
+    // echo "</pre>";
+
     if (isset($_REQUEST["btPindahLogin"])) {
         header("Location: login.php");
     }
