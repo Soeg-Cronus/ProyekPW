@@ -17,6 +17,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="asset/css/stylesindex.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 
@@ -44,12 +45,26 @@
     if (isset($_REQUEST['jenis'])) {
         $jenis = $_REQUEST['jenis'];
     }
+
+    $diskon = '';
+    if (isset($_REQUEST['diskon'])) {
+        $diskon = $_REQUEST['diskon'];
+    }
     $tampungdata;
-    // echo "<script>alert('$jenis')</script>";
+    //echo "<script>alert('$diskon')</script>";
 
     $macamjenis = $conn->query("select * from daftar_jenis")->fetch_all(MYSQLI_ASSOC);
+    $macamdiskon= $conn->query("select * from diskon group by nama_diskon")->fetch_all(MYSQLI_ASSOC);
 
     $ada = false;
+    $adadiskon=false;
+
+    foreach ($macamdiskon as $key => $value) {
+        if ($value['nama_diskon'] == $diskon) {
+            $adadiskon = true;
+        }
+    }
+
     foreach ($macamjenis as $key => $value) {
         if ($value['jenis_barang'] == $jenis) {
             $ada = true;
@@ -73,6 +88,21 @@
         $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
     }
 
+    if($adadiskon){
+        $state = $conn->prepare("select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where d.nama_diskon = ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where d.nama_diskon = ?");
+        $state->bind_param("ss", $diskon, $diskon);
+        if ($state->execute()) {
+            $tampungdata = $state->get_result()->fetch_all(MYSQLI_ASSOC);
+            // echo "<pre>";
+            // var_dump($tampungdata);
+            // echo "</pre>";
+        }
+    }
+    else {
+        $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang";
+        $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
+    }
+
     // echo "<pre>";
     // var_dump($tampungdata);
     // echo "</pre>";
@@ -85,17 +115,17 @@
     // $stmt->execute();
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    if (isset($_REQUEST["cari"])) {
-        $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
-        // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
-        $stmt = $conn->prepare($sql);
-        // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
-        $keyword = "%" . $_REQUEST["nama"] . "%";
-        $stmt->bind_param("s", $keyword);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
-    }
+    // if (isset($_REQUEST["cari"])) {
+    //     $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
+    //     // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+    //     $stmt = $conn->prepare($sql);
+    //     // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
+    //     $keyword = "%" . $_REQUEST["nama"] . "%";
+    //     $stmt->bind_param("s", $keyword);
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+    //     $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
+    // }
 
     //TODO: biar ga bisa ditembak url
 
@@ -110,7 +140,6 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Exit</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -130,16 +159,28 @@
                                 <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Diskon</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php
+                                foreach ($macamdiskon as $key => $value) {
+                            ?>
+                                    <li><a class="dropdown-item" href="?<?=http_build_query(array('diskon'=>$value['nama_diskon']))?>"><?=$value['nama_diskon']?></a></li>
+                            <?php
+                                }
+                            ?>            
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="search_box">
                 <div class="search_btn">
-                    <button type="submit" name="cari" style="border: 0; background: transparent">
+                    <button type="button" id="cari" style="border: 0; background: transparent">
                         <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
                     </button>
                 </div>
-                <input type="text" class="input_search" placeholder="Search" name="nama">
+                <input type="text" class="input_search" placeholder="Search" id="isicari">
             </div>
             <div class="wew">
                 <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
@@ -224,6 +265,28 @@
             location.href = 'lihatbarang.php?' + params
             // document.href = 'index.php?'+params
             // console.log('index.php?'+params);       
+        }
+
+        $("#cari").on('click',function(e)){
+            search();
+        }
+        $("#isicari").on('keypress',function(e) {
+            if(e.which == 13) {
+                //alert('You pressed enter!');
+                search();
+            }
+        });
+
+        function search(){
+            // $.ajax({
+            //     type: "get",
+            //     url: "index.php",
+            //     data: "data",
+            //     success: function (response) {
+                        
+            //     }
+            // });
+            alert('Ahihihi');
         }
     </script>
 
