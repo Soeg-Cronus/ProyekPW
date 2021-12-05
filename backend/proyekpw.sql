@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2021 at 09:07 AM
+-- Generation Time: Dec 05, 2021 at 05:49 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- PHP Version: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -743,12 +743,16 @@ INSERT INTO `user` (`username`, `nama`, `password`, `tgl_lahir`, `jenis_kelamin`
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE `wishlist` (
   `id_wishlist` varchar(10) NOT NULL,
-  `nama_barang` varchar(1000) NOT NULL,
-  `harga` int(100) NOT NULL,
-  `jumlah` int(100) NOT NULL,
-  `urlgambar` varchar(1000) NOT NULL,
+  `id_barang` text NOT NULL,
   `username` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`id_wishlist`, `id_barang`, `username`) VALUES
+('W0001', '[\"AUD0082727\"]', 'anderson@ahihistore.masuk.id');
 
 --
 -- Indexes for dumped tables
