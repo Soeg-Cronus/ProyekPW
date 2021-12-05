@@ -3867,6 +3867,12 @@ textarea.form-control-lg {
   border-radius: 0.25rem;
   transition: box-shadow 0.15s ease-in-out;
 }
+
+.namae{
+  color: white;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+  width: 100px;
+}
 @media (prefers-reduced-motion: reduce) {
   .navbar-toggler {
     transition: none;

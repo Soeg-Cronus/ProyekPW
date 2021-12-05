@@ -190,9 +190,13 @@
                 </div>
             </form>
             <form action="" method="post">
-                <div class="wew">
+                <!-- <div class="wew">
                     <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
                     <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                </div> -->
+                <div class="namae">ini nama</div>
+                <div class="wew">
+                    <div class="back"><input type="submit" value="Logout" name="btPindahLogin"></div>
                 </div>
             </form>
         </nav>
