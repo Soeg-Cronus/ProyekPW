@@ -520,6 +520,11 @@ progress {
   width: 41.66666667%;
 }
 
+.col .mb-5{
+  box-shadow: 4px 4px 25px -2px #020daf;
+  border: 2px solid #2fd5ff;
+}
+
 .col-6 {
   flex: 0 0 auto;
   width: 50%;
