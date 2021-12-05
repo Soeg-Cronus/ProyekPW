@@ -7,6 +7,8 @@ if (isset($_REQUEST["btPindahRegis"])) {
     header("Location:register.php");
 }
 
+
+
 ?>
 
 
@@ -27,12 +29,18 @@ if (isset($_REQUEST["btPindahRegis"])) {
     <link href="asset/css/stylesindex.css" rel="stylesheet" />
     <link rel="stylesheet" href="asset/css/lihatbarang.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
 
     <?php
     require_once("backend/conn.php");
+    $id_aktif='';
+    if (isset($_SESSION['loggedin'])) {
+        $id_aktif=$_SESSION['loggedin'];
+    }
+
 
     // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where mb.id_barang = ?";
     // $sql = "select mb.*, jb.jenis_barang, d.nama_diskon, d.jumlah_diskon from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis join diskon d on d.id_barang = mb.id_barang where mb.id_barang = ?";
@@ -49,10 +57,12 @@ if (isset($_REQUEST["btPindahRegis"])) {
     // echo "<pre>";
     // var_dump($items);
     // echo "</pre>";
-
+    //   echo "<pre>";
+    // var_dump($_SESSION['loggedin']);
+    // echo "</pre>";
     ?>
 
-    <form action="" method="post">
+    <!-- <form action="" method="post"> -->
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -81,16 +91,20 @@ if (isset($_REQUEST["btPindahRegis"])) {
                             </ul>
                         </li>
                     </ul>
-                    <div class="search_box">
-                        <div class="search_btn">
-                            <i class="fas fa-search"></i>
+                    <form action="" method="get">
+                        <div class="search_box">
+                            <div class="search_btn">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <input type="text" class="input_search" placeholder="Search">
                         </div>
-                        <input type="text" class="input_search" placeholder="Search">
-                    </div>
-                    <div class="wew">
-                        <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                        <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                    </div>
+                    </form>
+                    <form action="" method="post">
+                        <div class="wew">
+                            <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                            <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -108,7 +122,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
                 <div class="photo-container">
                     <div class="photo-main">
                         <div class="controls">
-                        <button type="submit" name="cari" style="border: 0; background: transparent">
+                        <button <?=($id_aktif!=null)?'':'hidden'?> type="button" name="cari" style="border: 0; background: transparent" id="tambahwish" onclick="wishlist('<?=$keyword?>','<?=$id_aktif?>')">
                         Add To Wishlist
                         </button> 
                             Stock:<?= $items['stok'] ?>
@@ -156,7 +170,8 @@ if (isset($_REQUEST["btPindahRegis"])) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="asset/js/scripts.js"></script>
-    </form>
+        <script src="backend/ajax.js"></script>
+    <!-- </form> -->
 </body>
 
 </html>
