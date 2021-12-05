@@ -266,19 +266,20 @@ progress {
 }
 
 .wew {
-  
   display: flex;
   margin-right: 100px;
 }
 
 .wew div {
-  width: 80px;
+  margin: 2px;
   border-radius: 3px;
   border: 2px solid #2fd5ff;
   box-shadow: 0 0 40px #020daf;
   color: #eaf0fb;
   text-align: center;
 }
+
+
 
 .wew div:hover {
   background-color: black;
@@ -3854,6 +3855,7 @@ textarea.form-control-lg {
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
+  margin-top: -10px;
 }
 
 .navbar-toggler {
