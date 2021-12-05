@@ -117,6 +117,10 @@
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
     if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
+    }
+    
+    if (isset($_REQUEST['q'])) {
         // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
         $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
         $stmt = $conn->prepare($sql);
@@ -175,10 +179,10 @@
                     </ul>
                 </div>
             </div>
-            <form action="" method="get">
+            <form action="" method="post">
                 <div class="search_box">
                     <div class="search_btn">
-                        <button type="submit" name="cari" value="find" style="border: 0; background: transparent">
+                        <button type="submit" name="cari" style="border: 0; background: transparent">
                             <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
                         </button>
                     </div>
