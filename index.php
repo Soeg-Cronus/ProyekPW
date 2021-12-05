@@ -116,24 +116,28 @@
     // $stmt->execute();
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    // if (isset($_REQUEST["cari"])) {
-    //     $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
-    //     // $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
-    //     $stmt = $conn->prepare($sql);
-    //     // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
-    //     $keyword = "%" . $_REQUEST["nama"] . "%";
-    //     $stmt->bind_param("s", $keyword);
-    //     $stmt->execute();
-    //     $result = $stmt->get_result();
-    //     $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
-    // }
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
+    }
+    
+    if (isset($_REQUEST['q'])) {
+        // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
+        $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+        $stmt = $conn->prepare($sql);
+        // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
+        $keyword = "%" . $_REQUEST["q"] . "%";
+        $stmt->bind_param("ss", $keyword, $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     //TODO: biar ga bisa ditembak url
 
 
     ?>
 
-    <form action="" method="get">
+    <!-- <form action="" method="get"> -->
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -175,18 +179,22 @@
                     </ul>
                 </div>
             </div>
-            <div class="search_box">
-                <div class="search_btn">
-                    <button type="button" id="cari" style="border: 0; background: transparent">
-                        <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
-                    </button>
+            <form action="" method="post">
+                <div class="search_box">
+                    <div class="search_btn">
+                        <button type="submit" name="cari" style="border: 0; background: transparent">
+                            <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
+                        </button>
+                    </div>
+                    <input type="text" class="input_search" placeholder="Search" name="q">
                 </div>
-                <input type="text" class="input_search" placeholder="Search" id="isicari">
-            </div>
-            <div class="wew">
-                <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-            </div>
+            </form>
+            <form action="" method="post">
+                <div class="wew">
+                    <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                    <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                </div>
+            </form>
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -240,7 +248,7 @@
                 <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
             </div>
         </footer>
-    </form>
+    <!-- </form> -->
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
@@ -267,27 +275,14 @@
             // document.href = 'index.php?'+params
             // console.log('index.php?'+params);       
         }
+        
+        // function removeparam() {
+        //     let url = new URL(document.URL);
+        //     let params = new URLSearchParams(url.search);
+            
+        //     params.delete('cari')
+        //     location.href = 'index.php?' + params
 
-        // $("#cari").on('click',function(e)){
-        //     search();
-        // }
-        // $("#isicari").on('keypress',function(e) {
-        //     if(e.which == 13) {
-        //         //alert('You pressed enter!');
-        //         search();
-        //     }
-        // });
-
-        // function search(){
-        //     // $.ajax({
-        //     //     type: "get",
-        //     //     url: "index.php",
-        //     //     data: "data",
-        //     //     success: function (response) {
-                        
-        //     //     }
-        //     // });
-        //     alert('Ahihihi');
         // }
     </script>
 
