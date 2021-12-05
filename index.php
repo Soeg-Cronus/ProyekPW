@@ -33,16 +33,6 @@
     //     return $hasil_rupiah;
 
     // }
-    $datausernow = null;
-    $useractive = null;
-    if (isset($_SESSION['loggedin'])) {
-        $useractive = $_SESSION['loggedin'];
-        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-    }
-
-    // echo "<pre>";
-    // var_dump($useractive);
-    // echo "</pre>";
 
     if (isset($_REQUEST["btPindahLogin"])) {
         header("Location: login.php");
@@ -53,6 +43,21 @@
     if (isset($_REQUEST["btnLogout"])) {
         header("Location: backend/logout.php");
     }
+
+    $datausernow = null;
+    $useractive = null;
+    if (isset($_SESSION['loggedin'])) {
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+        if (!$datausernow['email_confirm']) {
+            header("Location: verifikasi.php");
+        }
+    }
+
+
+    // echo "<pre>";
+    // var_dump($useractive);
+    // echo "</pre>";
 
     $jenis = '';
     if (isset($_REQUEST['jenis'])) {

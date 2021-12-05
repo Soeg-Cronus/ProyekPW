@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,35 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+    <?php 
+        require_once("backend/conn.php");
+
+        $datausernow = null;
+        $useractive = null;
+        if (isset($_SESSION['loggedin'])) {
+            $useractive = $_SESSION['loggedin'];
+            $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+            // echo "<pre>";
+            // var_dump($datausernow);
+            // echo "</pre>";
+            if (isset($datausernow)) {
+                if ($datausernow['email_confirm']) {
+                    header("Location: index.php");
+                }
+            }
+        }
+        else {
+            header("Location: index.php");
+        }
+        
+
+        if (isset($_REQUEST["btnLogout"])) {
+            header("Location: backend/logout.php");
+        }
+
+        $macamdiskon= $conn->query("select * from diskon group by nama_diskon")->fetch_all(MYSQLI_ASSOC);
+    ?>
+
     <!-- <form action="" method="get"> -->
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,25 +88,39 @@
                     </ul>
                 </div>
             </div>
-            <form action="" method="post">
+            <form action="" method="get">
                 <div class="search_box">
-                    <div class="search_btn">
-                        <button type="submit" name="cari" style="border: 0; background: transparent">
-                            <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
-                        </button>
-                    </div>
+                    <!-- <div class="search_btn"> -->
+                    <button type="submit" class="search_btn" name="cari" style="border: none; ">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <!-- </div> -->
                     <input type="text" class="input_search" placeholder="Search" name="q">
                 </div>
             </form>
             <form action="" method="post">
-                <!-- <div class="wew">
-                    <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                    <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                </div> -->
-                <div class="namae">ini nama</div>
-                <div class="wew">
-                    <div class="back"><input type="submit" value="Logout" name="btPindahLogin"></div>
-                </div>
+                <?php 
+                    if ($datausernow == null) {
+                ?>
+                        <div class="wew">
+                            <div class="namae back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                            <div class="namae reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                        </div>
+                <?php 
+                    }
+                    else {
+                ?>
+                        <div class="wew">
+                            <div class="namae" style="border: none; box-shadow: none; cursor: default;">
+                                <?=$datausernow['nama']?>
+                            </div>
+                            <div class="namae back">
+                                <input type="submit" value="Logout" name="btnLogout">
+                            </div>
+                        </div>
+                <?php 
+                    }
+                ?>
             </form>
         </nav>
         <!-- Header-->
