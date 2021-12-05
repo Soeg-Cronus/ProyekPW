@@ -222,7 +222,10 @@
 
                         <div class="col mb-5">
                             <a class="urlproduct" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
-                                <div class="card h-100">
+                                <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);
+-webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);
+-moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
                                     <!-- Product image-->
                                     <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
                                     <!-- Product details-->
