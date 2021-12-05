@@ -36,11 +36,17 @@ if (isset($_REQUEST["btPindahRegis"])) {
 
     <?php
     require_once("backend/conn.php");
-    $id_aktif='';
+    
+    $datausernow = null;
+    $useractive = null;
     if (isset($_SESSION['loggedin'])) {
-        $id_aktif=$_SESSION['loggedin'];
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
     }
 
+    if (isset($_REQUEST["btnLogout"])) {
+        header("Location: backend/logout.php");
+    }
 
     // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where mb.id_barang = ?";
     // $sql = "select mb.*, jb.jenis_barang, d.nama_diskon, d.jumlah_diskon from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis join diskon d on d.id_barang = mb.id_barang where mb.id_barang = ?";
@@ -54,6 +60,22 @@ if (isset($_REQUEST["btPindahRegis"])) {
     $result = $stmt->get_result();
     $items = $result->fetch_assoc();
 
+
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
+    }
+    
+    if (isset($_REQUEST['q'])) {
+        // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
+        $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+        $stmt = $conn->prepare($sql);
+        // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
+        $keyword = "%" . $_REQUEST["q"] . "%";
+        $stmt->bind_param("ss", $keyword, $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
+    }
     // echo "<pre>";
     // var_dump($items);
     // echo "</pre>";
@@ -93,17 +115,37 @@ if (isset($_REQUEST["btPindahRegis"])) {
                     </ul>
                     <form action="" method="get">
                         <div class="search_box">
-                            <div class="search_btn">
+                            <!-- <div class="search_btn"> -->
+                            <button type="submit" class="search_btn" name="cari" style="border: none; ">
                                 <i class="fas fa-search"></i>
-                            </div>
-                            <input type="text" class="input_search" placeholder="Search">
+                            </button>
+                            <!-- </div> -->
+                            <input type="text" class="input_search" placeholder="Search" name="q">
                         </div>
                     </form>
                     <form action="" method="post">
-                        <div class="wew">
-                            <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                            <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                        </div>
+                        <?php 
+                            if ($datausernow == null) {
+                        ?>
+                                <div class="wew">
+                                    <div class="namae back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                                    <div class="namae reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                                </div>
+                        <?php 
+                            }
+                            else {
+                        ?>
+                                <div class="wew">
+                                    <div class="namae" style="border: none; box-shadow: none; cursor: default;">
+                                        <?=$datausernow['nama']?>
+                                    </div>
+                                    <div class="namae back">
+                                        <input type="submit" value="Logout" name="btnLogout">
+                                    </div>
+                                </div>
+                        <?php 
+                            }
+                        ?>
                     </form>
                 </div>
             </div>
@@ -122,7 +164,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
                 <div class="photo-container">
                     <div class="photo-main">
                         <div class="controls">
-                        <button <?=($id_aktif!=null)?'':'hidden'?> type="button" name="cari" style="border: 0; background: transparent" id="tambahwish" onclick="wishlist('<?=$keyword?>','<?=$id_aktif?>')">
+                        <button <?=($useractive!=null)?'':'hidden'?> type="button" name="cari" style="border: 0; background: transparent" id="tambahwish" onclick="wishlist('<?=$keyword?>','<?=$useractive?>')">
                         Add To Wishlist
                         </button> 
                             Stock:<?= $items['stok'] ?>

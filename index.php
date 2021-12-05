@@ -33,9 +33,15 @@
     //     return $hasil_rupiah;
 
     // }
+    $datausernow = null;
+    $useractive = null;
+    if (isset($_SESSION['loggedin'])) {
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+    }
 
     // echo "<pre>";
-    // var_dump($_SESSION['loggedin']);
+    // var_dump($useractive);
     // echo "</pre>";
 
     if (isset($_REQUEST["btPindahLogin"])) {
@@ -43,6 +49,9 @@
     }
     if (isset($_REQUEST["btPindahRegis"])) {
         header("Location: register.php");
+    }
+    if (isset($_REQUEST["btnLogout"])) {
+        header("Location: backend/logout.php");
     }
 
     $jenis = '';
@@ -181,23 +190,37 @@
             </div>
             <form action="" method="post">
                 <div class="search_box">
-                    <div class="search_btn">
-                        <button type="submit" name="cari" style="border: 0; background: transparent">
-                            <img src="asset/image/searchwhite.png" width="20" height="17" alt="submit" />
+                    <!-- <div class="search_btn"> -->
+                        <button type="submit" class="search_btn" name="cari" style="border: none; ">
+                            <i class="fas fa-search"></i>
                         </button>
-                    </div>
+                    <!-- </div> -->
                     <input type="text" class="input_search" placeholder="Search" name="q">
                 </div>
             </form>
             <form action="" method="post">
-                <!-- <div class="wew">
-                    <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                    <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                </div> -->
-                <div class="namae">ini nama</div>
-                <div class="wew">
-                    <div class="back"><input type="submit" value="Logout" name="btPindahLogin"></div>
-                </div>
+                <?php 
+                    if ($datausernow == null) {
+                ?>
+                        <div class="wew">
+                            <div class="namae back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                            <div class="namae reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                        </div>
+                <?php 
+                    }
+                    else {
+                ?>
+                        <div class="wew">
+                            <div class="namae" style="border: none; box-shadow: none; cursor: default;">
+                                <?=$datausernow['nama']?>
+                            </div>
+                            <div class="namae back">
+                                <input type="submit" value="Logout" name="btnLogout">
+                            </div>
+                        </div>
+                <?php 
+                    }
+                ?>
             </form>
         </nav>
         <!-- Header-->
@@ -221,11 +244,8 @@
                     ?>
 
                         <div class="col mb-5">
-                            <a class="urlproduct" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
-                                <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white;
-  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);
--webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);
--moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
+                            <a class="urlproduct" href="lihatbarang.php?id=<?= $value['id_barang'] ?>" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
+                                <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
                                     <!-- Product image-->
                                     <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
                                     <!-- Product details-->
@@ -279,18 +299,10 @@
             params.delete('jenis')
             params.append('id', id)
             location.href = 'lihatbarang.php?' + params
+            // return 'lihatbarang.php?' + params 
             // document.href = 'index.php?'+params
             // console.log('index.php?'+params);       
         }
-        
-        // function removeparam() {
-        //     let url = new URL(document.URL);
-        //     let params = new URLSearchParams(url.search);
-            
-        //     params.delete('cari')
-        //     location.href = 'index.php?' + params
-
-        // }
     </script>
 
 </body>

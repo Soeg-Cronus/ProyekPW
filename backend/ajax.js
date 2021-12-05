@@ -9,8 +9,7 @@ function wishlist(id,user_aktif){
             'yg_aktif':user_aktif
         },
         success: function (response) {
-        //  var tampungan=JSON.parse(response);
-            
+            alert(response)
         }
     });
 }

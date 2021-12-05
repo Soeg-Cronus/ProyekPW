@@ -43,9 +43,14 @@
                 $insert=$conn->prepare("update wishlist set id_barang=? where username=?");
                 $insert->bind_param("ss",$wishencode,$aktif);
                 $insert->execute();
+                echo "Berhasil tambah wishlist!";
+            }
+            else {
+                echo "Barang sudah ada di wishlist!";
             }
         }
 
+        // echo json_decode(json_encode($wishlistuser['id_barang']));
         // $insert=$conn->prepare("insert into wishlist(id_wishlist,id_barang,username) values(?,?,?)");
         // $insert->bind_param("sss",$idwishlist)
         
