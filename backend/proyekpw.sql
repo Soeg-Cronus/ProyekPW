@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2021 at 03:44 PM
+-- Generation Time: Dec 05, 2021 at 09:07 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.30
+-- PHP Version: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -720,12 +720,19 @@ CREATE TABLE `user` (
   `username` varchar(100) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `jenis_kelamin` enum('pria','wanita') NOT NULL,
-  `umur` int(11) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `jenis_kelamin` varchar(20) NOT NULL,
   `alamat` varchar(1000) NOT NULL,
-  `saldo` int(100) NOT NULL,
-  `id_wishlist` varchar(10) NOT NULL
+  `email_confirm` tinyint(1) NOT NULL,
+  `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `nama`, `password`, `tgl_lahir`, `jenis_kelamin`, `alamat`, `email_confirm`, `token`) VALUES
+('anderson@ahihistore.masuk.id', 'Anderson', '76d80224611fc919a5d54f0ff9fba446', '2002-01-01', 'Pria', 'Surabaya', 1, 'be650fc7df05a8064c3c057ae068eee2732b3f5c64eb1f3150f9d69a4c828343998d3ea969a79594bb7636c613fb46fa16d8');
 
 -- --------------------------------------------------------
 
@@ -812,7 +819,7 @@ ALTER TABLE `transaksi`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`username`),
-  ADD KEY `id_wishlist` (`id_wishlist`);
+  ADD KEY `id_wishlist` (`token`);
 
 --
 -- Indexes for table `wishlist`
