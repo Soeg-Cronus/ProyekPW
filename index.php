@@ -191,17 +191,30 @@
                             ?>            
                             </ul>
                         </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">nama</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="?jenis=Monitor">wishlist</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Mouse">cart</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">history</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Audio">track</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Audio">Pay</a></li>
-                            </ul>
-                        </li>
+                        
+                        <form action="" method="post">
+                            <?php 
+                            if($datausernow==null){
+                            ?>
+                            
+                            <?php
+                            }
+                            else{
+                            ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Barang</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="?jenis=Monitor">Wishlist</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Mouse">Cart</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">History</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Audio">Track</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Audio">Pay</a></li>
+                                </ul>
+                            </li>
+                            <?php
+                            }
+                            ?>
+                        </form>
                     </ul>
                 </div>
             </div>
