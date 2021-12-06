@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2021 at 09:07 AM
+-- Generation Time: Dec 06, 2021 at 06:10 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -732,7 +732,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `nama`, `password`, `tgl_lahir`, `jenis_kelamin`, `alamat`, `email_confirm`, `token`) VALUES
-('anderson@ahihistore.masuk.id', 'Anderson', '76d80224611fc919a5d54f0ff9fba446', '2002-01-01', 'Pria', 'Surabaya', 1, 'be650fc7df05a8064c3c057ae068eee2732b3f5c64eb1f3150f9d69a4c828343998d3ea969a79594bb7636c613fb46fa16d8');
+('anderson@ahihistore.masuk.id', 'Anderson', '76d80224611fc919a5d54f0ff9fba446', '2002-01-01', 'Pria', 'Surabaya', 1, 'e111bc0860c6d83df9957cb2902ca26a25a25beff4a67b94db8121315cc3395ebce0077e7bc132b9608c66302e75172a0baa'),
+('ivan@ahihistore.masuk.id', 'Ivan', '76d80224611fc919a5d54f0ff9fba446', '2002-02-02', 'Wanita', 'Surabaya', 0, '388f5d3e7b373e2b61737e61325849b08aa633aa34de39f49f96285f71dcbf67f64ae229cf1a1fa74b301167e7c165c752ca');
 
 -- --------------------------------------------------------
 
@@ -743,12 +744,16 @@ INSERT INTO `user` (`username`, `nama`, `password`, `tgl_lahir`, `jenis_kelamin`
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE `wishlist` (
   `id_wishlist` varchar(10) NOT NULL,
-  `nama_barang` varchar(1000) NOT NULL,
-  `harga` int(100) NOT NULL,
-  `jumlah` int(100) NOT NULL,
-  `urlgambar` varchar(1000) NOT NULL,
+  `id_barang` text NOT NULL,
   `username` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`id_wishlist`, `id_barang`, `username`) VALUES
+('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\"]', 'anderson@ahihistore.masuk.id');
 
 --
 -- Indexes for dumped tables

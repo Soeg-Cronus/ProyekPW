@@ -3,6 +3,10 @@ require_once("conn.php");
 require_once("credential.php");
 $uname = base64_decode(urldecode($_REQUEST[md5('uname')]));
 
+echo "<pre>";
+var_dump($uname);
+echo "</pre>";
+
 $user = $conn->query("select * from user where username= '$uname'")->fetch_assoc();
 
 // echo "<pre>";

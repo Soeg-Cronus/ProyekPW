@@ -7,6 +7,8 @@ if (isset($_REQUEST["btPindahRegis"])) {
     header("Location:register.php");
 }
 
+
+
 ?>
 
 
@@ -27,12 +29,28 @@ if (isset($_REQUEST["btPindahRegis"])) {
     <link href="asset/css/stylesindex.css" rel="stylesheet" />
     <link rel="stylesheet" href="asset/css/lihatbarang.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
 
     <?php
     require_once("backend/conn.php");
+    
+    $datausernow = null;
+    $useractive = null;
+    if (isset($_SESSION['loggedin'])) {
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+        if (!$datausernow['email_confirm']) {
+            header("Location: verifikasi.php");
+        }
+    }
+
+
+    if (isset($_REQUEST["btnLogout"])) {
+        header("Location: backend/logout.php");
+    }
 
     // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where mb.id_barang = ?";
     // $sql = "select mb.*, jb.jenis_barang, d.nama_diskon, d.jumlah_diskon from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis join diskon d on d.id_barang = mb.id_barang where mb.id_barang = ?";
@@ -46,13 +64,31 @@ if (isset($_REQUEST["btPindahRegis"])) {
     $result = $stmt->get_result();
     $items = $result->fetch_assoc();
 
+
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
+    }
+    
+    if (isset($_REQUEST['q'])) {
+        // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
+        $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
+        $stmt = $conn->prepare($sql);
+        // $stmt = $conn->prepare("SELECT * FROM master_barang WHERE nama_barang like ?");
+        $keyword = "%" . $_REQUEST["q"] . "%";
+        $stmt->bind_param("ss", $keyword, $keyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $tampungdata = $result->fetch_all(MYSQLI_ASSOC);
+    }
     // echo "<pre>";
     // var_dump($items);
     // echo "</pre>";
-
+    //   echo "<pre>";
+    // var_dump($_SESSION['loggedin']);
+    // echo "</pre>";
     ?>
 
-    <form action="" method="post">
+    <!-- <form action="" method="post"> -->
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -81,16 +117,40 @@ if (isset($_REQUEST["btPindahRegis"])) {
                             </ul>
                         </li>
                     </ul>
-                    <div class="search_box">
-                        <div class="search_btn">
-                            <i class="fas fa-search"></i>
+                    <form action="" method="get">
+                        <div class="search_box">
+                            <!-- <div class="search_btn"> -->
+                            <button type="submit" class="search_btn" name="cari" style="border: none; ">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <!-- </div> -->
+                            <input type="text" class="input_search" placeholder="Search" name="q">
                         </div>
-                        <input type="text" class="input_search" placeholder="Search">
-                    </div>
-                    <div class="wew">
-                        <div class="back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                        <div class="reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                    </div>
+                    </form>
+                    <form action="" method="post">
+                        <?php 
+                            if ($datausernow == null) {
+                        ?>
+                                <div class="wew">
+                                    <div class="namae back"><input type="submit" value="Login" name="btPindahLogin"></div>
+                                    <div class="namae reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                                </div>
+                        <?php 
+                            }
+                            else {
+                        ?>
+                                <div class="wew">
+                                    <div class="namae" style="border: none; box-shadow: none; cursor: default;">
+                                        <?=$datausernow['nama']?>
+                                    </div>
+                                    <div class="namae back">
+                                        <input type="submit" value="Logout" name="btnLogout">
+                                    </div>
+                                </div>
+                        <?php 
+                            }
+                        ?>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -108,7 +168,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
                 <div class="photo-container">
                     <div class="photo-main">
                         <div class="controls">
-                        <button type="submit" name="cari" style="border: 0; background: transparent">
+                        <button <?=($useractive!=null)?'':'hidden'?> type="button" name="cari" style="border: 0; background: transparent" id="tambahwish" onclick="wishlist('<?=$keyword?>','<?=$useractive?>')">
                         Add To Wishlist
                         </button> 
                             Stock:<?= $items['stok'] ?>
@@ -156,7 +216,8 @@ if (isset($_REQUEST["btPindahRegis"])) {
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="asset/js/scripts.js"></script>
-    </form>
+        <script src="backend/ajax.js"></script>
+    <!-- </form> -->
 </body>
 
 </html>
