@@ -19,32 +19,22 @@ session_start();
 		$namauser = $_REQUEST["uname"];
 		$passuser = $_REQUEST["upass"];
 
-		$kueri = $conn->query("SELECT * FROM user")->fetch_all(MYSQLI_ASSOC);
+		$encpass = md5($passuser);
 
-		$booluser = false;
-		$boolpass = false;
-
-		// var_dump($_REQUEST["uname"]);
-		// var_dump($_REQUEST["upass"]);
-
-		foreach ($kueri as $key => $value) {
-			if ($value["username"] == $_REQUEST["uname"]) {
-				$booluser = true;
-				if ($value["password"] == md5($_REQUEST["upass"])) {
-					$boolpass = true;
-				}
+		$result = $conn->prepare("select * from user where username=? and password=?");
+		$result->bind_param("ss", $namauser, $encpass);
+		if ($result->execute()) {
+			$usernow = $result->get_result()->fetch_assoc();
+			if ($usernow != null) {
+				$_SESSION['loggedin'] = $usernow['username'];
+				header("Location: index.php");
+			}
+			else {
+				echo '<script>alert("Username dan Password salah!")</script>';
 			}
 		}
-
-		if (!$booluser) {
-			echo '<script>alert("Username  salah!")</script>';
-		} else if (!$boolpass) {
-			echo '<script>alert("Password salah!")</script>';
-		} else if ($boolpass && $booluser) {
-			$_SESSION['loggedin'] = $value['username'];
-			header("Location: index.php");
-		} else if (!$booluser && !$boolpass) {
-			echo '<script>alert("Username dan Password salah!")</script>';
+		else {
+			echo '<script>alert("Gagal execute!")</script>';
 		}
 	}
 	?>
@@ -71,6 +61,12 @@ session_start();
 			</a>
 		</div>
 	</form>
+
+	<script>
+		if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+	</script>
 
 </body>
 
