@@ -208,8 +208,12 @@
                     if ($datausernow == null) {
                 ?>
                         <div class="wew">
-                            <div class="namae back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                            <div class="namae reg"><input type="submit" value="Register" name="btPindahRegis"></div>
+                            <div class="namae back">
+                                <input class="namae back" type="submit" value="Login" name="btPindahLogin">
+                            </div>
+                            <div class="namae reg">
+                                <input type="submit" value="Register" name="btPindahRegis">
+                            </div>
                         </div>
                 <?php 
                     }

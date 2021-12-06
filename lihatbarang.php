@@ -42,10 +42,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
     if (isset($_SESSION['loggedin'])) {
         $useractive = $_SESSION['loggedin'];
         $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-        if ($datausernow['email_confirm']) {
-            header("Location: index.php");
-        }
-        else {
+        if (!$datausernow['email_confirm']) {
             header("Location: verifikasi.php");
         }
     }
