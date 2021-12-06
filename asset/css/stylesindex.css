@@ -279,15 +279,13 @@ progress {
   text-align: center;
 }
 
-
-
 .wew div:hover {
   background-color: black;
   cursor: pointer;
 }
 
 .wew .reg {
-  margin-left: 25px;
+  
 }
 
 .display-4 {
@@ -11115,6 +11113,7 @@ textarea.form-control-lg {
 :-ms-input-placeholder {
   color: #fff;
 }
+
 input[type=submit]{
   padding: 0;
   border: none;

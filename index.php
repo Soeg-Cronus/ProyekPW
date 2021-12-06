@@ -178,6 +178,7 @@
                                 <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
                             </ul>
                         </li>
+
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Diskon</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -188,6 +189,17 @@
                             <?php
                                 }
                             ?>            
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">nama</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="?jenis=Monitor">wishlist</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse">cart</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">history</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Audio">track</a></li>
+                                <li><a class="dropdown-item" href="?jenis=Audio">Pay</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -212,7 +224,7 @@
                                 <input class="namae back" type="submit" value="Login" name="btPindahLogin">
                             </div>
                             <div class="namae reg">
-                                <input type="submit" value="Register" name="btPindahRegis">
+                                <input class="namae back" type="submit" value="Register" name="btPindahRegis">
                             </div>
                         </div>
                 <?php 
