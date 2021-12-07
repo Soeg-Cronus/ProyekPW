@@ -37,8 +37,8 @@
                 <div class="card p-0">
                     <div class="card-image"> <img src="asset/image/kobe.jpg" alt=""> </div>
                     <div class="card-content d-flex flex-column align-items-center">
-                        <h4 class="pt-2">Kobe</h4>
-                        <h5>Bryant</h5>
+                        <h4 class="pt-2">Leonardo C</h4>
+                        <h5>220116884</h5>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                 <div class="card p-0">
                     <div class="card-image"> <img src="asset/image/cung2.png" alt=""> </div>
                     <div class="card-content d-flex flex-column align-items-center">
-                        <h4 class="pt-2">Kobe</h4>
-                        <h5>Bryant</h5>
+                        <h4 class="pt-2">Victor Shielo</h4>
+                        <h5>220116896</h5>
                     </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                 <div class="card p-0">
                     <div class="card-image"> <img src="asset/image/anderson.png" alt=""> </div>
                     <div class="card-content d-flex flex-column align-items-center">
-                        <h4 class="pt-2">Kobe</h4>
-                        <h5>Bryant</h5>
+                        <h4 class="pt-2">Anderson S</h4>
+                        <h5>220116867</h5>
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@
                 <div class="card p-0">
                     <div class="card-image"> <img src="asset/image/ivan.png" alt=""> </div>
                     <div class="card-content d-flex flex-column align-items-center">
-                        <h4 class="pt-2">Kobe</h4>
-                        <h5>Bryant</h5>
+                        <h4 class="pt-2">Ivan L</h4>
+                        <h5>220116876</h5>
                     </div>
                 </div>
             </div>
