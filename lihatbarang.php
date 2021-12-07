@@ -96,7 +96,6 @@ if (isset($_REQUEST["btPindahRegis"])) {
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Exit</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
@@ -116,43 +115,84 @@ if (isset($_REQUEST["btPindahRegis"])) {
                                 <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
                             </ul>
                         </li>
+
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Diskon</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php
+                                foreach ($macamdiskon as $key => $value) {
+                            ?>
+                                    <li><a class="dropdown-item" href="?<?=http_build_query(array('diskon'=>$value['nama_diskon']))?>"><?=$value['nama_diskon']?></a></li>
+                            <?php
+                                }
+                            ?>            
+                            </ul>
+                        </li>
+                        
+                        <form action="" method="post">
+                            <?php 
+                            if($datausernow==null){
+                            ?>
+                            
+                            <?php
+                            }
+                            else{
+                            ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Barang</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="?jenis=Monitor">Wishlist</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Mouse">Cart</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">History</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Audio">Track</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Audio">Pay</a></li>
+                                </ul>
+                            </li>
+                            <?php
+                            }
+                            ?>
+                        </form>
                     </ul>
-                    <form action="" method="get">
-                        <div class="search_box">
-                            <!-- <div class="search_btn"> -->
-                            <button type="submit" class="search_btn" name="cari" style="border: none; ">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <!-- </div> -->
-                            <input type="text" class="input_search" placeholder="Search" name="q">
-                        </div>
-                    </form>
-                    <form action="" method="post">
-                        <?php 
-                            if ($datausernow == null) {
-                        ?>
-                                <div class="wew">
-                                    <div class="namae back"><input type="submit" value="Login" name="btPindahLogin"></div>
-                                    <div class="namae reg"><input type="submit" value="Register" name="btPindahRegis"></div>
-                                </div>
-                        <?php 
-                            }
-                            else {
-                        ?>
-                                <div class="wew">
-                                    <div class="namae" style="border: none; box-shadow: none; cursor: default;">
-                                        <?=$datausernow['nama']?>
-                                    </div>
-                                    <div class="namae back">
-                                        <input type="submit" value="Logout" name="btnLogout">
-                                    </div>
-                                </div>
-                        <?php 
-                            }
-                        ?>
-                    </form>
                 </div>
             </div>
+            <form action="" method="post">
+                <div class="search_box">
+                    <!-- <div class="search_btn"> -->
+                        <button type="submit" class="search_btn" name="cari" style="border: none; ">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    <!-- </div> -->
+                    <input type="text" class="input_search" placeholder="Search" name="q">
+                </div>
+            </form>
+            <form action="" method="post">
+                <?php 
+                    if ($datausernow == null) {
+                ?>
+                        <div class="wew">
+                            <div class="namae back">
+                                <input class="namae back" type="submit" value="Login" name="btPindahLogin">
+                            </div>
+                            <div class="namae reg">
+                                <input class="namae back" type="submit" value="Register" name="btPindahRegis">
+                            </div>
+                        </div>
+                <?php 
+                    }
+                    else {
+                ?>
+                        <div class="wew">
+                            <div class="namae" style="border: none; box-shadow: none; cursor: default;">
+                                <?=$datausernow['nama']?>
+                            </div>
+                            <div class="namae back">
+                                <input type="submit" value="Logout" name="btnLogout">
+                            </div>
+                        </div>
+                <?php 
+                    }
+                ?>
+            </form>
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
