@@ -202,7 +202,7 @@
                             else{
                             ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Barang</a>
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?=$datausernow['nama']?></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="?jenis=Monitor">Wishlist</a></li>
                                     <li><a class="dropdown-item" href="?jenis=Mouse">Cart</a></li>
@@ -246,7 +246,6 @@
                 ?>
                         <div class="wew">
                             <div class="namae" style="border: none; box-shadow: none; cursor: default;">
-                                <?=$datausernow['nama']?>
                             </div>
                             <div class="namae back">
                                 <input type="submit" value="Logout" name="btnLogout">
