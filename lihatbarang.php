@@ -182,9 +182,6 @@ if (isset($_REQUEST["btPindahRegis"])) {
                     else {
                 ?>
                         <div class="wew">
-                            <div class="namae" style="border: none; box-shadow: none; cursor: default;">
-                                <?=$datausernow['nama']?>
-                            </div>
                             <div class="namae back">
                                 <input type="submit" value="Logout" name="btnLogout">
                             </div>
