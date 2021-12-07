@@ -17,17 +17,17 @@ h3 {
 
 img {
   width: 550px;
-  margin-left: 42px;
-  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 /* ----- Product Section ----- */
 .product {
-  display: grid;
-  grid-template-columns: 0.9fr 1fr;
+  display: flex;
   margin: auto;
-  padding: 2.5em 0;
-  width: 550px;
+  padding: 2.5em 1em;
+  width: 70vw;
   background-color:  #012a62;
   box-shadow: 4px 4px 25px -2px #020daf;
   border: 2px solid #2fd5ff;
@@ -36,27 +36,32 @@ img {
 
 /* ----- Photo Section ----- */
 .product__photo {
-  position: relative;
+  width: 75vw;
+  height: 35vw;
+  margin-right: 2em;
 }
 
 .photo-container {
-  position: absolute;
-  left: -2.5em;
-  display: grid;
-  grid-template-rows: 1fr;
   width: 100%;
-  height: 300px;
+  height: 100%;
   border-radius: 6px;
-  box-shadow: 4px 4px 25px -2px #020daf;;
+  box-shadow: 4px 4px 25px -2px #020daf;
+
 }
 
 .photo-main {
-  border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 6px 6px;
   background-color: white;
   border: 2px solid #2fd5ff;
+  height: 50%;
+  width: 100%;
+}
+.controls{
+  height: 20%;
+  width: 100%;
+  text-align: center;
 }
 .photo-main .controls {
-  display: flex;
   justify-content: space-between;
   padding: 0.8em;
   color: black;
@@ -67,18 +72,16 @@ img {
 .photo-main .controls button{
       cursor: pointer;
       color: black;
+      width: 50px;
 }
 
 .photo-main img {
-  position: absolute;
-  left: -0.7em;
-  top: 1em;
   max-width: 200px;
 }
 
 .photo-album {
   padding: 0.7em 1em;
-  border-radius: 0 0 6px 6px;
+  border-radius: 6px 6px 6px 6px;
   background-color: #fff;
 }
 .photo-album ul {
@@ -96,14 +99,16 @@ img {
 
 /* ----- Informations Section ----- */
 .product__info {
-  padding: 0.8em 0;
+  padding: 0 0;
 }
 
 .title h1 {
-  margin-bottom: 0.1em;
   color: white;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
   font-size: 1.5em;
   font-weight: 900;
+  padding: 0px;
+  margin: 0px;
 }
 .title span {
   font-size: 0.7em;
@@ -148,4 +153,86 @@ img {
 }
 .buy--btn:active {
   transform: scale(0.97);
+}
+
+.review{
+  color: white;
+  text-align: center;
+}
+.review-head{
+  font-size: 20px;
+  width: 100%;
+  height: 1em;
+}
+.skor{
+  font-size: 25px;
+  width: 100%;
+  height: 1em;
+}
+.totalstar{
+  margin-top: 2.5vw;
+  display: flex;
+  justify-content: center;
+  height: 4vw;
+  
+}
+.totalstar img{
+  width: 4vw;
+  height: 4vw;
+}
+.komenkiri{
+  width: 15%;
+  margin: 0 1em;
+}
+.namauser{
+  color: white;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+  font-size: 19px;
+}
+.totalstar2{
+  margin-top: 1vw;
+  display: flex;
+  justify-content: center;
+  height: 2vw;
+  
+}
+.totalstar2 img{
+  
+  width: 2vw;
+  height: 2vw;
+}
+.komenkanan{
+  color: white;
+  font-size: 15px;
+  background-color: rgb(0, 9, 92);
+  padding: 1em;
+  width: 75%;
+  text-align: justify;
+}
+.containerkomen{
+  margin: auto;
+  padding: 2.5em 1em;
+  width: 70vw;
+  display: flex;
+}
+.headerkomen{
+  color: white;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+  font-size: 19px;
+  text-align: center;
+}
+.headerkomen h1{
+  margin: 0px;
+}
+.btnview{
+  border: 2px solid #2fd5ff;
+  border-radius: 5px;
+  width: 15%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  padding: 0.5em 1em;
+  text-align: center;
+  cursor: pointer;
 }

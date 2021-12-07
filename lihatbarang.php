@@ -168,12 +168,26 @@ if (isset($_REQUEST["btPindahRegis"])) {
                 <div class="photo-container">
                     <div class="photo-main">
                         <div class="controls">
-                        <button <?=($useractive!=null)?'':'hidden'?> type="button" name="cari" style="border: 0; background: transparent" id="tambahwish" onclick="wishlist('<?=$keyword?>','<?=$useractive?>')">
-                        Add To Wishlist
-                        </button> 
                             Stock:<?= $items['stok'] ?>
                         </div>
-                        <img src="<?= $items['urlgambar'] ?>" alt="<?= $items['nama_barang'] ?>">
+                            <img src="<?= $items['urlgambar'] ?>" alt="<?= $items['nama_barang'] ?>">
+                    </div>
+                    <div class="review">
+                        <div class="review-head">
+                            <h1>Ulasan</h1>
+                        </div>
+                        <div class="skor">
+                            <!-- ini diganti ya nanti -->
+                            <h2>5/5</h2>
+                        </div>
+                        <div class="totalstar">
+                            <!-- ini juga beda jumlah starnya -->
+                            <img src="asset/image/Star.png" alt="">
+                            <img src="asset/image/Star.png" alt="">
+                            <img src="asset/image/StarGray.png" alt="">
+                            <img src="asset/image/StarGray.png" alt="">
+                            <img src="asset/image/StarGray.png" alt="">
+                        </div>
                     </div>
 
                 </div>
@@ -202,7 +216,38 @@ if (isset($_REQUEST["btPindahRegis"])) {
                         ?>
                     </ul>
                 </div>
-                <button class="buy--btn">ADD TO CART</button>
+                <button class="buy--btn" style="background-color: green;">ADD TO CART</button>
+                <button <?=($useractive!=null)?'':'hidden'?> class="buy--btn" type="button" name="cari" id="tambahwish" onclick="wishlist('<?=$keyword?>','<?=$useractive?>')">
+                        Add To Wishlist
+                        </button> 
+            </div>
+        </section>
+        <section class="product" style="margin-top: 4vw; flex-direction:column;">
+            <div class="headerkomen">
+                <h1>Daftar Ulasan</h1>
+            </div>
+            <!-- per komentar tolong pakai ini -->
+            <div class="containerkomen">
+                <div class="komenkiri">
+                    <div class="namauser">
+                        <!-- Ini tolong diganti jadi nama usere -->
+                        Victor Shielder
+                    </div>
+                    <div class="totalstar2">
+                        <!-- ini juga beda jumlah starnya -->
+                        <img src="asset/image/Star.png" alt="">
+                        <img src="asset/image/Star.png" alt="">
+                        <img src="asset/image/StarGray.png" alt="">
+                        <img src="asset/image/StarGray.png" alt="">
+                        <img src="asset/image/StarGray.png" alt="">
+                    </div>
+                </div>
+                <div class="komenkanan">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates iste aut repellendus fuga quam voluptatum aperiam rem cum veritatis omnis, recusandae vero minima alias distinctio ut saepe nisi. Repellat, nemo.
+                </div>
+            </div>
+            <div class="btnview">
+                View More
             </div>
         </section>
 
