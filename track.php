@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="asset/css/stylesindex.css" rel="stylesheet" />
+    <link rel="stylesheet" href="asset/css/trek.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -208,6 +209,7 @@
                                     <li><a class="dropdown-item" href="?jenis=Mouse">Cart</a></li>
                                     <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">History</a></li>
                                     <li><a class="dropdown-item" href="?jenis=Audio">Track</a></li>
+                                    <li><a class="dropdown-item" href="?jenis=Audio">Pay</a></li>
                                 </ul>
                             </li>
                             <?php
@@ -266,106 +268,33 @@
 
         </header>
         <!-- Section-->
-        <h1 class="display-4 fw-bolder"> <center>!!All Items!!</center> </h1>
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                    <?php
-                    foreach ($tampungdata as $key => $value) {
-                    ?>
-
-                        <div class="col mb-5">
-                            <a class="urlproduct" href="lihatbarang.php?id=<?= $value['id_barang'] ?>" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
-                                <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
-                                    <!-- Product image-->
-                                    <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
-                                    <!-- Product details-->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h3><?= $value['nama_barang'] ?></h3>
-                                            <!-- Product price-->
-                                            <s><?= ($value['jumlah_diskon'] == null) ? '' : rupiah($value['harga']) ?></s><br>
-                                            <strong><?= ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon'])) ?></strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-
-                </div>
+        <h1 class="display-4 fw-bolder"> <center>Tracker</center> </h1>
+                <section>
+                <div class="card"> <span id="heading">
+        <h1>Track Your Order</h1>
+    </span>
+    <div class="container">
+        <div class="progress_b">
+            <div class="row">
+                <div class="col"> <span id="left">barang</span> </div>
+                <div class="col col-2"> <span id="right">90%</span> </div>
             </div>
-        </section>
+            <div class="progress">
+                <div class="progress-bar"> <img src="asset/image/circle.png"> </div>
+            </div>
+        </div>
+    </div>
+    <p id="sub-heading">Order Track</p> <span id="footer">Thank You</span>
+</div>
+                </section>
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
             </div>
         </footer>
-    <!-- </form> -->
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="asset/js/scripts.js"></script>
-
-    <script>
-        function detailingItem(id) {
-
-            var a = document.getElementsByClassName('urlproduct');
-            // console.log(url.length);
-            for (let i = 0; i < a.length; i++) {
-                const e = a[i];
-
-                // console.log(params);
-                // console.log(id);
-            }
-
-            let url = new URL(document.URL)
-            let params = new URLSearchParams(url.search.slice(1));
-            params.delete('id')
-            params.delete('jenis')
-            params.append('id', id)
-            location.href = 'lihatbarang.php?' + params
-            // return 'lihatbarang.php?' + params 
-            // document.href = 'index.php?'+params
-            // console.log('index.php?'+params);       
-        }
-    </script>
 
 </body>
 
 </html>
-
-
-<!-- <div class="col mb-5">
-    <div class="card h-100">
-         Product image
-        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-         Product details
-        <div class="card-body p-4">
-            <div class="text-center">
-                 Product name
-                <h5 class="fw-bolder">Popular Item</h5>
-                 Product reviews
-                <div class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                </div>
-                 Product price
-                $40.00
-            </div>
-        </div>
-         Product actions
-        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-        </div>
-    </div>
-</div> -->

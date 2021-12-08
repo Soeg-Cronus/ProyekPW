@@ -1,0 +1,115 @@
+.card {
+    border-radius: unset;
+    background-color:  #012a62;
+    margin: auto;
+    width: 700px;
+    padding-left: 50px;
+    padding-right: 50px;
+    align-items: center;
+    border: 2px solid #2fd5ff;
+  box-shadow: 0 0 40px #020daf;
+}
+
+@media(max-width:768px) {
+    .card {
+        padding: 2vh;
+        width: 90%
+    }
+}
+
+@media(width:1024px) {
+    .card {
+        padding: 5vh;
+        width: 90%
+    }
+}
+
+#heading {
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+    font-size: 3em;
+}
+
+.col{
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+}
+
+@media(max-width:767px) {
+    #heading h1 {
+        font-size: 1.5rem
+    }
+}
+
+@media(max-width:320px) {
+    #heading h1 {
+        font-size: 1.3rem
+    }
+}
+
+#sub-heading {
+    font-size: 3vh;
+    letter-spacing: 3px;
+    font-weight: 500;
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+}
+
+#left {
+    margin-right: auto;
+    font-weight: 600;
+    font-size: 2.5vh
+}
+
+.progress_b .col-2 {
+    text-align: right;
+    width: fit-content;
+    padding: 0;
+    margin: 0
+}
+
+#right {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+    font-weight: 600;
+    font-size: 2.5vh
+}
+
+.progress {
+    height: 12px;
+    border-radius: 2px;
+    overflow: visible;
+    margin: 4vh 0
+}
+
+.progress-bar {
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+    width: 90%;
+    overflow: visible
+}
+
+.progress_b {
+    margin: 14vh 0 9vh
+}
+
+@media(max-width:768px) {
+    .progress_b {
+        margin: 10vh 0 7vh
+    }
+}
+
+#footer {
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
+    font-size: 3vh;
+    margin-top: 8vh;
+    font-weight: 600
+}
+
+img {
+    height: 5vh;
+    margin-left: auto;
+    margin-bottom: 3.4vh
+}
