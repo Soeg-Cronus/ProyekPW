@@ -204,10 +204,10 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?=$datausernow['nama']?></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="?jenis=Monitor">Wishlist</a></li>
-                                    <li><a class="dropdown-item" href="?jenis=Mouse">Cart</a></li>
-                                    <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">History</a></li>
-                                    <li><a class="dropdown-item" href="?jenis=Audio">Track</a></li>
+                                    <li><a class="dropdown-item" href="wishlist.php">Wishlist</a></li>
+                                    <li><a class="dropdown-item" href="cart.php">Cart</a></li>
+                                    <li><a class="dropdown-item" href="history.php">History</a></li>
+                                    <li><a class="dropdown-item" href="track.php">Track</a></li>
                                 </ul>
                             </li>
                             <?php
