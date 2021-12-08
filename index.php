@@ -243,9 +243,7 @@
                     }
                     else {
                 ?>
-                        <div class="wew">
-                            <div class="namae" style="border: none; box-shadow: none; cursor: default;">
-                            </div>
+                        <div class="wew">                         
                             <div class="namae back">
                                 <input type="submit" value="Logout" name="btnLogout">
                             </div>
