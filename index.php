@@ -72,10 +72,10 @@
     //echo "<script>alert('$diskon')</script>";
 
     $macamjenis = $conn->query("select * from daftar_jenis")->fetch_all(MYSQLI_ASSOC);
-    $macamdiskon= $conn->query("select * from diskon group by nama_diskon")->fetch_all(MYSQLI_ASSOC);
+    $macamdiskon = $conn->query("select * from diskon group by nama_diskon")->fetch_all(MYSQLI_ASSOC);
 
     $ada = false;
-    $adadiskon=false;
+    $adadiskon = false;
 
     foreach ($macamdiskon as $key => $value) {
         if ($value['nama_diskon'] == $diskon) {
@@ -106,7 +106,7 @@
         $tampungdata = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
     }
 
-    if($adadiskon){
+    if ($adadiskon) {
         $state = $conn->prepare("select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where d.nama_diskon = ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where d.nama_diskon = ?");
         $state->bind_param("ss", $diskon, $diskon);
         if ($state->execute()) {
@@ -116,7 +116,7 @@
             // echo "</pre>";
         }
     }
-    
+
 
     // echo "<pre>";
     // var_dump($tampungdata);
@@ -131,9 +131,9 @@
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
     if (isset($_REQUEST["cari"])) {
-        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
+        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
     }
-    
+
     if (isset($_REQUEST['q'])) {
         // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
         $sql = "select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb left JOIN diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ? UNION select mb.*, d.nama_diskon, d.jumlah_diskon from master_barang mb right join diskon d on d.id_barang = mb.id_barang where mb.nama_barang like ?";
@@ -152,57 +152,52 @@
     ?>
 
     <!-- <form action="" method="get"> -->
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a href="./" class="navbar-brand">Ahihi Store</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="?jenis=Monitor">Monitor</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Mouse">Mouse</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">MousePad</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Audio">Audio</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Keyboard">Keyboard</a></li>
-                                <li><a class="dropdown-item" href="?jenis=PC">PC</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Motherboard">Motherboard</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Storage">Storage</a></li>
-                                <li><a class="dropdown-item" href="?jenis=RAM">Ram</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Processor">Processor</a></li>
-                                <li><a class="dropdown-item" href="?jenis=VGA">VGA</a></li>
-                                <li><a class="dropdown-item" href="?jenis=PSU">PSU</a></li>
-                                <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
-                            </ul>
-                        </li>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a href="./" class="navbar-brand">Ahihi Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="?jenis=Monitor">Monitor</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Mouse">Mouse</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">MousePad</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Audio">Audio</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Keyboard">Keyboard</a></li>
+                            <li><a class="dropdown-item" href="?jenis=PC">PC</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Motherboard">Motherboard</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Storage">Storage</a></li>
+                            <li><a class="dropdown-item" href="?jenis=RAM">Ram</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Processor">Processor</a></li>
+                            <li><a class="dropdown-item" href="?jenis=VGA">VGA</a></li>
+                            <li><a class="dropdown-item" href="?jenis=PSU">PSU</a></li>
+                            <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
+                        </ul>
+                    </li>
 
-                        <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Diskon</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php
-                                foreach ($macamdiskon as $key => $value) {
+                            foreach ($macamdiskon as $key => $value) {
                             ?>
-                                    <li><a class="dropdown-item" href="?<?=http_build_query(array('diskon'=>$value['nama_diskon']))?>"><?=$value['nama_diskon']?></a></li>
-                            <?php
-                                }
-                            ?>            
-                            </ul>
-                        </li>
-                        
-                        <form action="" method="post">
-                            <?php 
-                            if($datausernow==null){
-                            ?>
-                            
+                                <li><a class="dropdown-item" href="?<?= http_build_query(array('diskon' => $value['nama_diskon'])) ?>"><?= $value['nama_diskon'] ?></a></li>
                             <?php
                             }
-                            else{
                             ?>
+                        </ul>
+                    </li>
+
+                    <?php
+                    if ($datausernow != null) {
+                    ?>
+                        <form action="" method="post">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?=$datausernow['nama']?></a>
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?= $datausernow['nama'] ?></a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="wishlist.php">Wishlist</a></li>
                                     <li><a class="dropdown-item" href="cart.php">Cart</a></li>
@@ -210,101 +205,102 @@
                                     <li><a class="dropdown-item" href="track.php">Track</a></li>
                                 </ul>
                             </li>
-                            <?php
-                            }
-                            ?>
                         </form>
-                    </ul>
-                </div>
-            </div>
-            <form action="" method="post">
-                <div class="search_box">
-                    <!-- <div class="search_btn"> -->
-                        <button type="submit" class="search_btn" name="cari" style="border: none; ">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    <!-- </div> -->
-                    <input type="text" class="input_search" placeholder="Search" name="q">
-                </div>
-            </form>
-            <form action="" method="post">
-                <?php 
-                    if ($datausernow == null) {
-                ?>
-                        <div class="wew">
-                            <div class="namae back">
-                                <input class="namae back" type="submit" value="Login" name="btPindahLogin">
-                            </div>
-                            <div class="namae reg">
-                                <input class="namae back" type="submit" value="Register" name="btPindahRegis">
-                            </div>
-                        </div>
-                <?php 
-                    }
-                    else {
-                ?>
-                        <div class="wew">                         
-                            <div class="namae back">
-                                <input type="submit" value="Logout" name="btnLogout">
-                            </div>
-                        </div>
-                <?php 
-                    }
-                ?>
-            </form>
-        </nav>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Ahihi Store</h1>
-                </div>
-            </div>
-
-
-        </header>
-        <!-- Section-->
-        <h1 class="display-4 fw-bolder"> <center>!!All Items!!</center> </h1>
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
                     <?php
-                    foreach ($tampungdata as $key => $value) {
+                    }
                     ?>
+                </ul>
+            </div>
+        </div>
+        <form action="" method="post">
+            <div class="search_box">
+                <!-- <div class="search_btn"> -->
+                <button type="submit" class="search_btn" name="cari" style="border: none; ">
+                    <i class="fas fa-search"></i>
+                </button>
+                <!-- </div> -->
+                <input type="text" class="input_search" placeholder="Search" name="q">
+            </div>
+        </form>
+        <form action="" method="post">
+            <?php
+            if ($datausernow == null) {
+            ?>
+                <div class="wew">
+                    <div class="namae back">
+                        <input class="namae back" type="submit" value="Login" name="btPindahLogin">
+                    </div>
+                    <div class="namae reg">
+                        <input class="namae back" type="submit" value="Register" name="btPindahRegis">
+                    </div>
+                </div>
+            <?php
+            } else {
+            ?>
+                <div class="wew">
+                    <div class="namae back">
+                        <input type="submit" value="Logout" name="btnLogout">
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+        </form>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Ahihi Store</h1>
+            </div>
+        </div>
 
-                        <div class="col mb-5">
-                            <a class="urlproduct" href="lihatbarang.php?id=<?= $value['id_barang'] ?>" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
-                                <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
-                                    <!-- Product image-->
-                                    <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
-                                    <!-- Product details-->
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h3><?= $value['nama_barang'] ?></h3>
-                                            <!-- Product price-->
-                                            <s><?= ($value['jumlah_diskon'] == null) ? '' : rupiah($value['harga']) ?></s><br>
-                                            <strong><?= ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon'])) ?></strong>
-                                        </div>
+
+    </header>
+    <!-- Section-->
+    <h1 class="display-4 fw-bolder">
+        <center>!!All Items!!</center>
+    </h1>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                <?php
+                foreach ($tampungdata as $key => $value) {
+                ?>
+
+                    <div class="col mb-5">
+                        <a class="urlproduct" href="lihatbarang.php?id=<?= $value['id_barang'] ?>" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
+                            <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
+                                <!-- Product image-->
+                                <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h3><?= $value['nama_barang'] ?></h3>
+                                        <!-- Product price-->
+                                        <s><?= ($value['jumlah_diskon'] == null) ? '' : rupiah($value['harga']) ?></s><br>
+                                        <strong><?= ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon'])) ?></strong>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
+                    </div>
 
-                    <?php
-                    }
-                    ?>
+                <?php
+                }
+                ?>
 
-                </div>
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
-            </div>
-        </footer>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+        </div>
+    </footer>
     <!-- </form> -->
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

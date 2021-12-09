@@ -200,7 +200,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
                     <div class="controls">
                         Stock:<?= $items['stok'] ?>
                     </div>
-                    <img src="<?= $items['urlgambar'] ?>" alt="<?= $items['nama_barang'] ?>">
+                    <img src="<?= $items['urlgambar'] ?>" alt="<?= str_replace('"', "&quot;", $items['nama_barang']); ?>">
                 </div>
                 <div class="review">
                     <div class="review-head">
@@ -246,7 +246,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
                     }
                     ?>
                 </ul>
-                Quantity : <input type="number" id="jumlah" name="jmlh" min="1" max="99">
+                &nbsp;Quantity : <input type="number" id="jumlah" value="1" name="jmlh" min="1" max="100">
             </div>
             
             <button type="button" onclick="cart('<?=$useractive?>','<?=$keyword?>')" class="buy--btn" style="background-color: green;">ADD TO CART</button>

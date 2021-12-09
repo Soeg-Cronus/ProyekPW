@@ -22,6 +22,7 @@ function setCookie(cname, cvalue, exdays) {
   }
 
 function cart(session, id) {
+    let jumlah = document.getElementById('jumlah').value
     if (session == "") {
         setCookie('cart', true, 1)
         setCookie('idnow', id, 1)
@@ -33,6 +34,7 @@ function cart(session, id) {
             url: "backend/ajaxcontroller.php",
             data: {
                 'id': id,
+                'jumlah':jumlah,
                 'mode': 'cart',
                 'user': session
             },

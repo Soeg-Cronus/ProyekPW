@@ -58,6 +58,7 @@
     else if ($mode == 'cart') {
         $idbarang = $_REQUEST['id'];
         $username = $_REQUEST['user'];
+        $jumlah = $_REQUEST['jumlah'];
 
         $cart = $conn->query("select * from cart")->fetch_all(MYSQLI_ASSOC);
         $jumlahcart = count($cart)+1;
@@ -76,8 +77,13 @@
         }
 
         $cartuser = $conn->query("select * from cart where username='$username'")->fetch_assoc();
+        
+        // pengecekan username punya cart atau belum
         if($cartuser == null) {
-            $cartbaru = [$idbarang];
+            $cartbaru[] = [
+                'id-barang'=>$idbarang,
+                'jumlah'=> (int) $jumlah
+            ];
             $cartencode = json_encode($cartbaru);
             $insert = $conn->prepare("insert into cart values(?,?,?)");
             $insert->bind_param("sss", $idcart, $cartencode, $username);
@@ -86,13 +92,17 @@
         else {
             $pernahada = false;
             $cartbaru = json_decode($cartuser['id_barang']);
+            $indexbarang = -1;
+            // setiap barang yang dimiliki user x
             foreach ($cartbaru as $key => $value) {
-                if ($value == $idbarang) {
+                $arrayvalue = (array) $value;
+                if ($arrayvalue['id-barang'] == $idbarang) {
                     $pernahada = true;
+                    $indexbarang = $key;
                 }
             }
             if (!$pernahada) {
-                array_push($cartbaru, $idbarang);
+                array_push($cartbaru, (object) array('id-barang'=>$idbarang, 'jumlah'=> (int) $jumlah));
                 $cartencode = json_encode($cartbaru);
                 $insert = $conn->prepare("update cart set id_barang=? where username=?");
                 $insert->bind_param("ss", $cartencode, $username);
@@ -100,7 +110,14 @@
                 echo "Berhasil tambah barang di cart!";
             }
             else {
-                echo "Barang sudah ada di cart!";
+                $temp = (array) $cartbaru[$indexbarang];
+                $temp['jumlah'] += (int) $jumlah;
+                (array) $cartbaru[$indexbarang] = $temp;
+                $encoded = json_encode($cartbaru);
+                $insert = $conn->prepare("update cart set id_barang=? where username=?");
+                $insert->bind_param("ss", $encoded, $username);
+                $insert->execute();
+                echo "Berhasil tambah jumlah barang di cart!";
             }
         }
     }

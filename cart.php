@@ -277,26 +277,15 @@
                     <div class="col align-self-center text-right text-muted">3 items</div>
                 </div>
             </div>
-            <div class="row border-top border-bottom">
+            <div class="row border-top">
                 <div class="row main align-items-center">
                     <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg"></div>
                     <div class="col">
                         <div class="row text-muted">Shirt</div>
                         <div class="row">Cotton T-shirt</div>
                     </div>
-                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="99"> </div>
-                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row main align-items-center">
-                    <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/ba3tvGm.jpg"></div>
-                    <div class="col">
-                        <div class="row text-muted">Shirt</div>
-                        <div class="row">Cotton T-shirt</div>
-                    </div>
-                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="99"> </div>
-                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
+                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="100"> </div>
+                    <div class="col">&euro; 44.00 <span class="close">&#10005;</span> 2</div>
                 </div>
             </div>
             <div class="row border-top border-bottom">
@@ -306,11 +295,11 @@
                         <div class="row text-muted">Shirt</div>
                         <div class="row">Cotton T-shirt</div>
                     </div>
-                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="99"> </div>
+                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="100"> </div>
                     <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
                 </div>
             </div>
-            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            <div class="back-to-shop"><a href="./" style="padding: 4px; text-shadow: none; color: black;">&leftarrow;<span style="text-shadow: none;" class="text-muted">Back to shop</span></a></div>
         </div>
         <div class="col-md-4 summary">
             <div>
@@ -325,7 +314,7 @@
                 <p>SHIPPING</p> <select>
                     <option class="text-muted">Standard-Delivery- &euro;5.00</option>
                 </select>
-                <p>GIVE CODE</p> <input id="code" placeholder="Enter your code">
+                <p>GIFT CARD CODE</p> <input id="code" placeholder="Enter your code">
             </form>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">TOTAL PRICE</div>
