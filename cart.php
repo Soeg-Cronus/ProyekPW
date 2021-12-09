@@ -266,8 +266,6 @@
         </header>
         <!-- Section-->
         <h1 class="display-4 fw-bolder"> <center>Cart</center> </h1>
-
-        <section class="py-5">
         <div class="card">
     <div class="row">
         <div class="col-md-8 cart">
@@ -286,7 +284,7 @@
                         <div class="row text-muted">Shirt</div>
                         <div class="row">Cotton T-shirt</div>
                     </div>
-                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
+                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="99"> </div>
                     <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
                 </div>
             </div>
@@ -297,7 +295,7 @@
                         <div class="row text-muted">Shirt</div>
                         <div class="row">Cotton T-shirt</div>
                     </div>
-                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
+                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="99"> </div>
                     <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
                 </div>
             </div>
@@ -308,7 +306,7 @@
                         <div class="row text-muted">Shirt</div>
                         <div class="row">Cotton T-shirt</div>
                     </div>
-                    <div class="col"> <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a> </div>
+                    <div class="col"> <input type="number" id="jumlah" name="jmlh" min="1" max="99"> </div>
                     <div class="col">&euro; 44.00 <span class="close">&#10005;</span></div>
                 </div>
             </div>
@@ -336,7 +334,6 @@
         </div>
     </div>
 </div>
-        </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container">

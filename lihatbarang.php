@@ -246,7 +246,9 @@ if (isset($_REQUEST["btPindahRegis"])) {
                     }
                     ?>
                 </ul>
+                Quantity : <input type="number" id="jumlah" name="jmlh" min="1" max="99">
             </div>
+            
             <button type="button" onclick="cart('<?=$useractive?>','<?=$keyword?>')" class="buy--btn" style="background-color: green;">ADD TO CART</button>
             <button <?= ($useractive != null) ? '' : 'hidden' ?> class="buy--btn" type="button" name="cari" id="tambahwish" onclick="wishlist('<?= $keyword ?>','<?= $useractive ?>')">
                 Add To Wishlist
