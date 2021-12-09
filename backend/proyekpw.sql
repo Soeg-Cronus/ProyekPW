@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2021 at 06:10 AM
+-- Generation Time: Dec 09, 2021 at 04:28 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -48,6 +48,26 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`username`, `password`, `nama`, `email`, `hp`, `tgl_lahir`, `jenis_kelamin`, `url`) VALUES
 ('anderson', '89ba023086e37a345839e0c6a0d272eb', 'Anderson', NULL, NULL, NULL, NULL, '../asset/image/profile/default.png'),
 ('owner', '72122ce96bfec66e2396d2e25225d70a', 'Owner', 'owner@ahihistore.masuk.id', '081234567890', '2000-11-23', 'Female', '../asset/image/profile/default.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE `cart` (
+  `id_cart` varchar(10) NOT NULL,
+  `id_barang` text NOT NULL,
+  `username` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id_cart`, `id_barang`, `username`) VALUES
+('C0001', '[\"AUD0019206\",\"AUD0046865\"]', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
@@ -753,7 +773,7 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id_wishlist`, `id_barang`, `username`) VALUES
-('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\"]', 'anderson@ahihistore.masuk.id');
+('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\",\"AUD0019206\",null]', 'anderson@ahihistore.masuk.id');
 
 --
 -- Indexes for dumped tables
@@ -764,6 +784,12 @@ INSERT INTO `wishlist` (`id_wishlist`, `id_barang`, `username`) VALUES
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id_cart`);
 
 --
 -- Indexes for table `daftar_jenis`
