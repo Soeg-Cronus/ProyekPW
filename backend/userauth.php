@@ -3,9 +3,9 @@ require_once("conn.php");
 require_once("credential.php");
 $uname = base64_decode(urldecode($_REQUEST[md5('uname')]));
 
-echo "<pre>";
-var_dump($uname);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($uname);
+// echo "</pre>";
 
 $user = $conn->query("select * from user where username= '$uname'")->fetch_assoc();
 
@@ -94,8 +94,17 @@ $mail->Subject = 'Verification on Ahihi Store';
 //TODO  
 $token = $user['token'];
 // link bisa disesuaikan masing" directory
-$linkonly = "http://localhost/proyekpw/ProyekPW/backend/verification.php?token=$token";
-$linkjelek = "<a href='$linkonly'>Click Here!</a>";
+$protocol = $_SERVER['REQUEST_SCHEME'];
+$servername = $_SERVER['SERVER_NAME'];
+$path = $_SERVER['REQUEST_URI'];
+$remove = basename($path);
+$path = str_replace($remove, '', $path);
+
+
+$rakit_url = $protocol . "://" . $servername . $path;
+$linkonly = $rakit_url . "verification.php?token=$token";
+// $linkonly = "http://localhost/proyekpw/ProyekPW/backend/verification.php?token=$token";
+$linkjelek = $linkonly;
 $link = "<!DOCTYPE html>
 <html lang='en'>
 

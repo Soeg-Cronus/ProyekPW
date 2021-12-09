@@ -55,4 +55,53 @@
         // $insert->bind_param("sss",$idwishlist)
         
     }
+    else if ($mode == 'cart') {
+        $idbarang = $_REQUEST['id'];
+        $username = $_REQUEST['user'];
+
+        $cart = $conn->query("select * from cart")->fetch_all(MYSQLI_ASSOC);
+        $jumlahcart = count($cart)+1;
+        $idcart = '';
+        if($jumlahcart < 10) {
+            $idcart = 'C000' . $jumlahcart;
+        }
+        else if ($jumlahcart < 100) {
+            $idcart = 'C00' . $jumlahcart;
+        }
+        else if ($jumlahcart < 1000) {
+            $idcart = 'C0' . $jumlahcart;
+        }
+        else if ($jumlahcart < 10000) {
+            $idcart = 'C' . $jumlahcart;
+        }
+
+        $cartuser = $conn->query("select * from cart where username='$username'")->fetch_assoc();
+        if($cartuser == null) {
+            $cartbaru = [$idbarang];
+            $cartencode = json_encode($cartbaru);
+            $insert = $conn->prepare("insert into cart values(?,?,?)");
+            $insert->bind_param("sss", $idcart, $cartencode, $username);
+            $insert->execute();
+        }
+        else {
+            $pernahada = false;
+            $cartbaru = json_decode($cartuser['id_barang']);
+            foreach ($cartbaru as $key => $value) {
+                if ($value == $idbarang) {
+                    $pernahada = true;
+                }
+            }
+            if (!$pernahada) {
+                array_push($cartbaru, $idbarang);
+                $cartencode = json_encode($cartbaru);
+                $insert = $conn->prepare("update cart set id_barang=? where username=?");
+                $insert->bind_param("ss", $cartencode, $username);
+                $insert->execute();
+                echo "Berhasil tambah barang di cart!";
+            }
+            else {
+                echo "Barang sudah ada di cart!";
+            }
+        }
+    }
 ?>

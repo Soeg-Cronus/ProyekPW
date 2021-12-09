@@ -13,6 +13,9 @@ session_start();
 <body>
 
 	<?php
+	echo "<pre>";
+	var_dump($_COOKIE);
+	echo "</pre>";
 	if (isset($_REQUEST["btLogin"])) {
 		require_once("backend/conn.php");
 
@@ -27,7 +30,17 @@ session_start();
 			$usernow = $result->get_result()->fetch_assoc();
 			if ($usernow != null) {
 				$_SESSION['loggedin'] = $usernow['username'];
-				header("Location: index.php");
+				if ($_COOKIE['cart'] == true) {
+					$idbarang = $_COOKIE['idnow'];
+					unset($_COOKIE['idnow']);
+					unset($_COOKIE['cart']);
+					setcookie('idnow', null, -1, '/'); 
+					setcookie('cart', null, -1, '/'); 
+					header("Location: lihatbarang.php?id=$idbarang");
+				}
+				else {
+					header("Location: index.php");
+				}
 			}
 			else {
 				echo '<script>alert("Username dan Password salah!")</script>';
