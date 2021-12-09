@@ -321,7 +321,7 @@
                 <div class="col" style="padding-left:0;">ITEMS 3</div>
                 <div class="col text-right">&euro; 132.00</div>
             </div>
-            <form>
+             <form> <!-- yg bikin slh -->
                 <p>SHIPPING</p> <select>
                     <option class="text-muted">Standard-Delivery- &euro;5.00</option>
                 </select>

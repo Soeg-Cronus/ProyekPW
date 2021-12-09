@@ -3,7 +3,7 @@
     max-width: 950px;
     width: 90%;
     border: 2px solid #2fd5ff;
-  box-shadow: 0 0 40px #020daf;
+    box-shadow: 0 0 40px #020daf;
     border-radius: 1rem;
     border: transparent
 }
@@ -22,10 +22,6 @@
     padding: 4vh;
     color: white;
     text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf;
-}
-
-.row {
-    margin: 0
 }
 
 .title b {
@@ -53,9 +49,9 @@ hr {
     margin-top: 1.25rem
 }
 
-form {
+/* form {
     padding: 2vh 0
-}
+} */
 
 select {
     border: 2px solid #2fd5ff;
