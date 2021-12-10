@@ -45,8 +45,37 @@ function cart(session, id) {
     }
 }
 
-const changeJumlah = () => {
-    
+const changeJumlah = (id, session, e) => {
+    let jumlah = e.target.value;
+    $.ajax({
+        type: "post",
+        url: "backend/ajaxcontroller.php",
+        data: {
+            'id': id,
+            'mode': 'update jumlah',
+            'user': session,
+            'new_jumlah': jumlah
+        },
+        success: function (response) {
+            $.ajax({
+                type: "post",
+                url: "backend/ajaxcontroller.php",
+                data: {
+                    'mode': 'select cart',
+                    'id': id,
+                    'user': session
+                },
+                success: function (response) {
+                    let hasil = JSON.parse(response)
+                    $("#isi").html('');
+                    $("#isi").append(hasil['view']);
+                    $("#jmlbarang0").html(hasil['jumlah_item']+' items');
+                    $("#jmlbarang1").html('ITEMS ' + hasil['jumlah_item']);
+                    $("#totalharga").html(hasil['total']);
+                }
+            });
+        }
+    });
 }
 
 const removeBarang = (id, session) => {

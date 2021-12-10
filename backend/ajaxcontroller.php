@@ -184,37 +184,6 @@
 
         $total = 0;
         foreach ($finalcart as $key => $value) {
-            // if ($key == count($finalcart) - 1) {
-            //     $arrayview['view'] .= "<div class=\"row border-top border-bottom\">\n";
-            // }
-            // else {
-            //     $arrayview['view'] .= "<div class=\"row border-top\">\n";
-            // }
-            // $arrayview['view'] .=    "<div class=\"row main align-items-center\">";
-            // $arrayview['view'] .=        "<div class=\"col-2\">";
-            // $arrayview['view'] .=            "<img class=\"img-fluid\" src=\"" . $value['urlgambar'] . "\" alt=\"" . str_replace('"', '&quot;', $value['nama_barang']) ."\">";
-            // $arrayview['view'] .=        "</div>";
-            // $arrayview['view'] .=        "<div class=\"col\">";
-            // $arrayview['view'] .=            "<div class=\"row text-muted\">";
-            // $arrayview['view'] .=                $value['jenis_barang'];
-            // $arrayview['view'] .=            "</div>";
-            // $arrayview['view'] .=            "<div class=\"row\">";
-            // $arrayview['view'] .=                $value['nama_barang'];
-            // $arrayview['view'] .=            "</div>";
-            // $arrayview['view'] .=        "</div>";
-            // $arrayview['view'] .=        "<div class=\"col\">";
-            // $arrayview['view'] .=            "<input type=\"number\" onchange=\"changeJumlah()\" value=\"" . $value['jumlah'] . "\" id=\"jumlah\" name=\"jmlh\" min=\"1\" max=\"100\">\n";
-            // $arrayview['view'] .=            "<button type=\"submit\" onclick=\"removeBarang('" . $value['id_barang'] . "', '" . $username . "')\" style=\"border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);\">";
-            // $arrayview['view'] .=                "&#10005;";
-            // $arrayview['view'] .=            "</button>";
-            // $arrayview['view'] .=        "</div>";
-            // $arrayview['view'] .=        "<div class=\"col\">";
-            // $arrayview['view'] .=            ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon']));
-            // $arrayview['view'] .=            "<span class=\"close\"> &#10005; </span>";
-            // $arrayview['view'] .=            $value['jumlah'];
-            // $arrayview['view'] .=        "</div>";
-            // $arrayview['view'] .=    "</div>";
-            // $arrayview['view'] .= "</div>";
             if ($key == count($finalcart) - 1) {
                 $arrayview['view'] .= "<div class='row border-top border-bottom'>\n";
             }
@@ -234,14 +203,14 @@
             $arrayview['view'] .=            "</div>";
             $arrayview['view'] .=        "</div>";
             $arrayview['view'] .=        "<div class='col'>";
-            $arrayview['view'] .=            "<input type='number' onchange='changeJumlah()' value='" . $value['jumlah'] . "' id='jumlah' name='jmlh' min='1' max='100'>\n";
+            $arrayview['view'] .=            "<input type='number' onchange='changeJumlah(\"" . $value['id_barang']. "\", \"" . $username . "\", event)' value='" . $value['jumlah'] . "' id='jumlah' name='jmlh' min='1' max='100'>\n";
             $arrayview['view'] .=            "<button type='submit' onclick='removeBarang(\"" . $value['id_barang']. "\", \"" . $username . "\")' style='border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);'>";
             $arrayview['view'] .=                "&#10005;";
             $arrayview['view'] .=            "</button>";
             $arrayview['view'] .=        "</div>";
             $arrayview['view'] .=        "<div class='col'>";
             $arrayview['view'] .=            ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon']));
-            $arrayview['view'] .=            "<span class='close'> &#10005; </span>";
+            $arrayview['view'] .=            "\n<span class='close'> &#10005; </span>\n";
             $arrayview['view'] .=            $value['jumlah'];
             $arrayview['view'] .=        "</div>";
             $arrayview['view'] .=    "</div>";
@@ -255,6 +224,45 @@
 
         echo json_encode($arrayview);
                     
+    }
+    else if ($mode == 'update jumlah') {
+        $id = $_REQUEST['id'];
+        $user = $_REQUEST['user'];
+        $jml = $_REQUEST['new_jumlah'];
+
+        $usercart = $conn->query("SELECT * FROM cart WHERE username='$user'")->fetch_assoc();
+
+        $cart = arrOfObjToArrOfArr($usercart['id_barang']);
+
+        $removeIndex = -1;
+        foreach ($cart as $key => $value) {
+            if ($value['id-barang'] == $id) {
+                $removeIndex = $key;
+            }
+        }
+        
+        $cart[$removeIndex]['jumlah'] = (int) $jml;
+
+        $cart = arrOfArrToArrOfObj($cart);
+        
+        $newcart = json_encode($cart);
+        
+        $conn->query("UPDATE cart SET id_barang='$newcart' WHERE username='$user'");
+
+        $finalcart;
+
+        $requeried = $conn->query("SELECT * FROM cart WHERE username='$user'")->fetch_assoc();
+        $newcart = json_decode($requeried['id_barang']);
+        
+        foreach ($newcart as $key => $value) {
+            $value = (array) $value;
+            $id = $value['id-barang'];
+            $datacart = $conn->query("SELECT mb.*, dj.jenis_barang, d.jumlah_diskon FROM master_barang mb LEFT JOIN daftar_jenis dj ON dj.id_jenis = mb.id_jenis_barang LEFT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$id' UNION SELECT mb.*, dj.jenis_barang, d.jumlah_diskon FROM master_barang mb RIGHT JOIN daftar_jenis dj ON dj.id_jenis = mb.id_jenis_barang RIGHT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$id'")->fetch_assoc();
+            $preview = $datacart + $value;
+            $finalcart[] = $preview;
+        }
+        
+        echo json_encode($finalcart);
     }
 
     function arrOfObjToArrOfArr($cart) {

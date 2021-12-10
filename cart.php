@@ -313,7 +313,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <input type="number" onchange="changeJumlah()" value="<?= $value['jumlah'] ?>" id="jumlah" name="jmlh" min="1" max="100">
+                                    <input type="number" onchange="changeJumlah('<?= $value['id_barang'] ?>', '<?= $useractive ?>', event)" value="<?= $value['jumlah'] ?>" id="" name="jmlh" min="1" max="100">
                                     <button type="submit" onclick="removeBarang('<?= $value['id_barang'] ?>', '<?= $useractive ?>')" style="border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);">
                                         &#10005;
                                     </button>
