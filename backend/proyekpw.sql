@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2021 at 04:28 AM
+-- Generation Time: Dec 10, 2021 at 07:56 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -67,7 +67,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_barang`, `username`) VALUES
-('C0001', '[\"AUD0019206\",\"AUD0046865\"]', 'anderson@ahihistore.masuk.id');
+('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"PRC0029799\",\"jumlah\":1}]', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
