@@ -110,3 +110,23 @@ const removeBarang = (id, session) => {
         }
     });
 }
+
+const selectShip = () => {
+    $.ajax({
+        type: "get",
+        url: "backend/ajaxcontroller.php",
+        data: {
+            'mode': 'select shipment'
+        },
+        success: function (response) {
+            let data = JSON.parse(response)
+            // console.log(data);
+            $("#shipping").html('');
+            data.forEach(e => {
+                $("#shipping").append(`<option value='${e['id_pengiriman']}' class='text-muted'>${e['nama_pengiriman']} - ${e['harga']}</option>`);
+            });
+        }
+    });
+}
+
+selectShip()

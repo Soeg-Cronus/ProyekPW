@@ -294,7 +294,7 @@
                         <div id="jmlbarang0" class="col align-self-center text-right text-muted"><?= $jumlahbarang ?> items</div>
                     </div>
                 </div>
-                <div id="isi" style="overflow-y: scroll; max-height: 55vh;">
+                <div id="isi">
                     <?php
                     $total = 0;
                     foreach ($finalcart as $key => $value) {
@@ -359,8 +359,11 @@
                 </div>
                 <form>
                     <!-- yg bikin slh -->
-                    <p>SHIPPING</p> <select>
-                        <option class="text-muted">Standard-Delivery- &euro;5.00</option>
+                    <p>SHIPPING</p>
+                    <select id="shipping">
+                        <option value="S1" class="text-muted">Pengiriman Standar - &euro;5.00</option>
+                        <option value="S1" class="text-muted">Pengiriman Standar - &euro;5.00</option>
+                        <option value="S2" class="text-muted">Pengiriman Kilat - &euro;5.00</option>
                     </select>
                     <p>PROMO CODE</p> <input id="code" placeholder="Enter your code">
                 </form>
@@ -384,7 +387,6 @@
     <!-- Core theme JS-->
     <script src="asset/js/scripts.js"></script>
     <script src="backend/ajax.js"></script>
-
 
 </body>
 

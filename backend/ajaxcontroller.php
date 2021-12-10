@@ -264,6 +264,13 @@
         
         echo json_encode($finalcart);
     }
+    else if ($mode == 'select shipment') {
+        $pengiriman = $conn->query("select * from pengiriman")->fetch_all(MYSQLI_ASSOC);
+        foreach ($pengiriman as $key => $value) {
+            $pengiriman[$key]['harga'] = rupiah($value['harga']);
+        }
+        echo json_encode($pengiriman);
+    }
 
     function arrOfObjToArrOfArr($cart) {
         $temp = [];
