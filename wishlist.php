@@ -154,102 +154,36 @@
     ?>
 
     <!-- <form action="" method="get"> -->
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-            <a href="./" class="navbar-brand">Ahihi Store</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="?jenis=Monitor">Monitor</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Mouse">Mouse</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Mouse%20Pad">MousePad</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Audio">Audio</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Keyboard">Keyboard</a></li>
-                            <li><a class="dropdown-item" href="?jenis=PC">PC</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Motherboard">Motherboard</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Storage">Storage</a></li>
-                            <li><a class="dropdown-item" href="?jenis=RAM">Ram</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Processor">Processor</a></li>
-                            <li><a class="dropdown-item" href="?jenis=VGA">VGA</a></li>
-                            <li><a class="dropdown-item" href="?jenis=PSU">PSU</a></li>
-                            <li><a class="dropdown-item" href="?jenis=Cooler">Cooler</a></li>
-                        </ul>
-                    </li>
+    <!-- table--> 
+    <table class="cart-table account-table table table-bordered">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Barang</th>
+					</tr>
+				</thead>
+				<tbody>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Diskon</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <?php
-                            foreach ($macamdiskon as $key => $value) {
-                            ?>
-                                <li><a class="dropdown-item" href="?<?= http_build_query(array('diskon' => $value['nama_diskon'])) ?>"><?= $value['nama_diskon'] ?></a></li>
-                            <?php
-                            }
-                            ?>
-                        </ul>
-                    </li>
-
-                    <?php
-                    if ($datausernow != null) {
-                    ?>
-                        <form action="" method="post">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <?= $datausernow['nama'] ?></a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="wishlist.php">Wishlist</a></li>
-                                    <li><a class="dropdown-item" href="cart.php">Cart</a></li>
-                                    <li><a class="dropdown-item" href="history.php">History</a></li>
-                                    <li><a class="dropdown-item" href="track.php">Track</a></li>
-                                </ul>
-                            </li>
-                        </form>
-                    <?php
-                    }
-                    ?>
-
-                </ul>
-            </div>
-        </div>
-        <form action="" method="post">
-            <div class="search_box">
-                <!-- <div class="search_btn"> -->
-                <button type="submit" class="search_btn" name="cari" style="border: none; ">
-                    <i class="fas fa-search"></i>
-                </button>
-                <!-- </div> -->
-                <input type="text" class="input_search" placeholder="Search" name="q">
-            </div>
-        </form>
-        <form action="" method="post">
-            <?php
-            if ($datausernow == null) {
-            ?>
-                <div class="wew">
-                    <div class="namae back">
-                        <input class="namae back" type="submit" value="Login" name="btPindahLogin">
-                    </div>
-                    <div class="namae reg">
-                        <input class="namae back" type="submit" value="Register" name="btPindahRegis">
-                    </div>
-                </div>
-            <?php
-            } else {
-            ?>
-                <div class="wew">
-                    <div class="namae back">
-                        <input type="submit" value="Logout" name="btnLogout">
-                    </div>
-                </div>
-            <?php
-            }
-            ?>
-        </form>
-    </nav>
+				<?php
+					$wishsql = "SELECT * from wishlist";
+					$wishres = mysqli_query($conn, $wishsql);
+					while($wishr = mysqli_fetch_assoc($wishres)){
+				?>
+					<tr>
+						<td>
+							<?php echo $wishr['id_wishlist']; ?>
+						</td>
+						<td>
+							 <?php echo $wishr['id_barang']; ?>
+						</td>
+						<td>
+							<?php echo $wishr['username']; ?>			
+						</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>	
+    
 </body>
 
 </html>
