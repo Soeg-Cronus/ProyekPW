@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2021 at 07:56 AM
+-- Generation Time: Dec 10, 2021 at 10:23 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -67,7 +67,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_barang`, `username`) VALUES
-('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"PRC0029799\",\"jumlah\":1}]', 'anderson@ahihistore.masuk.id');
+('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"PRC0029799\",\"jumlah\":1},{\"id-barang\":\"AUD0019206\",\"jumlah\":1}]', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
@@ -687,6 +687,27 @@ INSERT INTO `master_barang` (`id_barang`, `nama_barang`, `harga`, `stok`, `id_je
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pengiriman`
+--
+
+DROP TABLE IF EXISTS `pengiriman`;
+CREATE TABLE `pengiriman` (
+  `id_pengiriman` varchar(10) NOT NULL,
+  `nama_pengiriman` varchar(100) NOT NULL,
+  `harga` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengiriman`
+--
+
+INSERT INTO `pengiriman` (`id_pengiriman`, `nama_pengiriman`, `harga`) VALUES
+('S1', 'Pengiriman Standar', 20000),
+('S2', 'Pengiriman Kilat', 50000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `produk_review`
 --
 
@@ -822,6 +843,12 @@ ALTER TABLE `history_transaksi`
 --
 ALTER TABLE `master_barang`
   ADD PRIMARY KEY (`id_barang`);
+
+--
+-- Indexes for table `pengiriman`
+--
+ALTER TABLE `pengiriman`
+  ADD PRIMARY KEY (`id_pengiriman`);
 
 --
 -- Indexes for table `produk_review`
