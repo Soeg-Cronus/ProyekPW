@@ -313,7 +313,7 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <input type="number" onchange="changeJumlah('<?= $value['id_barang'] ?>', '<?= $useractive ?>', event)" value="<?= $value['jumlah'] ?>" id="" name="jmlh" min="1" max="100">
+                                    <input type="number" onchange="changeJumlah('<?= $value['id_barang'] ?>', '<?= $useractive ?>', event)" value="<?= $value['jumlah'] ?>" name="jmlh" min="1" max="100">
                                     <button type="submit" onclick="removeBarang('<?= $value['id_barang'] ?>', '<?= $useractive ?>')" style="border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);">
                                         &#10005;
                                     </button>
@@ -360,16 +360,19 @@
                 <form>
                     <!-- yg bikin slh -->
                     <p>SHIPPING</p>
-                    <select id="shipping">
+                    <select onchange="changeShip()" id="shipping">
+                        <!-- <option value="S1" class="text-muted">Pengiriman Standar - &euro;5.00</option>
                         <option value="S1" class="text-muted">Pengiriman Standar - &euro;5.00</option>
-                        <option value="S1" class="text-muted">Pengiriman Standar - &euro;5.00</option>
-                        <option value="S2" class="text-muted">Pengiriman Kilat - &euro;5.00</option>
+                        <option value="S2" class="text-muted">Pengiriman Kilat - &euro;5.00</option> -->
                     </select>
-                    <p>PROMO CODE</p> <input id="code" placeholder="Enter your code">
+                    <!-- <p>PROMO CODE</p> <input id="code" placeholder="Enter your code"> -->
                 </form>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL PRICE</div>
-                    <div class="col text-right">&euro; 137.00</div>
+                    <div id="paid" class="col text-right">
+                        <!-- paid -->
+                        <?= rupiah($total + 20000)?>
+                    </div>
                 </div>
                 <button class="btn">CHECKOUT</button>
             </div>

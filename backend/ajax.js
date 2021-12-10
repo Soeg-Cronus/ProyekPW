@@ -57,23 +57,7 @@ const changeJumlah = (id, session, e) => {
             'new_jumlah': jumlah
         },
         success: function (response) {
-            $.ajax({
-                type: "post",
-                url: "backend/ajaxcontroller.php",
-                data: {
-                    'mode': 'select cart',
-                    'id': id,
-                    'user': session
-                },
-                success: function (response) {
-                    let hasil = JSON.parse(response)
-                    $("#isi").html('');
-                    $("#isi").append(hasil['view']);
-                    $("#jmlbarang0").html(hasil['jumlah_item']+' items');
-                    $("#jmlbarang1").html('ITEMS ' + hasil['jumlah_item']);
-                    $("#totalharga").html(hasil['total']);
-                }
-            });
+            selectBarang(id, session)
         }
     });
 }
@@ -88,25 +72,28 @@ const removeBarang = (id, session) => {
             'user': session
         },
         success: function (response) {
-            $.ajax({
-                type: "post",
-                url: "backend/ajaxcontroller.php",
-                data: {
-                    'mode': 'select cart',
-                    'id': id,
-                    'user': session
-                },
-                success: function (response) {
-                    let hasil = JSON.parse(response)
-                    $("#isi").html('');
-                    $("#isi").append(hasil['view']);
-                    $("#jmlbarang0").html(hasil['jumlah_item']+' items');
-                    $("#jmlbarang1").html('ITEMS ' + hasil['jumlah_item']);
-                    $("#totalharga").html(hasil['total']);
-                    // console.log(hasil['view']);
-                    // console.log(response);
-                }
-            });
+            selectBarang(id, session)
+        }
+    });
+}
+
+const selectBarang = (id, session) => {
+    $.ajax({
+        type: "post",
+        url: "backend/ajaxcontroller.php",
+        data: {
+            'mode': 'select cart',
+            'id': id,
+            'user': session
+        },
+        success: function (response) {
+            let hasil = JSON.parse(response)
+            $("#isi").html('');
+            $("#isi").append(hasil['view']);
+            $("#jmlbarang0").html(hasil['jumlah_item']+' items');
+            $("#jmlbarang1").html('ITEMS ' + hasil['jumlah_item']);
+            $("#totalharga").html(hasil['total']);
+            changeShip()
         }
     });
 }
@@ -127,6 +114,34 @@ const selectShip = () => {
             });
         }
     });
+}
+
+const changeShip = () => {
+    let idDelivery = $("#shipping").val();
+    let subtotal = $("#totalharga").html();
+    subtotal = subtotal.replace(/[^\d]/g, '');
+    $.ajax({
+        type: "post",
+        url: "backend/ajaxcontroller.php",
+        data: {
+            'id_shipment': idDelivery,
+            'mode': 'ganti shipment'
+        },
+        success: function (response) {
+            let data = JSON.parse(response)
+            let grandtotal = parseInt(data['harga']) + parseInt(subtotal)
+            $("#paid").html(rupiah(grandtotal));
+        }
+    });
+}
+
+const rupiah = (nominal) => {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(nominal) + ',-';
 }
 
 selectShip()

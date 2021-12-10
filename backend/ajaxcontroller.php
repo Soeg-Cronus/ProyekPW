@@ -179,6 +179,7 @@
         $arrayview = [
             'view'=>"",
             'total'=>"",
+            'itotal'=>0,
             'jumlah_item'=>0
         ];
 
@@ -203,7 +204,7 @@
             $arrayview['view'] .=            "</div>";
             $arrayview['view'] .=        "</div>";
             $arrayview['view'] .=        "<div class='col'>";
-            $arrayview['view'] .=            "<input type='number' onchange='changeJumlah(\"" . $value['id_barang']. "\", \"" . $username . "\", event)' value='" . $value['jumlah'] . "' id='jumlah' name='jmlh' min='1' max='100'>\n";
+            $arrayview['view'] .=            "<input type='number' onchange='changeJumlah(\"" . $value['id_barang']. "\", \"" . $username . "\", event)' value='" . $value['jumlah'] . "' name='jmlh' min='1' max='100'>\n";
             $arrayview['view'] .=            "<button type='submit' onclick='removeBarang(\"" . $value['id_barang']. "\", \"" . $username . "\")' style='border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);'>";
             $arrayview['view'] .=                "&#10005;";
             $arrayview['view'] .=            "</button>";
@@ -220,6 +221,7 @@
         }
 
         $arrayview['total'] = rupiah($total);
+        $arrayview['itotal'] = $total;
         $arrayview['jumlah_item'] = $jumlahbarang;
 
         echo json_encode($arrayview);
@@ -269,6 +271,11 @@
         foreach ($pengiriman as $key => $value) {
             $pengiriman[$key]['harga'] = rupiah($value['harga']);
         }
+        echo json_encode($pengiriman);
+    }
+    else if ($mode == 'ganti shipment') {
+        $id = $_REQUEST['id_shipment'];
+        $pengiriman = $conn->query("select * from pengiriman where id_pengiriman='$id'")->fetch_assoc();
         echo json_encode($pengiriman);
     }
 
