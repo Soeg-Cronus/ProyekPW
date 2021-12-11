@@ -29,6 +29,7 @@
     
     <!-- Custom styles for this template -->
     <link href="css/sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/cssoverview.css">
     <link rel="stylesheet" href="css/styleadd.css">
 </head>
 <body>
@@ -79,46 +80,27 @@
         }
     ?>
     <main class="fluid-container">
-        <div id="sidenav" class="flex-shrink-0 sidebar p-3 text-white" style="width: 13vw;">
-            <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark isDisabled title-disabled text-decoration-none border-bottom justify-content-between">
-                <span class="fs-5 fw-semibold">Welcome, <?=$idactive?>!</span>
+    <div id="sidenav" class="flex-shrink-0 p-3 text-white" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
+                <span class="fs-5 fw-semibold" style="color: #1ad3be">Welcome, <?=$idactive?>!</span>
             </a>
             <ul class="list-unstyled ps-0">
             <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                    Home
+                <button style="color: #1ad3be" class="btn shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                    <a href="index.php" style="color: #1ad3be; text-decoration:none;">Home</a> 
                 </button>
-                <div class="collapse" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/index.php" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
-                    <li><a href="additem.php" class="link-dark rounded" style="color: #1ad3be">Add Item</a></li>
-                </ul>
-                </div>
+            </li>
             </li>
             <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                    Orders
-                </button>
-                <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">New</a></li>
-                    <li><a href="#" class="link-dark rounded">Processed</a></li>
-                    <li><a href="#" class="link-dark rounded">Shipped</a></li>
-                </ul>
-                </div>
-            </li>
-            <li class="border-top my-3"></li>
-            <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="true">
+                <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                     Account
                 </button>
-                <div class="collapse show" id="account-collapse">
+                <div class="collapse" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark isActive rounded">Add Admin</a><i class="arrow left"></i></li>
-                    <li><a href="../admin/listaccount.php" class="link-dark rounded">List Admin</a></li>
-                    <li><a href="../admin/setting.php" class="link-dark rounded">Settings</a></li>
-                    <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">Add Admin</a></li>
+                    <li><a href="../admin/listaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">List Admin</a></li>
+                    <li><a href="../admin/setting.php" class="link-dark rounded" style="color: #1ad3be">Settings</a></li>
+                    <li><a href="../admin/logout.php" class="link-dark rounded" style="color: #1ad3be">Sign out</a></li>
                 </ul>
                 </div>
             </li>
@@ -127,7 +109,7 @@
         <div class="b-example-divider"></div>
         <div class="isi">
             <form class="clean container-form d-flex flex-column" action="" method="post">
-                <div class="judul">
+                <div class="judul" style="color: #1ad3be">
                     <h1>Add New Admin</h1>
                 </div>
                 <div class="formcontainer">

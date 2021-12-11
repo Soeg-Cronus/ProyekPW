@@ -1,16 +1,34 @@
 .isi{
-    width: calc(100% - 280px - 0.5px);
+    width: calc(100% - 200px - 0.5px);
     padding: 2vh 2vw;
 }
 
 .formcontainer{
-    width: 25%;
+    width: 100%;
+}
+.form-floating{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.form-floating2{
+    width: 50%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+}
+select{
+    width: 33%;
 }
 
 .container-form{
     gap: 0.4vh;
 }
-
+.isi{
+    overflow: auto;
+}
 .clean{
     padding: 0;
     margin: 0;
@@ -19,9 +37,10 @@
 .full{
     width: 100%;
 }
-
 .label{
     margin-bottom: 0.5vh;
+    color: #1ad3be;
+    text-align: center;
 }
 
 .profile-pic {

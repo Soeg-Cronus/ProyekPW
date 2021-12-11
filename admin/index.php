@@ -46,36 +46,18 @@
     ?>
 
     <main>
+        <!-- sidebar -->
         <div id="sidenav" class="flex-shrink-0 p-3 text-white" style="width: 280px;">
             <a href="/" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
                 <span class="fs-5 fw-semibold" style="color: #1ad3be">Welcome, <?=$idactive?>!</span>
             </a>
             <ul class="list-unstyled ps-0">
             <li class="mb-1">
-                <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                <button style="color: #1ad3be" class="btn shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
                     Home
                 </button>
-                <div class="collapse show" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark isActive rounded" style="color: #1ad3be">Overview</a><i class="arrow left"></i></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
-                    <li><a href="additem.php" class="link-dark rounded" style="color: #1ad3be">Add Item</a></li>
-                </ul>
-                </div>
             </li>
-            <li class="mb-1">
-                <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                    Orders
-                </button>
-                <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">New</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Processed</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Shipped</a></li>
-                </ul>
-                </div>
             </li>
-            <li class="border-top my-3"></li>
             <li class="mb-1">
                 <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                     Account
@@ -91,6 +73,7 @@
             </li>
             </ul>
         </div>
+        <!-- SIDEBAREND -->
         <div class="b-example-divider"></div>
         <div class="isi">
         

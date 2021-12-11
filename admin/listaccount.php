@@ -8,6 +8,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/external/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/cssoverview.css">
     <script src="js/external/jquery-3.6.0.js"></script>
 
     <style>
@@ -86,46 +87,27 @@
 
     ?>
     <main class="fluid-container">
-        <div id="sidenav" class="flex-shrink-0 sidebar p-3 text-white" style="width: 13vw;">
+    <div id="sidenav" class="flex-shrink-0 p-3 text-white" style="width: 280px;">
             <a href="/" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
-                <span class="fs-5 fw-semibold">Welcome, <?=$idactive?>!</span>
+                <span class="fs-5 fw-semibold" style="color: #1ad3be">Welcome, <?=$idactive?>!</span>
             </a>
             <ul class="list-unstyled ps-0">
             <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                    Home
+                <button style="color: #1ad3be" class="btn shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                    <a href="index.php" style="color: #1ad3be; text-decoration:none;">Home</a> 
                 </button>
-                <div class="collapse" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/index.php" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
-                    <li><a href="additem.php" class="link-dark rounded" style="color: #1ad3be">Add Item</a></li>
-                </ul>
-                </div>
+            </li>
             </li>
             <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                    Orders
-                </button>
-                <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">New</a></li>
-                    <li><a href="#" class="link-dark rounded">Processed</a></li>
-                    <li><a href="#" class="link-dark rounded">Shipped</a></li>
-                </ul>
-                </div>
-            </li>
-            <li class="border-top my-3"></li>
-            <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="true">
+                <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                     Account
                 </button>
-                <div class="collapse show" id="account-collapse">
+                <div class="collapse" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark rounded">Add Admin</a></li>
-                    <li><a href="../admin/listaccount.php" class="link-dark isActive rounded">List Admin</a><i class="arrow left"></i></li>
-                    <li><a href="../admin/setting.php" class="link-dark rounded">Settings</a></li>
-                    <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">Add Admin</a></li>
+                    <li><a href="../admin/listaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">List Admin</a></li>
+                    <li><a href="../admin/setting.php" class="link-dark rounded" style="color: #1ad3be">Settings</a></li>
+                    <li><a href="../admin/logout.php" class="link-dark rounded" style="color: #1ad3be">Sign out</a></li>
                 </ul>
                 </div>
             </li>
@@ -134,12 +116,12 @@
         <div class="b-example-divider"></div>
         <div class="isi">
             <form class="clean container-form d-flex flex-column" action="" method="post">
-                <div class="judul">
+                <div class="judul" style="color: #1ad3be;">
                     <h1>List Admin</h1>
                 </div>
                 <div class="formcontainer">
                     <form action="" method="POST">
-                        <table class="table table-striped">
+                        <table class="table table-striped" style="color: #1ad3be; border-color:#1ad3be;width: 50vw;">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -154,19 +136,19 @@
                                     foreach ($alladmin as $key => $value) {
                                         
                                 ?>
-                                    <tr>
-                                        <th scope="row"><?=$c++;?></th>
-                                        <td><?=$value['username']?></td>
-                                        <td><?=$value['nama']?></td>
-                                        <td>
+                                    <tr style="color: #1ad3be">
+                                        <th scope="row" style="color: #1ad3be"><?=$c++;?></th>
+                                        <td style="color: #1ad3be"><?=$value['username']?></td>
+                                        <td style="color: #1ad3be"><?=$value['nama']?></td>
+                                        <td style="width: 500px;">
                                             <button class="btn btn-sm btn-danger" value='<?=$value['username']?>' name="btnDelete" type="submit">Delete</button>
                                             <!-- <button class="btn btn-sm btn-success"  name="btnReset" type="button">Reset Password</button> -->
 
                                             <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal-<?=$value['username']?>">Reset Password</button>
 
                                             <div class="modal fade" id="exampleModal-<?=$value['username']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
+                                                <div class="modal-dialog" >
+                                                    <div class="modal-content" style="color: #1ad3be; background-color: #222d32">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel-<?=$value['username']?>">Reset Password</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
