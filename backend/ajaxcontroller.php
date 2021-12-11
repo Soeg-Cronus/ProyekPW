@@ -58,7 +58,7 @@
     else if ($mode == 'cart') {
         $idbarang = $_REQUEST['id'];
         $username = $_REQUEST['user'];
-        $jumlah = $_REQUEST['jumlah'];
+        $jumlah = (int) $_REQUEST['jumlah'];
 
         $cart = $conn->query("select * from cart")->fetch_all(MYSQLI_ASSOC);
         $jumlahcart = count($cart)+1;
@@ -81,13 +81,18 @@
         // pengecekan username punya cart atau belum
         if($cartuser == null) {
             $cartbaru[] = [
-                'id-barang'=>$idbarang,
-                'jumlah'=> (int) $jumlah
+                'id-barang'=> $idbarang,
+                'jumlah'=> $jumlah
             ];
             $cartencode = json_encode($cartbaru);
-            $insert = $conn->prepare("insert into cart values(?,?,?)");
-            $insert->bind_param("sss", $idcart, $cartencode, $username);
+
+            $ambilharga = $conn->query("SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb LEFT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$idbarang' UNION SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb RIGHT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$idbarang'")->fetch_assoc();
+            $subtotal = $jumlah * $ambilharga['harga'] * (1 - $ambilharga['jumlah_diskon']);
+
+            $insert = $conn->prepare("insert into cart values(?,?,?,?)");
+            $insert->bind_param("ssis", $idcart, $cartencode, $subtotal, $username);
             $insert->execute();
+            echo "Berhasil tambah barang di cart!";
         }
         else {
             $pernahada = false;
@@ -101,21 +106,35 @@
                     $indexbarang = $key;
                 }
             }
+
             if (!$pernahada) {
-                array_push($cartbaru, (object) array('id-barang'=>$idbarang, 'jumlah'=> (int) $jumlah));
+                array_push($cartbaru, (object) array('id-barang'=> $idbarang, 'jumlah'=> $jumlah));
                 $cartencode = json_encode($cartbaru);
-                $insert = $conn->prepare("update cart set id_barang=? where username=?");
-                $insert->bind_param("ss", $cartencode, $username);
+
+                $ambilharga = $conn->query("SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb LEFT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$idbarang' UNION SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb RIGHT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$idbarang'")->fetch_assoc();
+                
+                $subtotal = (int) $conn->query("select subtotal from cart where username='$username'")->fetch_object()->subtotal;
+                $subtotal += $jumlah * $ambilharga['harga'] * (1 - $ambilharga['jumlah_diskon']);
+
+                $insert = $conn->prepare("update cart set id_barang=?, subtotal=? where username=?");
+                $insert->bind_param("sis", $cartencode, $subtotal, $username);
                 $insert->execute();
                 echo "Berhasil tambah barang di cart!";
             }
             else {
                 $temp = (array) $cartbaru[$indexbarang];
-                $temp['jumlah'] += (int) $jumlah;
+
+                $temp['jumlah'] += $jumlah;
                 (array) $cartbaru[$indexbarang] = $temp;
                 $encoded = json_encode($cartbaru);
-                $insert = $conn->prepare("update cart set id_barang=? where username=?");
-                $insert->bind_param("ss", $encoded, $username);
+
+                $ambilharga = $conn->query("SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb LEFT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$idbarang' UNION SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb RIGHT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$idbarang'")->fetch_assoc();
+                
+                $subtotal = (int) $conn->query("select subtotal from cart where username='$username'")->fetch_object()->subtotal;
+                $subtotal += $jumlah * $ambilharga['harga'] * (1 - $ambilharga['jumlah_diskon']);
+
+                $insert = $conn->prepare("update cart set id_barang=?, subtotal=? where username=?");
+                $insert->bind_param("sis", $encoded, $subtotal, $username);
                 $insert->execute();
                 echo "Berhasil tambah jumlah barang di cart!";
             }
@@ -136,13 +155,23 @@
             }
         }
         
+        $ambilharga = $conn->query("SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb LEFT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$id' UNION SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb RIGHT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$id'")->fetch_assoc();
+                
+        $subtotal = (int) $conn->query("select subtotal from cart where username='$user'")->fetch_object()->subtotal;
+        if ($cart != null || $cart != '') {
+            $subtotal -= $cart[$removeIndex]['jumlah'] * $ambilharga['harga'] * (1 - $ambilharga['jumlah_diskon']);
+        }
+        else {
+            $subtotal = 0;
+        }
+
         unset($cart[$removeIndex]);
 
         $cart = arrOfArrToArrOfObj($cart);
         
         $newcart = json_encode($cart);
         
-        $conn->query("UPDATE cart SET id_barang='$newcart' WHERE username='$user'");
+        $conn->query("UPDATE cart SET id_barang='$newcart', subtotal=$subtotal WHERE username='$user'");
 
         $finalcart;
 
@@ -166,7 +195,7 @@
         $cart = $conn->query("select * from cart where username='$username'")->fetch_assoc();
         $newcart = json_decode($cart['id_barang']);
         $jumlahbarang = count($newcart);
-        $finalcart;
+        $finalcart = [];
 
         foreach ($newcart as $key => $value) {
             $value = (array) $value;
@@ -205,7 +234,7 @@
             $arrayview['view'] .=        "</div>";
             $arrayview['view'] .=        "<div class='col'>";
             $arrayview['view'] .=            "<input type='number' onchange='changeJumlah(\"" . $value['id_barang']. "\", \"" . $username . "\", event)' value='" . $value['jumlah'] . "' name='jmlh' min='1' max='100'>\n";
-            $arrayview['view'] .=            "<button type='submit' onclick='removeBarang(\"" . $value['id_barang']. "\", \"" . $username . "\")' style='border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);'>";
+            $arrayview['view'] .=            "<button type='button' onclick='removeBarang(\"" . $value['id_barang']. "\", \"" . $username . "\")' style='border: none; border-radius: 5px; background-color: red; color: white; height: 25px; width: 25px; transform: translateY(1.5px);'>";
             $arrayview['view'] .=                "&#10005;";
             $arrayview['view'] .=            "</button>";
             $arrayview['view'] .=        "</div>";
@@ -230,7 +259,7 @@
     else if ($mode == 'update jumlah') {
         $id = $_REQUEST['id'];
         $user = $_REQUEST['user'];
-        $jml = $_REQUEST['new_jumlah'];
+        $jml = (int) $_REQUEST['new_jumlah'];
 
         $usercart = $conn->query("SELECT * FROM cart WHERE username='$user'")->fetch_assoc();
 
@@ -242,14 +271,19 @@
                 $removeIndex = $key;
             }
         }
+
+        $ambilharga = $conn->query("SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb LEFT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$id' UNION SELECT mb.id_barang, mb.harga, d.jumlah_diskon FROM master_barang mb RIGHT JOIN diskon d ON d.id_barang = mb.id_barang WHERE mb.id_barang = '$id'")->fetch_assoc();
+                
+        $subtotal = (int) $conn->query("select subtotal from cart where username='$user'")->fetch_object()->subtotal;
+        $subtotal += ($jml - $cart[$removeIndex]['jumlah']) * $ambilharga['harga'] * (1 - $ambilharga['jumlah_diskon']);
         
-        $cart[$removeIndex]['jumlah'] = (int) $jml;
+        $cart[$removeIndex]['jumlah'] = $jml;
 
         $cart = arrOfArrToArrOfObj($cart);
         
         $newcart = json_encode($cart);
         
-        $conn->query("UPDATE cart SET id_barang='$newcart' WHERE username='$user'");
+        $conn->query("UPDATE cart SET id_barang='$newcart', subtotal=$subtotal WHERE username='$user'");
 
         $finalcart;
 
