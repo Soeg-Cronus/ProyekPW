@@ -141,7 +141,8 @@
                 <div class="collapse" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="../admin/index.php" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Reports</a></li>
+                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
+                    <li><a href="additem.php" class="link-dark rounded" style="color: #1ad3be">Add Item</a></li>
                 </ul>
                 </div>
             </li>

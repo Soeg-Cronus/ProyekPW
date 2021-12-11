@@ -43,6 +43,43 @@
             $idactive = $_SESSION['now'][0];
             $unameactive = $_SESSION['now'][1];
         }
+
+    if(isset($_REQUEST['btnAddAdmin'])){
+        $namabarang=$_REQUEST['itemname'];
+        $url=$_REQUEST['urlgambar'];
+        $jumlah=$_REQUEST['stock'];
+        $desc=$_REQUEST['deskripsi'];
+
+            if($namabrang !=''){
+                if($url !=''){
+                    if($namabarang !=''){
+                        if($jumlah >0){
+                            $state = $conn->prepare("insert into master_barang (nama_barang, stok, deskripsi, urlgambar) values (?, ?, ?, ?)");
+                            $state->bind_param("siss", $namabarang, $jumlah, $desc, $url);
+                            if($state->execute()) {
+                                echo "<script>alert('Berhasil Tambah Barang!')</script>";
+                            }
+                            else{
+                                echo "<script>alert('Gagal Tambah Barang!')</script>";
+                            }
+                        }
+                        else {
+                            echo "<script>alert('STok harus lebih dari 0!')</script>";
+                        }
+                    }
+                    else {
+                        echo "<script>alert('Isi Nama Barang!!')</script>";
+                    }
+                }
+                else {
+                    echo "<script>alert('Isi gambar url!')</script>";
+                }
+            }
+            else{
+                echo "<script>alert('Isi Nama Barang!')</script>";
+            }
+    }
+
     ?>
 
     <main>
@@ -57,9 +94,9 @@
                 </button>
                 <div class="collapse show" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark isActive rounded" style="color: #1ad3be">Overview</a><i class="arrow left"></i></li>
+                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Overview</a></li>
                     <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
-                    <li><a href="additem.php" class="link-dark rounded" style="color: #1ad3be">Add Item</a></li>
+                    <li><a href="additem.php" class="link-dark isActive rounded" style="color: #1ad3be">Add Item</a><i class="arrow left"></i></li>
                 </ul>
                 </div>
             </li>
@@ -93,76 +130,39 @@
         </div>
         <div class="b-example-divider"></div>
         <div class="isi">
-        
-        <div class="container">
-            <div class="row">
-                <div class="test">
-                    <div class="counter">
-                        <span class="counter-value">555K</span>
-                        <h3>Profit</h3>
+            <form class="clean container-form d-flex flex-column" action="" method="post">
+                <div class="judul">
+                    <h1>Add New Item</h1>
+                </div>
+                <div class="formcontainer">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingNama" name="urlgambar" >
+                        <label for="floatingNama">URL Gambar</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingUsername" name="itemname" >
+                        <label for="floatingUsername">Nama Item</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" value="1" name="jmlh" min="1" max="9999" class="form-control" name="stock" >
+                        <label for="floatingUsername">Stock</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingUsername" name="deskripsi">
+                        <label for="floatingPassword">Deskripsi</label>
+                    </div>
+                    <div class="submitcontainer">
+                        <input class="btn btn-primary" name="btnAddItem" type="submit" value="Submit">
                     </div>
                 </div>
-                <div class="test">
-                    <div class="counter">
-                        <span class="counter-value">234</span>
-                        <h3>Order</h3>
-                    </div>
-                </div>
-                <div class="test">
-                    <div class="counter">
-                        <span class="counter-value">453</span>
-                        <h3>Web Visited</h3>
-                    </div>
-                </div>
-                <div class="test">
-                    <div class="counter">
-                        <span class="counter-value">395</span>
-                        <h3>Active User</h3>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
 
-        
-	        <div class="center">
-	        	<section class="todo-cmp">
-	        		<header class="todo-cmp__header">
-	        			<h2>Order List</h2>
-	        		</header>
-
-	        		<ul class="todo-cmp__list">
-	        			<li>
-	        				<label for="todo-01">
-	        					<input id="todo-01" type="checkbox">
-	        					<span>budi</span>
-	        				</label>
-	        			</li>
-	        			<li>
-	        				<label for="todo-02">
-	        					<input id="todo-02" type="checkbox">
-	        					<span>ivan</span>
-	        				</label>
-	        			</li>
-	        			<li>
-	        				<label for="todo-03">
-	        					<input id="todo-03" type="checkbox">
-	        					<span>anderson</span>
-	        				</label>
-	        			</li>
-	        			<li>
-	        				<label for="todo-04">
-	        					<input id="todo-04" type="checkbox">
-	        					<span>vicktor</span>
-	        				</label>
-	        			</li>
-	        		</ul>
-	        	</section>
-	        </div>
-        
-
-        </div>
     </main>
     <script src="js/external/bootstrap.bundle.min.js"></script>
     <script src="js/sidebars.js"></script>
-</body>
+
+
+
+    </body>
 </html>
