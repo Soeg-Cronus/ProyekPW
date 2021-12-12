@@ -9,6 +9,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/external/bootstrap.min.css" rel="stylesheet">
     <script src="js/external/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="css/cssoverview.css">
     
     <style>
         .bd-placeholder-img {
@@ -129,58 +130,39 @@
 
     ?>
     <main class="fluid-container">
-        <div id="sidenav" class="flex-shrink-0 sidebar p-3 text-white" style="width: 13vw;">
-            <a href="" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
-                <span class="fs-5 fw-semibold">Welcome, <?=$idactive?>!</span>
+    <div id="sidenav" class="flex-shrink-0 p-3 text-white" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
+                <span class="fs-5 fw-semibold" style="color: #1ad3be">Welcome, <?=$idactive?>!</span>
             </a>
             <ul class="list-unstyled ps-0">
             <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                <button style="color: #1ad3be" class="btn shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
                     Home
                 </button>
-                <div class="collapse" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/index.php" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded" style="color: #1ad3be">Reports</a></li>
-                    <li><a href="additem.php" class="link-dark rounded" style="color: #1ad3be">Add Item</a></li>
-                </ul>
-                </div>
+            </li>
             </li>
             <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                    Orders
-                </button>
-                <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">New</a></li>
-                    <li><a href="#" class="link-dark rounded">Processed</a></li>
-                    <li><a href="#" class="link-dark rounded">Shipped</a></li>
-                </ul>
-                </div>
-            </li>
-            <li class="border-top my-3"></li>
-            <li class="mb-1">
-                <button class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="true">
+                <button style="color: #1ad3be" class="btn btn-toggle shadow-none align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                     Account
                 </button>
-                <div class="collapse show" id="account-collapse">
+                <div class="collapse" id="account-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="../admin/addaccount.php" class="link-dark rounded">Add Admin</a></li>
-                    <li><a href="../admin/listaccount.php" class="link-dark rounded">List Admin</a></li>
-                    <li><a href="../admin/setting.php" class="link-dark isActive rounded">Settings</a><i class="arrow left"></i></li>
-                    <li><a href="../admin/logout.php" class="link-dark rounded">Sign out</a></li>
+                    <li><a href="../admin/addaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">Add Admin</a></li>
+                    <li><a href="../admin/listaccount.php" class="link-dark rounded <?=($unameactive != 'owner')?'isDisabled':''?>" style="color: #1ad3be">List Admin</a></li>
+                    <li><a href="../admin/setting.php" class="link-dark rounded" style="color: #1ad3be">Settings</a></li>
+                    <li><a href="../admin/logout.php" class="link-dark rounded" style="color: #1ad3be">Sign out</a></li>
                 </ul>
                 </div>
             </li>
             </ul>
         </div>
         <div class="b-example-divider"></div>
-        <div class="isi">
+        <div class="isi" style="text-align:center;">
             <form class="clean container-form d-flex flex-column" action="" method="post" enctype="multipart/form-data">
-                <div class="judul">
+                <div class="judul"style="color: #1ad3be">
                     <h1>Settings</h1>
                 </div>
-                <div class="formcontainer">
+                <div class="formcontainer" style="text-align:center;">
                     <div class="profile-pic mb-3">
                         <label class="-label" for="file">
                             <!-- <span class="glyphicon glyphicon-camera"></span> -->
@@ -209,67 +191,73 @@
                         <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="New Password">
                         <label for="floatingPassword">New Password</label>
                     </div>
-                    <div class="label">
+                    <div class="label" style="left:500px;">
                         Tanggal lahir
                     </div>
                     <div class="d-flex full mb-3 gap-2">
                         
-                        <div class="form-floating">
-                            <select class="form-select" id="day" name="tgl" aria-label="Floating label select example">
-                                <!-- <option selected value="">Open this select menu</option> -->
+                        <div class="form-floating2">
+                            <div class="flt2">
+
+                                <label for="day" class="label">Day</label>
+                                <select class="form-select" id="day" name="tgl" aria-label="Floating label select example">
+                                    <!-- <option selected value="">Open this select menu</option> -->
                                 <?php 
                                     for ($i=1; $i <= 31; $i++) { 
-                                ?>
+                                        ?>
                                     <option <?=(date("d",strtotime($data['tgl_lahir']) ) == $i)?"selected":""?> value="<?=$i?>"><?=$i?></option>
                                 <?php 
                                     }
-                                ?>
+                                    ?>
                             </select>
-                            <label for="day">Day</label>
-                        </div>
-                        <div class="form-floating">
-                            <select style="width: 8.5vw;" class="form-select" name="bln" id="month" aria-label="Floating label select example">
-                                <!-- <option selected value="">Open this select menu</option> -->
-                                <?php 
+                            </div>
+                            <div class="flt2">
+                                
+                                <label for="month" class="label">Month</label>
+                                <select class="form-select" name="bln" id="month" aria-label="Floating label select example">
+                                    <!-- <option selected value="">Open this select menu</option> -->
+                                    <?php 
                                     $month = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
                                     for ($i=0; $i < count($month); $i++) { 
-                                ?>
+                                        ?>
                                     <option <?=(date("F",strtotime($data['tgl_lahir']) ) == $month[$i])?"selected":""?> value="<?=$i+1?>"><?=$month[$i]?></option>
-                                <?php 
+                                    <?php 
                                     }
-                                ?>
+                                    ?>
                             </select>
-                            <label for="month">Month</label>
-                        </div>
-                        <div class="form-floating">
-                            <select class="form-select" id="year" name="thn" aria-label="Floating label select example">
+                            </div>
+                            <div class="flt2">
+
+                                
+                                <label for="year" class="label">Year</label>
+                                <select class="form-select" id="year" name="thn" aria-label="Floating label select example">
                                 <!-- <option selected value="">Open this select menu</option> -->
                                 <?php 
                                     $thisyear = (int)date("Y");
                                     for ($i= $thisyear; $i >= $thisyear - 100 ; $i--) { 
-                                ?>
+                                        ?>
                                     <option <?=(date("Y",strtotime($data['tgl_lahir']) ) == $i)?"selected":""?> value="<?=$i?>"><?=$i?></option>
-                                <?php 
+                                    <?php 
                                     }
-                                ?>
+                                    ?>
                                 
                             </select>
-                            <label for="year">Year</label>
+                            </div>
                         </div>
                     </div>
                     <div class="label">
                         Jenis Kelamin
                     </div>
-                    <div class="d-flex full mb-3 gap-4">
+                    <div class="form-floating2">
                         <div class="form-check">
                             <input class="form-check-input" <?=($data['jenis_kelamin']=="Male")?"checked":""?> type="radio" value="Male" name="jeniskelamin" id="male">
-                            <label class="form-check-label" for="male">
+                            <label class="form-check-label" for="male" class="label" style="    color: #1ad3be;">
                                 Male
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" <?=($data['jenis_kelamin']=="Female")?"checked":""?> type="radio" value="Female" name="jeniskelamin" id="fmale">
-                            <label class="form-check-label" for="fmale">
+                            <label class="form-check-label" for="fmale" style="    color: #1ad3be;">
                                 Female
                             </label>
                         </div>
