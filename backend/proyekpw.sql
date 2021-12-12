@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 09:27 AM
+-- Generation Time: Dec 12, 2021 at 09:30 AM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- PHP Version: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,7 +68,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_barang`, `subtotal`, `username`) VALUES
-('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"MTB0018448\",\"jumlah\":1},{\"id-barang\":\"RAM0096937\",\"jumlah\":1}]', '6829786.80', 'anderson@ahihistore.masuk.id');
+('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"MTB0018448\",\"jumlah\":1},{\"id-barang\":\"RAM0096937\",\"jumlah\":1},{\"id-barang\":\"AUD0024153\",\"jumlah\":1}]', '8022444.00', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
@@ -798,7 +798,7 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id_wishlist`, `id_barang`, `username`) VALUES
-('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\",\"AUD0019206\",null]', 'anderson@ahihistore.masuk.id');
+('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\",\"AUD0019206\"]', 'anderson@ahihistore.masuk.id');
 
 --
 -- Indexes for dumped tables
