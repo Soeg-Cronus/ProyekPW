@@ -1,23 +1,7 @@
 <?php
-session_start();
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<title>Login</title>
-	<link rel="stylesheet" href="asset/css/login.css">
-</head>
-
-<body>
-
-	<?php
-	echo "<pre>";
-	var_dump($_COOKIE);
-	echo "</pre>";
+	require_once("backend/conn.php");
+	session_start();
 	if (isset($_REQUEST["btLogin"])) {
-		require_once("backend/conn.php");
 
 		$namauser = $_REQUEST["uname"];
 		$passuser = $_REQUEST["upass"];
@@ -50,6 +34,23 @@ session_start();
 			echo '<script>alert("Gagal execute!")</script>';
 		}
 	}
+?>
+
+
+<html lang="en">
+
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="asset/css/login.css">
+</head>
+
+<body>
+
+	<?php
+	// echo "<pre>";
+	// var_dump($_COOKIE);
+	// echo "</pre>";
+	
 	?>
 	<div class="background">
 

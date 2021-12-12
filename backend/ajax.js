@@ -141,7 +141,7 @@ const changeShip = () => {
 
 const checkout = () => {
     // TODO:
-    alert('tes')
+    console.log(tes);
     let delivery = $("#shipping").val();
     $.ajax({
         type: "post",

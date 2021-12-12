@@ -94,6 +94,7 @@
     // Config::$overrideNotifUrl = "https://example.com";
 
     // Required
+
     $transaction_details = array(
         'order_id' => rand(),
         'gross_amount' => 94000, // no decimal allowed for creditcard
@@ -478,11 +479,12 @@
     <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo Config::$clientKey;?>"></script>
     <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function(){
-            // SnapToken acquired from previous step
-            snap.pay('<?php echo $snap_token?>');
-        };
-        document.getElementById('pay-button').click()
+        // document.getElementById('pay-button').onclick = function(){
+        //     // SnapToken acquired from previous step
+        //     snap.pay('<?php echo $snap_token?>');
+        // };
+        // document.getElementById('pay-button').click()
+        window.snap.pay('<?=$snap_token?>');
     </script>
 
 </body>

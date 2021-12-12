@@ -1,5 +1,42 @@
 <?php
+    namespace Midtrans;
+    require_once("backend/conn.php");
+    require_once('backend/Midtrans/examples/snap/credential.php');
+    require_once('backend/Midtrans/Midtrans.php');
     session_start();
+ 
+    // function rupiah($angka){
+
+    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
+    //     return $hasil_rupiah;
+
+    // }
+    $datausernow = null;
+    $useractive = null;
+    if (isset($_SESSION['loggedin'])) {
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+        if (!$datausernow['email_confirm']) {
+            header("Location: verifikasi.php");
+        }
+    } else {
+        header("Location: index.php");
+    }
+
+    if (isset($_REQUEST["btPindahLogin"])) {
+        header("Location: login.php");
+    }
+    if (isset($_REQUEST["btPindahRegis"])) {
+        header("Location: register.php");
+    }
+    if (isset($_REQUEST["btnLogout"])) {
+        header("Location: backend/logout.php");
+    }
+
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
+    }
+    
     $protocol = $_SERVER['REQUEST_SCHEME'];
     $servername = $_SERVER['SERVER_NAME'];
     $path = $_SERVER['REQUEST_URI'];
@@ -13,7 +50,7 @@
 ?>
 
 
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -38,35 +75,61 @@
 <body>
 
     <?php
-    require_once("backend/conn.php");
- 
-    // function rupiah($angka){
 
-    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-    //     return $hasil_rupiah;
+    // Set Your server key
+    // can find in Merchant Portal -> Settings -> Access keys
+    Config::$serverKey = $myserver;
+    Config::$clientKey = $myclient;
 
-    // }
+    // non-relevant function only used for demo/example purpose
+    printExampleWarningMessage();
 
-    if (isset($_REQUEST["btPindahLogin"])) {
-        header("Location: login.php");
+    // Uncomment for production environment
+    // Config::$isProduction = true;
+
+    // Enable sanitization
+    Config::$isSanitized = true;
+
+    // Enable 3D-Secure
+    Config::$is3ds = true;
+
+    // Uncomment for append and override notification URL
+    // Config::$appendNotifUrl = "https://example.com";
+    // Config::$overrideNotifUrl = "https://example.com";
+
+    // Required
+
+    $transaction_details = array(
+        'order_id' => rand(),
+        'gross_amount' => 94000, // no decimal allowed for creditcard
+    );
+
+    // Fill transaction details
+    $transaction = array(
+        'transaction_details' => $transaction_details,
+    );
+
+    $snap_token = '';
+    try {
+        $snap_token = Snap::getSnapToken($transaction);
     }
-    if (isset($_REQUEST["btPindahRegis"])) {
-        header("Location: register.php");
-    }
-    if (isset($_REQUEST["btnLogout"])) {
-        header("Location: backend/logout.php");
+    catch (\Exception $e) {
+        echo $e->getMessage();
     }
 
-    $datausernow = null;
-    $useractive = null;
-    if (isset($_SESSION['loggedin'])) {
-        $useractive = $_SESSION['loggedin'];
-        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-        if (!$datausernow['email_confirm']) {
-            header("Location: verifikasi.php");
-        }
-    } else {
-        header("Location: index.php");
+    echo "snapToken = ".$snap_token;
+    //TODO::
+
+    function printExampleWarningMessage() {
+        if (strpos(Config::$serverKey, 'your ') != false ) {
+            echo "<code>";
+            echo "<h4>Please set your server key from sandbox</h4>";
+            echo "In file: " . __FILE__;
+            echo "<br>";
+            echo "<br>";
+            echo htmlspecialchars('Config::$serverKey = \'<your server key>\';');
+            die();
+        } 
     }
 
     // echo "<pre>";
@@ -144,9 +207,7 @@
     // $stmt->execute();
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    if (isset($_REQUEST["cari"])) {
-        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
-    }
+    
 
     if (isset($_REQUEST['q'])) {
         // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
@@ -417,6 +478,28 @@
     <!-- Core theme JS-->
     <script src="asset/js/scripts.js"></script>
     <script src="backend/ajax.js"></script>
+
+    <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo Config::$clientKey;?>"></script>
+    <script type="text/javascript">
+        document.getElementById('pay-button').onclick = function(){
+            // SnapToken acquired from previous step
+            let delivery = $("#shipping").val();
+            $.ajax({
+                type: "post",
+                url: "backend/ajaxcontroller.php",
+                data: {
+                    'mode': 'cout',
+                    'id': session,
+                    'idShipping': delivery
+                },
+                success: function (response) {
+                    snap.pay('<?php echo $snap_token?>');
+                }
+            });
+
+        };
+    </script>
 
 </body>
 

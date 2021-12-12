@@ -1,18 +1,35 @@
-<?php session_start();
+<?php 
+    session_start();
+    require_once("backend/conn.php");
 
-if (isset($_REQUEST["btPindahLogin"])) {
-    header("Location:login.php");
-}
-if (isset($_REQUEST["btPindahRegis"])) {
-    header("Location:register.php");
-}
+    $datausernow = null;
+    $useractive = null;
+    if (isset($_SESSION['loggedin'])) {
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+        if (!$datausernow['email_confirm']) {
+            header("Location: verifikasi.php");
+        }
+    }
 
+    if (isset($_REQUEST["btnLogout"])) {
+        header("Location: backend/logout.php");
+    }
 
+    if (isset($_REQUEST["btPindahLogin"])) {
+        header("Location:login.php");
+    }
+    if (isset($_REQUEST["btPindahRegis"])) {
+        header("Location:register.php");
+    }
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
+    }
 
 ?>
 
 
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -35,22 +52,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
 <body>
 
     <?php
-    require_once("backend/conn.php");
-
-    $datausernow = null;
-    $useractive = null;
-    if (isset($_SESSION['loggedin'])) {
-        $useractive = $_SESSION['loggedin'];
-        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-        if (!$datausernow['email_confirm']) {
-            header("Location: verifikasi.php");
-        }
-    }
-
-
-    if (isset($_REQUEST["btnLogout"])) {
-        header("Location: backend/logout.php");
-    }
+    
 
     // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where mb.id_barang = ?";
     // $sql = "select mb.*, jb.jenis_barang, d.nama_diskon, d.jumlah_diskon from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis join diskon d on d.id_barang = mb.id_barang where mb.id_barang = ?";
@@ -65,9 +67,7 @@ if (isset($_REQUEST["btPindahRegis"])) {
     $items = $result->fetch_assoc();
 
 
-    if (isset($_REQUEST["cari"])) {
-        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
-    }
+    
 
     if (isset($_REQUEST['q'])) {
         // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";

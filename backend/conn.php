@@ -1,8 +1,17 @@
 <?php
-    $host = "localhost";
-    $usernamedb = "root";
-    $passworddb = "";
-    $dbname = "proyekPW";
+    $production = false;
+    if (!$production) {
+        $host = "localhost";
+        $usernamedb = "root";
+        $passworddb = "";
+        $dbname = "proyekPW";
+    }
+    else {
+        $host = "localhost";
+        $usernamedb = "ahihisto_admin";
+        $passworddb = "XD^gs@dVZB6~";
+        $dbname = "ahihisto_proyekpw";
+    }
 
     $conn = mysqli_connect($host,$usernamedb,$passworddb,$dbname);
 
