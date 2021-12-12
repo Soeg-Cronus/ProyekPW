@@ -146,7 +146,7 @@ $mail->AltBody = 'Link verifikasi: '.$linkjelek;
 if (!$mail->send()) {
     echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {
-    echo 'Message sent!';
+    // echo 'Message sent!';
     header("Location: ../index.php");
     //Section 2: IMAP
     //Uncomment these to save your message in the 'Sent Mail' folder.
