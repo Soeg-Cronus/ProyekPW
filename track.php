@@ -1,4 +1,37 @@
-<?php session_start(); ?>
+<?php
+    require_once("backend/conn.php");
+    session_start(); 
+    // function rupiah($angka){
+
+    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
+    //     return $hasil_rupiah;
+
+    // }
+
+    if (isset($_REQUEST["btPindahLogin"])) {
+        header("Location: login.php");
+    }
+    if (isset($_REQUEST["btPindahRegis"])) {
+        header("Location: register.php");
+    }
+    if (isset($_REQUEST["btnLogout"])) {
+        header("Location: backend/logout.php");
+    }
+
+    $datausernow = null;
+    $useractive = null;
+    if (isset($_SESSION['loggedin'])) {
+        $useractive = $_SESSION['loggedin'];
+        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+        if (!$datausernow['email_confirm']) {
+            header("Location: verifikasi.php");
+        }
+    }
+    
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
+    }
+?>
 
 
 <!DOCTYPE html>
@@ -26,34 +59,6 @@
 <body>
 
     <?php
-    require_once("backend/conn.php");
-
-    // function rupiah($angka){
-
-    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-    //     return $hasil_rupiah;
-
-    // }
-
-    if (isset($_REQUEST["btPindahLogin"])) {
-        header("Location: login.php");
-    }
-    if (isset($_REQUEST["btPindahRegis"])) {
-        header("Location: register.php");
-    }
-    if (isset($_REQUEST["btnLogout"])) {
-        header("Location: backend/logout.php");
-    }
-
-    $datausernow = null;
-    $useractive = null;
-    if (isset($_SESSION['loggedin'])) {
-        $useractive = $_SESSION['loggedin'];
-        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-        if (!$datausernow['email_confirm']) {
-            header("Location: verifikasi.php");
-        }
-    }
 
 
     // echo "<pre>";
@@ -130,10 +135,6 @@
     // // $stmt = $conn->prepare("SELECT * FROM master_barang");
     // $stmt->execute();
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
-    if (isset($_REQUEST["cari"])) {
-        header("Location: index.php?". http_build_query(array('q'=> $_REQUEST['q'])));
-    }
     
     if (isset($_REQUEST['q'])) {
         // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";

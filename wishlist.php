@@ -1,4 +1,32 @@
-<?php session_start(); ?>
+<?php 
+    require_once("backend/conn.php");
+    session_start(); 
+        if (isset($_REQUEST["btPindahLogin"])) {
+            header("Location: login.php");
+        }
+        if (isset($_REQUEST["btPindahRegis"])) {
+            header("Location: register.php");
+        }
+        if (isset($_REQUEST["btnLogout"])) {
+            header("Location: backend/logout.php");
+        }
+        
+        $datausernow = null;
+        $useractive = null;
+        
+        if (isset($_SESSION['loggedin'])) {
+            $useractive = $_SESSION['loggedin'];
+            $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+            if (!$datausernow['email_confirm']) {
+                header("Location: verifikasi.php");
+            }
+        }
+
+        if (isset($_REQUEST["cari"])) {
+            header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
+        }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,37 +52,6 @@
 <body>
 
     <?php
-    require_once("backend/conn.php");
-
-    // function rupiah($angka){
-
-    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-    //     return $hasil_rupiah;
-
-    // }
-
-    if (isset($_REQUEST["btPindahLogin"])) {
-        header("Location: login.php");
-    }
-    if (isset($_REQUEST["btPindahRegis"])) {
-        header("Location: register.php");
-    }
-    if (isset($_REQUEST["btnLogout"])) {
-        header("Location: backend/logout.php");
-    }
-
-    $datausernow = null;
-    $useractive = null;
-    if (isset($_SESSION['loggedin'])) {
-        $useractive = $_SESSION['loggedin'];
-        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-        if (!$datausernow['email_confirm']) {
-            header("Location: verifikasi.php");
-        }
-    } else {
-        header("Location: index.php");
-    }
-
 
     // echo "<pre>";
     // var_dump($useractive);
