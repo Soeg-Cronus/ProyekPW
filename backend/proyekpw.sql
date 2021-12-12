@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2021 at 10:23 AM
+-- Generation Time: Dec 12, 2021 at 09:27 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -59,6 +59,7 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `id_cart` varchar(10) NOT NULL,
   `id_barang` text NOT NULL,
+  `subtotal` decimal(30,2) NOT NULL,
   `username` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -66,8 +67,8 @@ CREATE TABLE `cart` (
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id_cart`, `id_barang`, `username`) VALUES
-('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"PRC0029799\",\"jumlah\":1},{\"id-barang\":\"AUD0019206\",\"jumlah\":1}]', 'anderson@ahihistore.masuk.id');
+INSERT INTO `cart` (`id_cart`, `id_barang`, `subtotal`, `username`) VALUES
+('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"MTB0018448\",\"jumlah\":1},{\"id-barang\":\"RAM0096937\",\"jumlah\":1}]', '6829786.80', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
@@ -744,10 +745,13 @@ CREATE TABLE `relasi_jenis` (
 DROP TABLE IF EXISTS `transaksi`;
 CREATE TABLE `transaksi` (
   `id_transaksi` varchar(10) NOT NULL,
-  `tanggal` date NOT NULL,
-  `jenis_pembayaran` varchar(100) NOT NULL,
-  `id_datatransaksi` varchar(10) NOT NULL,
-  `username` varchar(100) NOT NULL
+  `tanggal` date NOT NULL DEFAULT current_timestamp(),
+  `id_barang` text NOT NULL,
+  `subtotal` decimal(30,2) NOT NULL,
+  `id_shipment` varchar(10) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `token` text NOT NULL,
+  `status` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -869,7 +873,6 @@ ALTER TABLE `relasi_jenis`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `id_datatransaksi` (`id_datatransaksi`),
   ADD KEY `username` (`username`);
 
 --
