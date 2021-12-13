@@ -1,5 +1,12 @@
 <?php
     $production = false;
+    if ($_SERVER['SERVER_NAME'] != 'localhost') {
+        $production = true;
+    }
+    else {
+        $production = false;
+    }
+
     if (!$production) {
         $host = "localhost";
         $usernamedb = "root";
