@@ -312,6 +312,37 @@
         $pengiriman = $conn->query("select * from pengiriman where id_pengiriman='$id'")->fetch_assoc();
         echo json_encode($pengiriman);
     }
+    else if ($mode == 'cout') {
+        $iduser = $_REQUEST['id'];
+        $idshipment = $_REQUEST['idShipping'];
+
+        $lastbarang = $conn->query("select * from cart where username='$iduser'")->fetch_assoc();
+        $subtotal = (int) $lastbarang['subtotal'];
+        $barang = $lastbarang['id_barang'];
+
+        $transaction = $conn->query("select * from transaksi")->fetch_all(MYSQLI_ASSOC);
+        $jumlahtrans = count($transaction)+1;
+        $idtrans = '';
+        if($jumlahtrans < 10) {
+            $idtrans = 'T000' . $jumlahtrans;
+        }
+        else if ($jumlahtrans < 100) {
+            $idtrans = 'T00' . $jumlahtrans;
+        }
+        else if ($jumlahtrans < 1000) {
+            $idtrans = 'T0' . $jumlahtrans;
+        }
+        else if ($jumlahtrans < 10000) {
+            $idtrans = 'T' . $jumlahtrans;
+        }
+        $biayapengiriman = (int) $conn->query("select * from pengiriman where id_pengiriman='$idshipment'")->fetch_object()->harga;
+        $grtotal = $subtotal + $biayapengiriman;
+
+        $conn->query("insert into transaksi values ('$idtrans', NOW(), '$barang', $subtotal, $grtotal, '$idshipment', '$iduser','','')");
+        // $conn->query("update cart set id_barang='[]', subtotal=0 where username='$iduser'");
+        echo $grtotal;
+        
+    }
 
     function arrOfObjToArrOfArr($cart) {
         $temp = [];

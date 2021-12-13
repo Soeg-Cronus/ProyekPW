@@ -139,23 +139,33 @@ const changeShip = () => {
     });
 }
 
-const checkout = () => {
-    // TODO:
-    console.log(tes);
-    let delivery = $("#shipping").val();
-    $.ajax({
-        type: "post",
-        url: "backend/ajaxcontroller.php",
-        data: {
-            'mode': 'cout',
-            'id': session,
-            'idShipping': delivery
-        },
-        success: function (response) {
-            
-        }
-    });
-}
+// const checkout = () => {
+//     let delivery = $("#shipping").val();
+//     let user = $("#pay-button").attr('user');
+
+//     $.ajax({
+//         type: "post",
+//         url: "backend/ajaxcontroller.php",
+//         data: {
+//             'mode': 'cout',
+//             'id': user,
+//             'idShipping': delivery
+//         },
+//         success: function (response) {
+//             $.ajax({
+//                 type: "post",
+//                 url: "backend/payment.php",
+//                 data: {
+//                     'nominal': response
+//                 },
+//                 success: function (response) {
+//                     let token = response
+//                     window.snap.pay(token)
+//                 }
+//             });
+//         }
+//     });
+// }
 
 const rupiah = (nominal) => {
     return new Intl.NumberFormat("id-ID", {
