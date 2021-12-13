@@ -442,14 +442,24 @@
                     'idShipping': delivery
                 },
                 success: function (response) {
+                    let data = JSON.parse(response)
+                    let nominal = data['total']
+                    let id = data['transId']
                     $.ajax({
                         type: "post",
                         url: "backend/payment.php",
                         data: {
-                            'nominal': response
+                            'nominal': nominal,
+                            'transid': id
                         },
                         success: function (response) {
                             let token = response
+                            
+                            let data = response
+                            // data = JSON.parse(data)
+                            // let token = data[0]
+                            // let orderId = data[1]
+                            
                             window.snap.pay(token)
                         }
                     });

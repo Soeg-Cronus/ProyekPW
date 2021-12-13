@@ -3,7 +3,9 @@
 
     $jumlah = 0;
     $jumlah = $_REQUEST['nominal'];
+    $idtrans = $_REQUEST['transid'];
 
+    require_once('conn.php');
     require_once('Midtrans/examples/snap/credential.php');
     require_once('Midtrans/Midtrans.php');
     // Set Your server key
@@ -28,12 +30,15 @@
     // Config::$overrideNotifUrl = "https://example.com";
 
     // Required
-
+    
     $transaction_details = array(
         'order_id' => rand(),
         'gross_amount' => $jumlah, // no decimal allowed for creditcard
     );
 
+    $orderid = $transaction_details['order_id'];
+    $conn->query("update transaksi set token=$orderid where id_transaksi='$idtrans'");
+    
     // Fill transaction details
     $transaction = array(
         'transaction_details' => $transaction_details,
