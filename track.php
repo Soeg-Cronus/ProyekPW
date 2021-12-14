@@ -210,6 +210,7 @@
                                     <li><a class="dropdown-item" href="cart.php">Cart</a></li>
                                     <li><a class="dropdown-item" href="history.php">History</a></li>
                                     <li><a class="dropdown-item" href="track.php">Track</a></li>
+                                    <li><a class="dropdown-item" href="review.php">Review</a></li>
                                 </ul>
                             </li>
                             <?php

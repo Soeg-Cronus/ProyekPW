@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2021 at 06:44 PM
+-- Generation Time: Dec 14, 2021 at 01:52 PM
 -- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- PHP Version: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,7 +68,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_barang`, `subtotal`, `username`) VALUES
-('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"MTB0018448\",\"jumlah\":1},{\"id-barang\":\"RAM0096937\",\"jumlah\":1},{\"id-barang\":\"VGA0082426\",\"jumlah\":1}]', '23869644.00', 'anderson@ahihistore.masuk.id');
+('C0001', '[]', '0.00', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
@@ -723,6 +723,14 @@ CREATE TABLE `produk_review` (
   `userrname` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `produk_review`
+--
+
+INSERT INTO `produk_review` (`id_review`, `id_barang`, `nama_barang`, `rating`, `tanggal_review`, `deskripsi`, `userrname`) VALUES
+('1', 'AUD0019206', 'Kramer Electronics - 87-000690 - VIA Connect Pro Wireless Presentation and Collaboration Solution', 8, '0000-00-00', 'Barang yang sangat bagus', 'anderson@ahihistore.masuk.id\r\n'),
+('2', 'AUD0056232', 'Kramer Electronics - 87-000690 - VIA Connect Pro Wireless Presentation and Collaboration Solution\r\n', 8, '0000-00-00', 'Barangnya hebat', 'anderson@ahihistore.masuk.id\r\n');
+
 -- --------------------------------------------------------
 
 --
@@ -745,13 +753,12 @@ CREATE TABLE `relasi_jenis` (
 DROP TABLE IF EXISTS `transaksi`;
 CREATE TABLE `transaksi` (
   `id_transaksi` varchar(10) NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT current_timestamp(),
+  `tanggal` date NOT NULL DEFAULT current_timestamp(),
   `id_barang` text NOT NULL,
   `subtotal` decimal(30,2) NOT NULL,
-  `grandtotal` decimal(30,2) NOT NULL,
   `id_shipment` varchar(10) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `token` int(30) NOT NULL,
+  `token` text NOT NULL,
   `status` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -799,7 +806,7 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id_wishlist`, `id_barang`, `username`) VALUES
-('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\",\"AUD0019206\",null]', 'anderson@ahihistore.masuk.id');
+('W0001', '[\"RAM0012500\",\"MPD0011446\",\"OPC0018532\",\"MOS0015554\",\"STR0012992\",\"AUD0024153\",\"MON0013369\",\"AUD0019206\"]', 'anderson@ahihistore.masuk.id');
 
 --
 -- Indexes for dumped tables

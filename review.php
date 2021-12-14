@@ -1,34 +1,34 @@
-<?php
+<?php 
     require_once("backend/conn.php");
     session_start(); 
-    if (isset($_REQUEST["btPindahLogin"])) {
-        header("Location: login.php");
-    }
-    if (isset($_REQUEST["btPindahRegis"])) {
-        header("Location: register.php");
-    }
-    if (isset($_REQUEST["btnLogout"])) {
-        header("Location: backend/logout.php");
-    }
-    
-    $datausernow = null;
-    $useractive = null;
-    
-    if (isset($_SESSION['loggedin'])) {
-        $useractive = $_SESSION['loggedin'];
-        $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
-        if (!$datausernow['email_confirm']) {
-            header("Location: verifikasi.php");
+        if (isset($_REQUEST["btPindahLogin"])) {
+            header("Location: login.php");
         }
-    }
+        if (isset($_REQUEST["btPindahRegis"])) {
+            header("Location: register.php");
+        }
+        if (isset($_REQUEST["btnLogout"])) {
+            header("Location: backend/logout.php");
+        }
+        
+        $datausernow = null;
+        $useractive = null;
+        
+        if (isset($_SESSION['loggedin'])) {
+            $useractive = $_SESSION['loggedin'];
+            $datausernow = $conn->query("select * from user where username = '$useractive'")->fetch_assoc();
+            if (!$datausernow['email_confirm']) {
+                header("Location: verifikasi.php");
+            }
+        }
 
-    if (isset($_REQUEST["cari"])) {
-        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
-    }
+        if (isset($_REQUEST["cari"])) {
+            header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
+        }
 
 ?>
 
-
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -52,16 +52,6 @@
 <body>
 
     <?php
-    
-
-    // function rupiah($angka){
-
-    //     $hasil_rupiah = "Rp " . number_format($angka, 0, ",", ".") . ",-";
-    //     return $hasil_rupiah;
-
-    // }
-
-
 
     // echo "<pre>";
     // var_dump($useractive);
@@ -138,7 +128,9 @@
     // $stmt->execute();
     // $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    
+    if (isset($_REQUEST["cari"])) {
+        header("Location: index.php?" . http_build_query(array('q' => $_REQUEST['q'])));
+    }
 
     if (isset($_REQUEST['q'])) {
         // $sql = "select mb.*, jb.jenis_barang from master_barang mb JOIN daftar_jenis jb on mb.id_jenis_barang = jb.id_jenis where nama_barang like ?";
@@ -157,7 +149,6 @@
 
     ?>
 
-    <!-- <form action="" method="get"> -->
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
@@ -199,7 +190,7 @@
                     </li>
 
                     <?php
-                    if ($_SESSION['loggedin'] != null) {
+                    if ($datausernow != null) {
                     ?>
                         <form action="" method="post">
                             <li class="nav-item dropdown">
@@ -254,67 +245,48 @@
             ?>
         </form>
     </nav>
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Ahihi Store</h1>
-            </div>
-        </div>
 
+    <!-- <form action="" method="get"> -->
+    <!-- table--> 
+    <table class="cart-table account-table table table-bordered">
+				<thead>
+					<tr style="color:#2fd5ff">
+						<th>No. </th>
+						<th>Barang Yang Di Review</th>
+                        <th>Rating</th>
+                        <th>Deskripsi</th>
+					</tr>
+				</thead>
+				<tbody>
 
-    </header>
-    <!-- Section-->
-    <h1 class="display-4 fw-bolder">
-        <center>!!All Items!!</center>
-    </h1>
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                <?php
-                foreach ($tampungdata as $key => $value) {
-                ?>
-
-                    <div class="col mb-5">
-                        <a class="urlproduct" href="lihatbarang.php?id=<?= $value['id_barang'] ?>" onclick="detailingItem('<?= $value['id_barang'] ?>')" style="text-decoration:none; color:inherit;">
-                            <div class="card h-100" style="border: 2px solid rgb(0,148,255); padding: 10px; color: white; text-shadow: 0 0 0.05em #fff, 0 0 0.2em #2fd5ff, 0 0 0.3em #020daf; background-color:#011066; box-sizing: border-box; box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-webkit-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);-moz-box-shadow: -1px 0px 31px 1px rgba(0,148,255,0.55);">
-                                <!-- Product image-->
-                                <img class="card-img-top" src="<?= $value['urlgambar'] ?>" alt="<?= 'image - ' . $value['id_barang'] ?>" />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3><?= $value['nama_barang'] ?></h3>
-                                        <!-- Product price-->
-                                        <s><?= ($value['jumlah_diskon'] == null) ? '' : rupiah($value['harga']) ?></s><br>
-                                        <strong><?= ($value['jumlah_diskon'] == null) ? rupiah($value['harga']) : rupiah($value['harga'] * (1 - $value['jumlah_diskon'])) ?></strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                <?php
-                }
-                ?>
-
-            </div>
-        </div>
-    </section>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
-        </div>
-    </footer>
-    <!-- </form> -->
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="asset/js/scripts.js"></script>
-
-    <script>
+				<?php
+					$wishsql = "SELECT * from produk_review";
+					$wishres = mysqli_query($conn, $wishsql);
+					while($wishr = mysqli_fetch_assoc($wishres)){
+				?>
+					<tr style="color:#2fd5ff">
+						<td>
+							<?php echo $wishr['id_review']; ?>
+						</td>
+						<td>
+							 <?php echo $wishr['id_barang']; ?>
+						</td>
+                        <td>
+                            <?php echo $wishr['rating'];?>
+                        </td>
+						<td>
+							<?php echo $wishr['deskripsi']; ?>			
+						</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>	
+        <!-- </form> -->
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="asset/js/scripts.js"></script>
+        <script>
         function detailingItem(id) {
 
             var a = document.getElementsByClassName('urlproduct');
@@ -341,32 +313,3 @@
 </body>
 
 </html>
-
-
-<!-- <div class="col mb-5">
-    <div class="card h-100">
-         Product image
-        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-         Product details
-        <div class="card-body p-4">
-            <div class="text-center">
-                 Product name
-                <h5 class="fw-bolder">Popular Item</h5>
-                 Product reviews
-                <div class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                </div>
-                 Product price
-                $40.00
-            </div>
-        </div>
-         Product actions
-        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-        </div>
-    </div>
-</div> -->
