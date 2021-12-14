@@ -190,7 +190,7 @@ else {
                             }
                         } else if ($transaction == 'settlement' || $transaction == 'success') {
                             $stmt = "Success";
-                        } else if ($transaction == 'pending') {
+                        } else if ($transaction == 'pending' || $transaction == '') {
                             $stmt = "Pending";
                         } else {
                             $stmt = "Canceled";
