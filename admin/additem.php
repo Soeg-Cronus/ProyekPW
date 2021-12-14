@@ -55,7 +55,7 @@
         $price=$_REQUEST['harga'];
         $type=$_REQUEST['tipe'];
 
-            if($namabrang !=''){
+            if($namabarang !=''){
                 if($url !=''){
                     if($namabarang !=''){
                         if($jumlah >0){
@@ -135,15 +135,15 @@
                         <label for="floatingUsername">Nama Item</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" value="1" name="jmlh" min="1" max="9999" class="form-control" name="stock" >
+                        <input type="number" value="1" min="1" max="9999" class="form-control" name="stock" >
                         <label for="floatingUsername">Stock</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" value="1" name="tipe" min="1" max="11" class="form-control" name="tipe" >
+                        <input type="number" value="1" min="1" max="11" class="form-control" name="tipe" >
                         <label for="floatingUsername">Tipe</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" value="1" name="tipe" min="1" class="form-control" name="harga" >
+                        <input type="number" value="1" min="1" class="form-control" name="harga" >
                         <label for="floatingUsername">Harga</label>
                     </div>
                     <div class="form-floating mb-3">
