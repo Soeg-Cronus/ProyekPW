@@ -441,7 +441,7 @@
                 },
                 success: function (response) {
                     // console.log(response);
-                    window.location = response
+                    window.location.href = response
                 }
             });
         }
