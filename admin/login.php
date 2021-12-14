@@ -1,4 +1,31 @@
-<?php session_start(); ?>
+<?php 
+    session_start(); 
+     require_once("../backend/conn.php");
+
+     if (isset($_SESSION['now'])) {
+         header("Location: index.php");
+     }
+ 
+     if (isset($_REQUEST['btnLogin'])) {
+         $uname = $_REQUEST['username'];
+         $upass = md5($_REQUEST['password']);
+ 
+         $stmt = $conn->prepare("select * from admin where username=? and password=?");
+         $stmt->bind_param("ss", $uname, $upass);
+         $stmt->execute();
+ 
+         $user = $stmt->get_result()->fetch_assoc();
+ 
+         if ($user != null) {
+             if ($user['username'] == $uname && $user['password'] == $upass) {
+                 $_SESSION['now'] = [$user['nama'], $user['username']];
+                 header("Location: index.php");
+             }     
+         } else {
+             echo "<script>alert('Username dan password salah!')</script>";
+         }
+     }
+?>
 <!doctype html>
 <html lang="en">
 
@@ -21,31 +48,7 @@
 
 <body>
     <?php
-    require_once("../backend/conn.php");
-
-    if (isset($_SESSION['now'])) {
-        header("Location: index.php");
-    }
-
-    if (isset($_REQUEST['btnLogin'])) {
-        $uname = $_REQUEST['username'];
-        $upass = md5($_REQUEST['password']);
-
-        $stmt = $conn->prepare("select * from admin where username=? and password=?");
-        $stmt->bind_param("ss", $uname, $upass);
-        $stmt->execute();
-
-        $user = $stmt->get_result()->fetch_assoc();
-
-        if ($user != null) {
-            if ($user['username'] == $uname && $user['password'] == $upass) {
-                $_SESSION['now'] = [$user['nama'], $user['username']];
-                header("Location: index.php");
-            }     
-        } else {
-            echo "<script>alert('Username dan password salah!')</script>";
-        }
-    }
+   
     ?>
     <div class="container">
         <div class="row">

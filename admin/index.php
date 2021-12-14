@@ -1,4 +1,17 @@
-<?php session_start();?>
+<?php 
+    session_start();
+     require_once("../backend/conn.php");
+     $idactive = '';
+     $unameactive = '';
+     if (!isset($_SESSION['now'])) {
+         header("Location: login.php");
+     }
+     else {
+         $idactive = $_SESSION['now'][0];
+         $unameactive = $_SESSION['now'][1];
+     }
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,18 +45,6 @@
     <link href="css/sidebars.css" rel="stylesheet">
 </head>
 <body>
-    <?php 
-        require_once("../backend/conn.php");
-        $idactive = '';
-        $unameactive = '';
-        if (!isset($_SESSION['now'])) {
-            header("Location: login.php");
-        }
-        else {
-            $idactive = $_SESSION['now'][0];
-            $unameactive = $_SESSION['now'][1];
-        }
-    ?>
 
     <main>
         <!-- sidebar -->

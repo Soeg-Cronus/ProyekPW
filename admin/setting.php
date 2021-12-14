@@ -1,4 +1,21 @@
-<?php session_start();?>
+<?php 
+    session_start();
+    require_once("../backend/conn.php");
+        $idactive = '';
+        $unameactive = '';
+        if (!isset($_SESSION['now'])) {
+            header("Location: login.php");
+        }
+        else {
+            if ($_SESSION['now'][1] != 'owner') {
+                header("Location: ../admin/index.php");
+            }
+            else {
+                $idactive = $_SESSION['now'][0];
+                $unameactive = $_SESSION['now'][1];
+            }
+        }
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,21 +51,6 @@
 </head>
 <body>
     <?php 
-        require_once("../backend/conn.php");
-        $idactive = '';
-        $unameactive = '';
-        if (!isset($_SESSION['now'])) {
-            header("Location: login.php");
-        }
-        else {
-            if ($_SESSION['now'][1] != 'owner') {
-                header("Location: ../admin/index.php");
-            }
-            else {
-                $idactive = $_SESSION['now'][0];
-                $unameactive = $_SESSION['now'][1];
-            }
-        }
 
         if (isset($_REQUEST['btnEdit'])) {
             $nama = $_REQUEST['nama'];

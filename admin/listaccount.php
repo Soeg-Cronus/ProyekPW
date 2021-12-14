@@ -1,4 +1,55 @@
-<?php session_start();?>
+<?php session_start();
+     require_once("../backend/conn.php");
+     $idactive = '';
+     $unameactive = '';
+     if (!isset($_SESSION['now'])) {
+         header("Location: login.php");
+     }
+     else {
+         if ($_SESSION['now'][1] != 'owner') {
+             header("Location: ../admin/index.php");
+         }
+         else {
+             $idactive = $_SESSION['now'][0];
+             $unameactive = $_SESSION['now'][1];
+         }
+     }
+
+     if (isset($_REQUEST['btnDelete'])) {
+         // echo "<script>alert('".$_REQUEST['btnDelete']."')</script>";
+         $userdelete = $_REQUEST['btnDelete'];
+         $resultdelete = $conn->query("delete from admin where username='$userdelete'");
+         if (!$resultdelete) {
+             echo "<script>alert('Gagal delete!')</script>";
+         }
+         else {
+             echo "<script>alert('Berhasil delete!')</script>";
+         }
+     }
+     
+     if (isset($_REQUEST['btnReset'])) {
+         $userselected = $_REQUEST['btnReset'];
+
+         if ($_REQUEST['newPass-'.$userselected] != "") {
+             $hashed = $_REQUEST['newPass-'.$userselected];
+             echo "<script>alert('".$hashed.' '.$userselected ."')</script>";
+             
+             $hashed = md5($_REQUEST['newPass-'.$userselected]);
+             $stmt = $conn->prepare("update admin set password=? where username=?");
+             $stmt->bind_param("ss", $hashed, $userselected);
+             if ($stmt->execute()) {
+                 echo "<script>alert('Berhasil ganti password')</script>";
+                 // header("Location: listaccount.php");
+             }
+             else {
+                 echo "<script>alert('Gagal ganti password')</script>";
+             }
+         }
+     }
+
+     $alladmin = $conn->query("select * from admin where username != '$unameactive'")->fetch_all(MYSQLI_ASSOC);
+     
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,59 +84,6 @@
     <link rel="stylesheet" href="css/stylelist.css">
 </head>
 <body>
-    <?php 
-        require_once("../backend/conn.php");
-        $idactive = '';
-        $unameactive = '';
-        if (!isset($_SESSION['now'])) {
-            header("Location: login.php");
-        }
-        else {
-            if ($_SESSION['now'][1] != 'owner') {
-                header("Location: ../admin/index.php");
-            }
-            else {
-                $idactive = $_SESSION['now'][0];
-                $unameactive = $_SESSION['now'][1];
-            }
-        }
-
-        if (isset($_REQUEST['btnDelete'])) {
-            // echo "<script>alert('".$_REQUEST['btnDelete']."')</script>";
-            $userdelete = $_REQUEST['btnDelete'];
-            $resultdelete = $conn->query("delete from admin where username='$userdelete'");
-            if (!$resultdelete) {
-                echo "<script>alert('Gagal delete!')</script>";
-            }
-            else {
-                echo "<script>alert('Berhasil delete!')</script>";
-            }
-        }
-        
-        if (isset($_REQUEST['btnReset'])) {
-            $userselected = $_REQUEST['btnReset'];
-
-            if ($_REQUEST['newPass-'.$userselected] != "") {
-                $hashed = $_REQUEST['newPass-'.$userselected];
-                echo "<script>alert('".$hashed.' '.$userselected ."')</script>";
-                
-                $hashed = md5($_REQUEST['newPass-'.$userselected]);
-                $stmt = $conn->prepare("update admin set password=? where username=?");
-                $stmt->bind_param("ss", $hashed, $userselected);
-                if ($stmt->execute()) {
-                    echo "<script>alert('Berhasil ganti password')</script>";
-                    // header("Location: listaccount.php");
-                }
-                else {
-                    echo "<script>alert('Gagal ganti password')</script>";
-                }
-            }
-        }
-
-        $alladmin = $conn->query("select * from admin where username != '$unameactive'")->fetch_all(MYSQLI_ASSOC);
-        
-
-    ?>
     <main class="fluid-container">
     <div id="sidenav" class="flex-shrink-0 p-3 text-white" style="width: 280px;">
             <a href="/" class="d-flex align-items-center isDisabled title-disabled pb-3 mb-3 link-dark text-decoration-none border-bottom justify-content-between">
