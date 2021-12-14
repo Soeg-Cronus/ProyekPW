@@ -339,7 +339,7 @@
         $grtotal = $subtotal + $biayapengiriman;
 
         $conn->query("insert into transaksi values ('$idtrans', NOW(), '$barang', $subtotal, $grtotal, '$idshipment', '$iduser','','')");
-        // $conn->query("update cart set id_barang='[]', subtotal=0 where username='$iduser'");
+        $conn->query("update cart set id_barang='[]', subtotal=0 where username='$iduser'");
         echo json_encode(array(
             'total'=>$grtotal, 
             'transId'=>$idtrans
