@@ -430,6 +430,22 @@
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="<?php echo $myclient;?>"></script>
     <script type="text/javascript">        
         // window.snap.pay('<?php //echo $snap_token?>');
+        function catatPaymentID(payment, idtrans){
+            $.ajax({
+                type: "post",
+                url: "backend/ajaxcontroller.php",
+                data: {
+                    'mode': 'catatPID',
+                    'paymentid':payment,
+                    'transid': idtrans
+                },
+                success: function (response) {
+                    // console.log(response);
+                    window.location = response
+                }
+            });
+        }
+
         const checkout = () => {
             let delivery = $("#shipping").val();
             let user = $("#pay-button").attr('user');
@@ -461,7 +477,23 @@
                             // let token = data[0]
                             // let orderId = data[1]
                             
-                            window.snap.pay(token)
+                            window.snap.pay(token, {
+                                // Optional
+                                onSuccess: function(result){
+                                    // console.log(result['payment_code']);
+                                    catatPaymentID(JSON.stringify(result), id)
+                                },
+                                // Optional
+                                onPending: function(result){
+                                    // console.log(result);
+                                    catatPaymentID(JSON.stringify(result), id)
+                                },
+                                // Optional
+                                onError: function(result){
+                                    // console.log(result['payment_code']);
+                                    catatPaymentID(JSON.stringify(result), id)
+                                }
+                            })
                         }
                     });
                 }

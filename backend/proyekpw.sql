@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 01:52 PM
+-- Generation Time: Dec 14, 2021 at 01:05 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -758,7 +758,9 @@ CREATE TABLE `transaksi` (
   `subtotal` decimal(30,2) NOT NULL,
   `id_shipment` varchar(10) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `token` text NOT NULL,
+  `order_id` int(30) NOT NULL,
+  `snapToken` text NOT NULL,
+  `payment_code` text NOT NULL,
   `status` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
