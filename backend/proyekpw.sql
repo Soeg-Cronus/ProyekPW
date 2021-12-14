@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2021 at 06:44 PM
+-- Generation Time: Dec 14, 2021 at 01:05 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -68,7 +68,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_barang`, `subtotal`, `username`) VALUES
-('C0001', '[{\"id-barang\":\"MON0013369\",\"jumlah\":1},{\"id-barang\":\"MTB0018448\",\"jumlah\":1},{\"id-barang\":\"RAM0096937\",\"jumlah\":1},{\"id-barang\":\"VGA0082426\",\"jumlah\":1}]', '23869644.00', 'anderson@ahihistore.masuk.id');
+('C0001', '[]', '0.00', 'anderson@ahihistore.masuk.id');
 
 -- --------------------------------------------------------
 
@@ -751,7 +751,9 @@ CREATE TABLE `transaksi` (
   `grandtotal` decimal(30,2) NOT NULL,
   `id_shipment` varchar(10) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `token` int(30) NOT NULL,
+  `order_id` int(30) NOT NULL,
+  `snapToken` text NOT NULL,
+  `payment_code` text NOT NULL,
   `status` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

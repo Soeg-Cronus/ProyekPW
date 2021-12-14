@@ -66,7 +66,7 @@
     $result = $stmt->get_result();
     $items = $result->fetch_assoc();
 
-
+    $macamdiskon = $conn->query("select * from diskon group by nama_diskon")->fetch_all(MYSQLI_ASSOC);
     
 
     if (isset($_REQUEST['q'])) {

@@ -204,6 +204,7 @@ else {
                                 <div style="margin-top: 1vh; font-size: 13px;">
                                     <sub><?=date("D, d F Y", strtotime($value['tanggal']))?></sub>
                                 </div>
+                                
                                 <span class="popuptext" id="myPopup-<?=$key?>">
                                     <div class="containerdetail">
                                         <?php 
@@ -234,6 +235,7 @@ else {
                                 </span>
                             </div>
                             <p>
+                                Payment Code: <?=($value['payment_code']=='')?'-':$value['payment_code']?><br>
                                 <?=rupiah($value['grandtotal'])?>
                             </p>
                         </li>

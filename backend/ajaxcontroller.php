@@ -338,13 +338,23 @@
         $biayapengiriman = (int) $conn->query("select * from pengiriman where id_pengiriman='$idshipment'")->fetch_object()->harga;
         $grtotal = $subtotal + $biayapengiriman;
 
-        $conn->query("insert into transaksi values ('$idtrans', NOW(), '$barang', $subtotal, $grtotal, '$idshipment', '$iduser','','')");
+        $conn->query("insert into transaksi values ('$idtrans', NOW(), '$barang', $subtotal, $grtotal, '$idshipment', '$iduser','','','','')");
         $conn->query("update cart set id_barang='[]', subtotal=0 where username='$iduser'");
         echo json_encode(array(
             'total'=>$grtotal, 
             'transId'=>$idtrans
         ));
         
+    }
+    else if ($mode == 'catatPID') {
+        $idtrans = $_REQUEST['transid'];
+        $jsonpayment = $_REQUEST['paymentid'];
+        $jsonpayment = (array)json_decode($jsonpayment);
+        if (array_key_exists('payment_code', $jsonpayment)) {
+            $payment = $jsonpayment['payment_code'];
+            $conn->query("update transaksi set payment_code='$payment' where id_transaksi='$idtrans'");
+        }
+        echo $jsonpayment['finish_redirect_url'];
     }
 
     function arrOfObjToArrOfArr($cart) {

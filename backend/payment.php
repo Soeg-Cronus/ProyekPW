@@ -35,15 +35,12 @@
         'order_id' => rand(),
         'gross_amount' => $jumlah, // no decimal allowed for creditcard
     );
-
-    $orderid = $transaction_details['order_id'];
-    $conn->query("update transaksi set token=$orderid where id_transaksi='$idtrans'");
     
     // Fill transaction details
     $transaction = array(
         'transaction_details' => $transaction_details,
     );
-
+    
     $snap_token = '';
     try {
         $snap_token = Snap::getSnapToken($transaction);
@@ -51,6 +48,9 @@
     catch (\Exception $e) {
         echo $e->getMessage();
     }
+    
+    $orderid = $transaction_details['order_id'];
+    $conn->query("update transaksi set order_id=$orderid, snapToken='$snap_token' where id_transaksi='$idtrans'");
 
     echo $snap_token;
 
