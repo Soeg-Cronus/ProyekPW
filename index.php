@@ -199,7 +199,7 @@
                     </li>
 
                     <?php
-                    if ($_SESSION['loggedin'] != null) {
+                    if ($_SESSION['loggedin'] != null || $useractive != null) {
                     ?>
                         <form action="" method="post">
                             <li class="nav-item dropdown">
